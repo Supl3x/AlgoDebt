@@ -82,3 +82,142 @@ graph TD
    COHERE_API_KEY=your_key
    MISTRAL_API_KEY=your_key
    ```
+
+> 📖 **For the complete step-by-step walkthrough** (including all pipeline stages, troubleshooting, and expected outputs), see **[HOW_TO_RUN.md](HOW_TO_RUN.md)**.
+
+---
+
+## 📊 Results Summary
+
+We evaluated **4 LLMs** against the rule-based AST baseline across a locked dataset of **200 Python files** from **28 real-world GitHub repositories**.
+
+### F1 Score Comparison
+
+| Model | Hardcoded Params | Missing Validation | Leakage | No Reproducibility | Silent Exceptions |
+|---|---|---|---|---|---|
+| **Gemini 3.5 Flash** | 0.24 | **0.77** | **0.86** | **0.32** | **0.52** |
+| **Mistral Large** | 0.04 | 0.00 | 0.00 | 0.00 | 0.00 |
+| **Cohere Command R+** | 0.47 | 0.11 | 0.22 | 0.12 | 0.08 |
+| **Llama 3.3 70B (Groq)** | **0.66** | 0.07 | 0.18 | 0.28 | **0.52** |
+
+### Key Findings
+
+- **LLMs excel at syntactically local anti-patterns** — hardcoded hyperparameters and silent exception handling have clear, self-contained signatures (a literal value or a bare `except` block) that LLMs detect well.
+- **LLMs fail at structural anti-patterns** — missing data validation and no reproducibility control require understanding a file's *role* in the ML pipeline (e.g., training script vs. utility helper). Without this context, LLMs massively over-flag, producing hundreds of false positives.
+- **Gemini 3.5 Flash is the exception** — it significantly outperforms all other models on structural patterns, suggesting better internal reasoning about file relevance.
+- **Mistral Large completely failed** — it hallucinated anti-patterns across nearly every file, producing near-zero precision and F1 on all categories.
+
+> For detailed per-model analysis with confusion matrices, see **[Analysis.md](Analysis.md)**.
+
+---
+
+## ⚠️ Limitations
+
+### 1. Rule-Based Ground Truth is Heuristic, Not Perfect
+The AST-based detector serves as the ground truth baseline, but it is itself a heuristic. Some of the LLM's "false positives" may actually be legitimate detections that the rule-based tool missed (e.g., the LLM recognizing a subtle form of hardcoded hyperparameter that doesn't match the keyword list). The rule-based detector was validated on synthetic test cases, but not exhaustively verified across all 1,619 files.
+
+### 2. Line-Number Ordering for Leakage Detection
+The train/test leakage detector compares raw line numbers (`fit()` appearing before `train_test_split()`). This works well for linear, notebook-style scripts but can produce false positives in modular code where a function *definition* containing `fit()` appears at the top of the file but is *called* after the split.
+
+### 3. Single-File Isolation (No Cross-File Analysis)
+Every file is analyzed independently. If `utils.py` sets a random seed and `train.py` imports from it, the detector will still flag `train.py` for "no reproducibility control" because it cannot reason across files.
+
+### 4. Limited Hyperparameter Vocabulary
+The `HYPERPARAM_NAMES` set covers common names (`lr`, `batch_size`, `epochs`, etc.) but misses less common ones like `gamma`, `alpha`, `num_heads`, `embed_dim`, or `warmup_steps`. This is an inherent limitation of keyword-matching approaches.
+
+### 5. Python-Only, No Jupyter Notebook Support
+The pipeline processes only `.py` files. A significant amount of real-world ML algorithm debt lives in Jupyter notebooks (`.ipynb`), which are excluded from analysis.
+
+### 6. Evaluation Sample Size
+The evaluation dataset consists of 200 files. While stratified to ensure positive/negative representation, rare anti-patterns like train/test leakage (0.2% base rate) may have insufficient samples for statistically robust conclusions.
+
+### 7. Single Prompting Strategy
+All LLMs were evaluated using a single zero-shot system prompt with `temperature=0`. No chain-of-thought reasoning, few-shot examples, or fine-tuning were applied. Performance may improve significantly with more sophisticated prompting techniques.
+
+---
+
+## 🔮 Future Scope
+
+### 1. File-Role Classification Pre-Filter
+The most impactful enhancement: introduce a first-pass LLM step that classifies each file's role (e.g., *training script*, *model architecture*, *utility/helper*, *vendored library*). Only files classified as training scripts would then be evaluated for structural anti-patterns like missing data validation and reproducibility control. This directly addresses the primary failure mode observed across all models.
+
+### 2. Multi-Model Ensemble Approach
+Combine models with complementary strengths — use Llama 3.3 for hardcoded hyperparameters (high recall) and Gemini for structural patterns (high precision) — to create a hybrid detector that outperforms any single model.
+
+### 3. Few-Shot and Chain-of-Thought Prompting
+Evaluate whether providing 2–3 annotated examples in the prompt (few-shot) or asking the LLM to reason step-by-step (chain-of-thought) before making a classification significantly reduces false positives on structural anti-patterns.
+
+### 4. Fine-Tuned Models
+Train a lightweight, task-specific model (e.g., fine-tuned CodeLlama or StarCoder) on the labeled ground truth dataset. This would combine the LLM's contextual understanding with domain-specific precision.
+
+### 5. Jupyter Notebook Support
+Add an `nbconvert` preprocessing step to extract Python code from `.ipynb` files before analysis. Notebooks are a primary source of ML algorithm debt in practice.
+
+### 6. Cross-File / Repository-Level Analysis
+Extend the rule-based detector to reason across files within a repository. For example, check if a random seed is set *anywhere* in the project (e.g., in `main.py` or `config.py`) before flagging individual training scripts for missing reproducibility control.
+
+### 7. Expanded Anti-Pattern Taxonomy
+Add additional algorithm debt categories from the taxonomy by Suominen & Hettiarachchi et al. [2], such as:
+- **Undocumented model assumptions** (training on specific data distributions without documentation)
+- **Feature engineering debt** (manual feature transformations that should be automated)
+- **Evaluation debt** (training without proper cross-validation or holdout sets)
+
+### 8. Longitudinal Study
+Track how algorithm debt evolves over time within repositories by analyzing multiple commits/versions, measuring whether debt accumulates, gets repaid, or migrates between anti-pattern categories.
+
+### 9. IDE Plugin
+Package the rule-based detector as a VS Code / PyCharm extension that provides real-time algorithm debt warnings as developers write ML code — similar to how ESLint works for JavaScript.
+
+---
+
+## 📁 Project Structure
+
+```
+AlgoDebt/
+├── Content/                          # IEEE paper + structured extracts
+│   ├── algorithm_debt_paper_IEEE.pdf # The research paper
+│   ├── algorithm_debt_paper_IEEE.md  # Grounded markdown version
+│   ├── algorithm_debt_paper_IEEE.docx
+│   ├── algorithm_debt_paper_IEEE_grounded.json
+│   ├── algorithm_debt_paper_IEEE_summary.json
+│   └── tables/                       # Extracted tables (CSV + HTML)
+├── scripts/
+│   ├── fetch_repos.py                # Clone ML repos from GitHub
+│   ├── rule_based_detector.py        # AST-based anti-pattern detector
+│   ├── run_baseline.py               # Run detector across all repos
+│   ├── llm_detector.py               # LLM evaluation with key pooling
+│   └── compare_results.py            # Precision / Recall / F1 calculator
+├── repos/                            # Cloned repositories (git-ignored)
+├── results/
+│   ├── algorithms/                   # Ground truth + evaluation dataset
+│   ├── llm_findings/                 # Per-model LLM outputs
+│   └── comparison_reports/           # Per-model confusion matrices
+├── Analysis.md                       # Detailed results analysis
+├── API Limits.md                     # Free-tier rate limits per provider
+├── HOW_TO_RUN.md                     # Complete setup & run guide
+├── README.md                         # ← You are here
+├── commands.md                       # Quick command reference
+├── requirements.txt                  # Python dependencies
+└── .env                              # API keys (git-ignored)
+```
+
+---
+
+## 📝 Citation
+
+If you use this pipeline or dataset in your research, please cite:
+
+```bibtex
+@inproceedings{algodebt2026,
+  title     = {Can General-Purpose Large Language Models Detect Algorithm Debt 
+               in Machine Learning Code? A Comparative Study Against Rule-Based Detection},
+  author    = {Department of Computer Science and Information Technology},
+  booktitle = {IEEE Conference Proceedings},
+  year      = {2026},
+  institution = {NED University of Engineering and Technology, Karachi, Pakistan}
+}
+```
+
+---
+
+*Built at NED University of Engineering and Technology, Karachi, Pakistan.*
