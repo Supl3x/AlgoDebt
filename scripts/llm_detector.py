@@ -25,6 +25,7 @@ import sys
 import time
 
 import litellm
+from litellm import Router
 
 try:
     from dotenv import load_dotenv
@@ -67,23 +68,82 @@ random seed anywhere (no random_state=, np.random.seed(), torch.manual_seed(), e
 5. silent_exception_handling: a bare `except:` clause, or an except block whose \
 only content is `pass` or `continue`, silently swallowing errors with no logging.
 
-Respond with ONLY a JSON object mapping EACH filename to its findings. No other text. \
-Do not be creative. Provide a strictly deterministic and precise response. \
-Format:
-{
-  "filename1.py": {
-    "hardcoded_hyperparameters": true/false,
-    "missing_data_validation": true/false,
-    "train_test_leakage": true/false,
-    "no_reproducibility_control": true/false,
-    "silent_exception_handling": true/false
-  },
-  "filename2.py": { ... }
-}
+Do not be creative. Provide a strictly deterministic and precise response.
 """
 
+JSON_SCHEMA = {
+    "type": "json_schema",
+    "json_schema": {
+        "name": "batch_eval",
+        "schema": {
+            "type": "object",
+            "properties": {
+                "results": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "file_id": {"type": "string"},
+                            "hardcoded_hyperparameters": {"type": "boolean"},
+                            "missing_data_validation": {"type": "boolean"},
+                            "train_test_leakage": {"type": "boolean"},
+                            "no_reproducibility_control": {"type": "boolean"},
+                            "silent_exception_handling": {"type": "boolean"}
+                        },
+                        "required": [
+                            "file_id", 
+                            "hardcoded_hyperparameters", 
+                            "missing_data_validation", 
+                            "train_test_leakage", 
+                            "no_reproducibility_control", 
+                            "silent_exception_handling"
+                        ]
+                    }
+                }
+            },
+            "required": ["results"]
+        }
+    }
+}
 
-def query_llm(model, files_batch, max_retries=3):
+
+def get_router(model):
+    model_list = []
+    
+    if model.startswith("gemini/"):
+        keys = [v for k, v in os.environ.items() if k.startswith("GEMINI_API_KEY") and v]
+        for key in keys:
+            model_list.append({
+                "model_name": model,
+                "litellm_params": {
+                    "model": model,
+                    "api_key": key,
+                }
+            })
+    elif model.startswith("groq/"):
+        keys = [v for k, v in os.environ.items() if k.startswith("GROQ_API_KEY") and v]
+        for key in keys:
+            model_list.append({
+                "model_name": model,
+                "litellm_params": {
+                    "model": model,
+                    "api_key": key,
+                }
+            })
+            
+    if not model_list:
+        return None
+        
+    return Router(
+        model_list=model_list,
+        routing_strategy="usage-based-routing-v2",
+        num_retries=3,
+        cooldown_time=60,
+        allowed_fails=1,
+    )
+
+
+def query_llm(model, files_batch, router=None, max_retries=3):
     user_prompt = ""
     for filename, code in files_batch:
         truncated = code[:4000]  # squeeze to fit more in context
@@ -97,18 +157,13 @@ def query_llm(model, files_batch, max_retries=3):
                     {"role": "system", "content": SYSTEM_PROMPT},
                     {"role": "user", "content": user_prompt},
                 ],
-                "max_tokens": 8000,
+                "response_format": JSON_SCHEMA,
             }
             
-            # If we are using Gemini, add fallback models so it auto-switches when quota is hit
-            if model.startswith("gemini/"):
-                completion_kwargs["fallbacks"] = [
-                    "gemini/gemini-2.5-flash", 
-                    "gemini/gemini-3.1-flash-lite",
-                    "gemini/gemini-3.1-pro-preview"
-                ]
-
-            resp = litellm.completion(**completion_kwargs)
+            if router:
+                resp = router.completion(**completion_kwargs)
+            else:
+                resp = litellm.completion(**completion_kwargs)
             
             if hasattr(resp, 'usage') and resp.usage:
                 print(f"    -> [Token Usage]: {getattr(resp.usage, 'total_tokens', 'Unknown')} tokens")
@@ -118,11 +173,12 @@ def query_llm(model, files_batch, max_retries=3):
             text = re.sub(r"^```json\s*|\s*```$", "", text.strip())
             parsed = json.loads(text)
             
-            # ensure all files have the right keys
+            # Map array back to dictionary keyed by filename
             results = {}
-            for filename, _ in files_batch:
-                file_res = parsed.get(filename, {})
-                results[filename] = {p: bool(file_res.get(p, False)) for p in ANTI_PATTERNS}
+            for item in parsed.get("results", []):
+                file_id = item.get("file_id")
+                results[file_id] = {p: bool(item.get(p, False)) for p in ANTI_PATTERNS}
+                
             return results
         except json.JSONDecodeError:
             if attempt == max_retries - 1:
@@ -137,10 +193,7 @@ def query_llm(model, files_batch, max_retries=3):
     return None
 
 
-def collect_target_files(sample_n=None, use_baseline_flagged=True):
-    """Pick files to run through the LLM: prioritize files the rule-based
-    detector flagged, plus a random sample of clean files for balance
-    (so recall AND false-positive rate can both be measured fairly)."""
+def collect_target_files(sample_n=None):
     baseline_path = os.path.join(RESULTS_DIR, "rule_based_findings.json")
     with open(baseline_path) as f:
         baseline = json.load(f)
@@ -170,7 +223,7 @@ def collect_target_files(sample_n=None, use_baseline_flagged=True):
         n_clean = min(len(clean_files), sample_n - n_flagged)
         target = flagged_files[:n_flagged] + clean_files[:n_clean]
     else:
-        target = flagged_files + clean_files[: len(flagged_files)]  # 1:1 balance
+        target = flagged_files + clean_files[: len(flagged_files)]
 
     random.shuffle(target)
     return target
@@ -179,15 +232,11 @@ def collect_target_files(sample_n=None, use_baseline_flagged=True):
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--sample", type=int, default=100,
-                         help="number of files to test (mix of flagged + clean)")
-    parser.add_argument("--model", type=str, default="llama-3.3-70b-versatile",
-                         help="LLM provider/model name")
-    parser.add_argument("--batch-size", type=int, default=None,
-                         help="Number of files to send per API request (auto-configured if omitted)")
-    parser.add_argument("--delay", type=float, default=None,
-                         help="Delay in seconds between API requests (auto-configured if omitted)")
-    parser.add_argument("--generate-dataset", action="store_true",
-                         help="Generate the fixed evaluation dataset and exit")
+                         help="number of files to test")
+    parser.add_argument("--model", type=str, default="llama-3.3-70b-versatile")
+    parser.add_argument("--batch-size", type=int, default=None)
+    parser.add_argument("--delay", type=float, default=None)
+    parser.add_argument("--generate-dataset", action="store_true")
     args = parser.parse_args()
 
     dataset_path = os.path.join(RESULTS_DIR, "evaluation_dataset.json")
@@ -213,12 +262,10 @@ def main():
             auto_batch = 1
             auto_delay = 2.0
         elif args.model.startswith("gemini/"):
-            auto_batch = 5
+            auto_batch = 25
             auto_delay = 4.0
         elif args.model.startswith("mistral/") or args.model.startswith("cohere/"):
-            # Mistral allows 30 RPM, Cohere allows 100 RPM. A delay of 2.0s is safe for 30 RPM.
-            # Using batch_size=5 ensures the JSON isn't truncated.
-            auto_batch = 5
+            auto_batch = 25
             auto_delay = 2.0
         else:
             auto_batch = 1
@@ -230,18 +277,34 @@ def main():
     print(f"Running LLM detection on {len(targets)} files using {args.model}...")
     print(f"Configuration: batch_size={args.batch_size}, delay={args.delay}s\n")
 
-    results = {}
+    safe_model_name = args.model.replace("/", "_").replace(":", "_")
+    out_path = os.path.join(RESULTS_DIR, f"llm_findings_{safe_model_name}.json")
     
-    # Process in batches
+    results = {}
+    if os.path.exists(out_path):
+        try:
+            with open(out_path, "r") as f:
+                results = json.load(f)
+            print(f"-> Resumed from checkpoint: {len(results)} files already processed.\n")
+        except Exception:
+            pass
+
+    router = get_router(args.model)
+    if router:
+        print("-> litellm.Router active: Automatic Key Pooling is enabled.\n")
+
     for batch_idx in range(0, len(targets), args.batch_size):
         batch_targets = targets[batch_idx:batch_idx + args.batch_size]
         files_batch = []
         
-        print(f"Processing batch {batch_idx//args.batch_size + 1} (Files {batch_idx + 1} to {min(len(targets), batch_idx + args.batch_size)})...")
-        
         for repo_name, fpath in batch_targets:
             rel = os.path.relpath(fpath, os.path.join(REPOS_DIR, repo_name))
             full_key = f"{repo_name}/{rel}"
+            
+            # Skip if already processed via checkpointing
+            if full_key in results:
+                continue
+                
             try:
                 with open(fpath, "r", encoding="utf-8", errors="ignore") as f:
                     code = f.read()
@@ -252,20 +315,19 @@ def main():
         if not files_batch:
             continue
 
-        batch_flags = query_llm(args.model, files_batch)
-        if batch_flags is not None:
+        print(f"Processing batch {batch_idx//args.batch_size + 1} (Files {batch_idx + 1} to {min(len(targets), batch_idx + args.batch_size)})...")
+        batch_flags = query_llm(args.model, files_batch, router=router)
+        
+        if batch_flags:
             results.update(batch_flags)
+            # Save checkpoint instantly
+            with open(out_path, "w") as f:
+                json.dump(results, f, indent=2)
             
         if batch_idx + args.batch_size < len(targets):
             time.sleep(args.delay)
 
-    safe_model_name = args.model.replace("/", "_").replace(":", "_")
-    out_path = os.path.join(RESULTS_DIR, f"llm_findings_{safe_model_name}.json")
-    with open(out_path, "w") as f:
-        json.dump(results, f, indent=2)
-
     print(f"\nDone. {len(results)} files processed. Saved to {out_path}")
-
 
 if __name__ == "__main__":
     main()
