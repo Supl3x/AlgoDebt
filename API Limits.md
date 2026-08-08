@@ -16,17 +16,17 @@ Here is the 2026 data for the providers we are testing:
 ### 2. Google Gemini (AI Studio)
 * **RPM:** 15 Requests Per Minute
 * **TPM:** 1,000,000 Tokens Per Minute
-* **Optimal Strategy:** Gemini allows a massive amount of tokens but very few individual requests. You **must batch files**. Sending 25 files per request with a 4-second delay is perfect.
+* **Optimal Strategy:** Gemini allows massive input tokens, but to prevent the AI from truncating its JSON output, we limit it to 5 files per batch. Sending 5 files per request with a 4-second delay is perfectly safe and respects the 15 RPM limit.
 
 ### 3. Mistral (La Plateforme)
 * **RPM:** 30 Requests Per Minute (or 1 Request Per Second)
 * **TPM:** 500,000 Tokens Per Minute
-* **Optimal Strategy:** Mistral has generous token limits. You can safely batch 25 files per request and use a small 2-second delay.
+* **Optimal Strategy:** Mistral has generous token limits. We safely batch 5 files per request and use a small 2-second delay.
 
 ### 4. Cohere
 * **RPM:** ~100 Requests Per Minute (Trial Key)
 * **TPM:** Generous trial allowance.
-* **Optimal Strategy:** Similar to Mistral, you can comfortably batch 25 files at a time to speed through the evaluation dataset.
+* **Optimal Strategy:** Similar to Mistral, we comfortably batch 5 files at a time to speed through the evaluation dataset while ensuring the output JSON is never cut off.
 
 ---
 *Note: The `scripts/llm_detector.py` script automatically configures the optimal batching and delay settings based on the model prefix you provide, so you do not need to memorize these limits!*

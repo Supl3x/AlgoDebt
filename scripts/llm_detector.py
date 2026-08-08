@@ -68,6 +68,7 @@ random seed anywhere (no random_state=, np.random.seed(), torch.manual_seed(), e
 only content is `pass` or `continue`, silently swallowing errors with no logging.
 
 Respond with ONLY a JSON object mapping EACH filename to its findings. No other text. \
+Do not be creative. Provide a strictly deterministic and precise response. \
 Format:
 {
   "filename1.py": {
@@ -90,15 +91,28 @@ def query_llm(model, files_batch, max_retries=3):
 
     for attempt in range(max_retries):
         try:
-            resp = litellm.completion(
-                model=model,
-                messages=[
+            completion_kwargs = {
+                "model": model,
+                "messages": [
                     {"role": "system", "content": SYSTEM_PROMPT},
                     {"role": "user", "content": user_prompt},
                 ],
-                temperature=0,
-                max_tokens=2000,
-            )
+                "max_tokens": 8000,
+            }
+            
+            # If we are using Gemini, add fallback models so it auto-switches when quota is hit
+            if model.startswith("gemini/"):
+                completion_kwargs["fallbacks"] = [
+                    "gemini/gemini-2.5-flash", 
+                    "gemini/gemini-3.1-flash-lite",
+                    "gemini/gemini-3.1-pro-preview"
+                ]
+
+            resp = litellm.completion(**completion_kwargs)
+            
+            if hasattr(resp, 'usage') and resp.usage:
+                print(f"    -> [Token Usage]: {getattr(resp.usage, 'total_tokens', 'Unknown')} tokens")
+                
             text = resp.choices[0].message.content.strip()
             # strip markdown fences if the model adds them anyway
             text = re.sub(r"^```json\s*|\s*```$", "", text.strip())
@@ -199,10 +213,12 @@ def main():
             auto_batch = 1
             auto_delay = 2.0
         elif args.model.startswith("gemini/"):
-            auto_batch = 25
+            auto_batch = 5
             auto_delay = 4.0
         elif args.model.startswith("mistral/") or args.model.startswith("cohere/"):
-            auto_batch = 25
+            # Mistral allows 30 RPM, Cohere allows 100 RPM. A delay of 2.0s is safe for 30 RPM.
+            # Using batch_size=5 ensures the JSON isn't truncated.
+            auto_batch = 5
             auto_delay = 2.0
         else:
             auto_batch = 1

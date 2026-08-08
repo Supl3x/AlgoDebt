@@ -1,211 +1,103 @@
 [
   {
     "repo_name": "pranftw__autopilot",
-    "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\pranftw__autopilot\\tests\\integration\\test_store_checkpoint_integration.py"
-  },
-  {
-    "repo_name": "igorshmukler__kokoro-ruslan",
-    "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\igorshmukler__kokoro-ruslan\\tests\\unit\\test_training_mps_grad_scaler.py"
+    "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\pranftw__autopilot\\tests\\integration\\test_experiment_branching.py"
   },
   {
     "repo_name": "pranftw__autopilot",
-    "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\pranftw__autopilot\\tests\\core\\test_tree_edge_cases.py"
-  },
-  {
-    "repo_name": "daekeun-ml__aws-ai-infra-helper",
-    "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\daekeun-ml__aws-ai-infra-helper\\torchtitan\\torchtitan\\experiments\\graph_trainer\\tests\\test_numerics.py"
+    "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\pranftw__autopilot\\src\\autopilot\\core\\query.py"
   },
   {
     "repo_name": "pranftw__autopilot",
-    "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\pranftw__autopilot\\tests\\cli\\test_deploy_persistence.py"
-  },
-  {
-    "repo_name": "Chris-hughes10__pytorch-accelerated",
-    "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\Chris-hughes10__pytorch-accelerated\\examples\\__init__.py"
-  },
-  {
-    "repo_name": "daekeun-ml__aws-ai-infra-helper",
-    "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\daekeun-ml__aws-ai-infra-helper\\torchtitan\\torchtitan\\models\\qwen3\\__init__.py"
-  },
-  {
-    "repo_name": "igorshmukler__kokoro-ruslan",
-    "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\igorshmukler__kokoro-ruslan\\tests\\features\\test_amp_profiling.py"
-  },
-  {
-    "repo_name": "pranftw__autopilot",
-    "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\pranftw__autopilot\\tests\\data\\test_dataloader_iterable.py"
-  },
-  {
-    "repo_name": "pranftw__autopilot",
-    "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\pranftw__autopilot\\tests\\core\\test_epoch_ordering.py"
-  },
-  {
-    "repo_name": "daekeun-ml__aws-ai-infra-helper",
-    "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\daekeun-ml__aws-ai-infra-helper\\torchtitan\\torchtitan\\components\\metrics.py"
-  },
-  {
-    "repo_name": "tascj__kaggle-map-charting-student-math-misunderstandings",
-    "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\tascj__kaggle-map-charting-student-math-misunderstandings\\configs\\release\\x_0.py"
-  },
-  {
-    "repo_name": "pranftw__autopilot",
-    "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\pranftw__autopilot\\tests\\core\\test_optimizer_step_evidence.py"
-  },
-  {
-    "repo_name": "pranftw__autopilot",
-    "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\pranftw__autopilot\\tests\\cli\\test_debug_observability.py"
-  },
-  {
-    "repo_name": "pranftw__autopilot",
-    "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\pranftw__autopilot\\tests\\unit\\test_dispatch_tracking.py"
-  },
-  {
-    "repo_name": "Chris-hughes10__pytorch-accelerated",
-    "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\Chris-hughes10__pytorch-accelerated\\examples\\vision\\faster_rcnn\\frcnn\\dataset.py"
-  },
-  {
-    "repo_name": "TheoViel__kaggle_rsna_abdominal_trauma",
-    "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\TheoViel__kaggle_rsna_abdominal_trauma\\src\\main_seg_cls.py"
-  },
-  {
-    "repo_name": "daekeun-ml__aws-ai-infra-helper",
-    "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\daekeun-ml__aws-ai-infra-helper\\torchtitan\\torchtitan\\models\\llama3\\__init__.py"
-  },
-  {
-    "repo_name": "daekeun-ml__aws-ai-infra-helper",
-    "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\daekeun-ml__aws-ai-infra-helper\\torchtitan\\torchtitan\\models\\flux\\configs.py"
-  },
-  {
-    "repo_name": "pranftw__autopilot",
-    "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\pranftw__autopilot\\examples\\harness\\harness\\module.py"
-  },
-  {
-    "repo_name": "pranftw__autopilot",
-    "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\pranftw__autopilot\\src\\autopilot\\core\\profiler.py"
-  },
-  {
-    "repo_name": "jcole75__arc_2025_mindsai",
-    "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\jcole75__arc_2025_mindsai\\src\\modules\\distributed_executor.py"
-  },
-  {
-    "repo_name": "maxreciprocate__kaggle-lmarena-1st-place",
-    "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\maxreciprocate__kaggle-lmarena-1st-place\\packing\\models\\ops\\rms_norm.py"
-  },
-  {
-    "repo_name": "daekeun-ml__aws-ai-infra-helper",
-    "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\daekeun-ml__aws-ai-infra-helper\\torchtitan\\torchtitan\\experiments\\autoparallel\\deepseek_v3\\config_registry.py"
-  },
-  {
-    "repo_name": "daekeun-ml__aws-ai-infra-helper",
-    "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\daekeun-ml__aws-ai-infra-helper\\torchtitan\\torchtitan\\tools\\logging.py"
-  },
-  {
-    "repo_name": "pranftw__autopilot",
-    "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\pranftw__autopilot\\tests\\cli\\test_dry_run_e2e.py"
-  },
-  {
-    "repo_name": "pranftw__autopilot",
-    "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\pranftw__autopilot\\tests\\data\\test_dataloader.py"
-  },
-  {
-    "repo_name": "keenon__InferBiomechanics",
-    "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\keenon__InferBiomechanics\\src\\data\\analyse.py"
-  },
-  {
-    "repo_name": "pranftw__autopilot",
-    "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\pranftw__autopilot\\tests\\core\\test_diagnostics_callback.py"
-  },
-  {
-    "repo_name": "pranftw__autopilot",
-    "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\pranftw__autopilot\\tests\\unit\\test_readme_contracts.py"
-  },
-  {
-    "repo_name": "igorshmukler__kokoro-ruslan",
-    "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\igorshmukler__kokoro-ruslan\\src\\kokoro\\model\\duration_adaptor.py"
-  },
-  {
-    "repo_name": "pranftw__autopilot",
-    "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\pranftw__autopilot\\tests\\core\\test_trainer_profiler.py"
-  },
-  {
-    "repo_name": "pranftw__autopilot",
-    "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\pranftw__autopilot\\tests\\core\\test_on_exception_callback.py"
-  },
-  {
-    "repo_name": "daekeun-ml__aws-ai-infra-helper",
-    "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\daekeun-ml__aws-ai-infra-helper\\torchtitan\\torchtitan\\experiments\\transformers_modeling_backend\\config_registry.py"
-  },
-  {
-    "repo_name": "pranftw__autopilot",
-    "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\pranftw__autopilot\\tests\\core\\test_epoch_sampler_wiring_real_dataloader.py"
-  },
-  {
-    "repo_name": "Hanxian2Ai__Kaggle-Competition-Image-To-Prompt",
-    "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\Hanxian2Ai__Kaggle-Competition-Image-To-Prompt\\train\\train_vit.py"
-  },
-  {
-    "repo_name": "tascj__kaggle-map-charting-student-math-misunderstandings",
-    "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\tascj__kaggle-map-charting-student-math-misunderstandings\\configs\\release\\y_0.py"
+    "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\pranftw__autopilot\\tests\\core\\test_module.py"
   },
   {
     "repo_name": "igorshmukler__kokoro-ruslan",
     "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\igorshmukler__kokoro-ruslan\\tests\\unit\\test_generator.py"
   },
   {
-    "repo_name": "igorshmukler__kokoro-ruslan",
-    "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\igorshmukler__kokoro-ruslan\\tests\\unit\\test_attention_operations.py"
-  },
-  {
-    "repo_name": "tascj__kaggle-map-charting-student-math-misunderstandings",
-    "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\tascj__kaggle-map-charting-student-math-misunderstandings\\configs\\release\\x_1.py"
-  },
-  {
     "repo_name": "pranftw__autopilot",
-    "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\pranftw__autopilot\\tests\\integration\\test_full_experiment_lifecycle.py"
-  },
-  {
-    "repo_name": "daekeun-ml__aws-ai-infra-helper",
-    "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\daekeun-ml__aws-ai-infra-helper\\torchtitan\\scripts\\generate\\test_generate.py"
-  },
-  {
-    "repo_name": "daekeun-ml__aws-ai-infra-helper",
-    "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\daekeun-ml__aws-ai-infra-helper\\torchtitan\\torchtitan\\protocols\\model_spec.py"
-  },
-  {
-    "repo_name": "daekeun-ml__aws-ai-infra-helper",
-    "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\daekeun-ml__aws-ai-infra-helper\\torchtitan\\torchtitan\\tools\\utils.py"
-  },
-  {
-    "repo_name": "keenon__InferBiomechanics",
-    "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\keenon__InferBiomechanics\\src\\cli\\train.py"
-  },
-  {
-    "repo_name": "raj200501__sdn-nfv-ml-enhancement",
-    "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\raj200501__sdn-nfv-ml-enhancement\\anomaly_detection\\__init__.py"
-  },
-  {
-    "repo_name": "MhmdGamalAskar__Unet-Segmentation-from-scratch",
-    "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\MhmdGamalAskar__Unet-Segmentation-from-scratch\\Model.py"
-  },
-  {
-    "repo_name": "Hanxian2Ai__Kaggle-Competition-Image-To-Prompt",
-    "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\Hanxian2Ai__Kaggle-Competition-Image-To-Prompt\\data_clean\\data_clean.py"
-  },
-  {
-    "repo_name": "raj200501__sdn-nfv-ml-enhancement",
-    "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\raj200501__sdn-nfv-ml-enhancement\\models\\anomaly_detection\\svm.py"
-  },
-  {
-    "repo_name": "pranftw__autopilot",
-    "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\pranftw__autopilot\\examples\\harness\\tests\\test_cli.py"
-  },
-  {
-    "repo_name": "igorshmukler__kokoro-ruslan",
-    "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\igorshmukler__kokoro-ruslan\\tests\\unit\\test_runtime_policies.py"
+    "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\pranftw__autopilot\\tests\\data\\test_dataset.py"
   },
   {
     "repo_name": "Oxen-AI__OxenML",
     "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\Oxen-AI__OxenML\\oxen\\image\\classification\\space_jam\\copy_spacejam.py"
+  },
+  {
+    "repo_name": "igorshmukler__kokoro-ruslan",
+    "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\igorshmukler__kokoro-ruslan\\tests\\features\\test_stochastic_depth.py"
+  },
+  {
+    "repo_name": "tascj__kaggle-map-charting-student-math-misunderstandings",
+    "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\tascj__kaggle-map-charting-student-math-misunderstandings\\configs\\release\\y_2infer.py"
+  },
+  {
+    "repo_name": "loevlie__neuropt",
+    "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\loevlie__neuropt\\neuropt\\arch_search.py"
+  },
+  {
+    "repo_name": "pranftw__autopilot",
+    "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\pranftw__autopilot\\tests\\integration\\test_textmatch_e2e.py"
+  },
+  {
+    "repo_name": "pranftw__autopilot",
+    "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\pranftw__autopilot\\tests\\core\\test_callback_hooks.py"
+  },
+  {
+    "repo_name": "raj200501__sdn-nfv-ml-enhancement",
+    "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\raj200501__sdn-nfv-ml-enhancement\\models\\network_optimization\\deep_q_network.py"
+  },
+  {
+    "repo_name": "igorshmukler__kokoro-ruslan",
+    "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\igorshmukler__kokoro-ruslan\\scripts\\analyze_training_regression.py"
+  },
+  {
+    "repo_name": "Oxen-AI__OxenML",
+    "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\Oxen-AI__OxenML\\oxen\\image\\classification\\space_jam\\move_test.py"
+  },
+  {
+    "repo_name": "igorshmukler__kokoro-ruslan",
+    "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\igorshmukler__kokoro-ruslan\\tests\\unit\\test_model_mode_management.py"
+  },
+  {
+    "repo_name": "igorshmukler__kokoro-ruslan",
+    "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\igorshmukler__kokoro-ruslan\\src\\kokoro\\cli\\training.py"
+  },
+  {
+    "repo_name": "daekeun-ml__aws-ai-infra-helper",
+    "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\daekeun-ml__aws-ai-infra-helper\\torchtitan\\torchtitan\\experiments\\transformers_modeling_backend\\__init__.py"
+  },
+  {
+    "repo_name": "tascj__kaggle-map-charting-student-math-misunderstandings",
+    "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\tascj__kaggle-map-charting-student-math-misunderstandings\\map_modules\\optim\\kernels\\stochastic_rounding.py"
+  },
+  {
+    "repo_name": "Ayush-Aditya__decoder-only-seq2seq",
+    "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\Ayush-Aditya__decoder-only-seq2seq\\src\\inference\\generate.py"
+  },
+  {
+    "repo_name": "igorshmukler__kokoro-ruslan",
+    "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\igorshmukler__kokoro-ruslan\\tests\\unit\\test_model_log_memory_refactor.py"
+  },
+  {
+    "repo_name": "pranftw__autopilot",
+    "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\pranftw__autopilot\\tests\\cli\\test_policy_explain_json_cli.py"
+  },
+  {
+    "repo_name": "pranftw__autopilot",
+    "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\pranftw__autopilot\\tests\\integration\\test_trainer_integration.py"
+  },
+  {
+    "repo_name": "MhmdGamalAskar__Unet-Segmentation-from-scratch",
+    "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\MhmdGamalAskar__Unet-Segmentation-from-scratch\\train.py"
+  },
+  {
+    "repo_name": "TheoViel__kaggle_rsna_abdominal_trauma",
+    "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\TheoViel__kaggle_rsna_abdominal_trauma\\src\\training\\train.py"
+  },
+  {
+    "repo_name": "pranftw__autopilot",
+    "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\pranftw__autopilot\\src\\autopilot\\core\\trend.py"
   },
   {
     "repo_name": "pranftw__autopilot",
@@ -213,43 +105,223 @@
   },
   {
     "repo_name": "pranftw__autopilot",
-    "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\pranftw__autopilot\\tests\\ai\\test_checkpoints.py"
+    "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\pranftw__autopilot\\tests\\ai\\test_data_streaming.py"
+  },
+  {
+    "repo_name": "jcole75__arc_2025_mindsai",
+    "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\jcole75__arc_2025_mindsai\\src\\modules\\inference_worker.py"
+  },
+  {
+    "repo_name": "BL1ZZ4RD-PY__Paris-Housing-Price-Estimator-Deal-Finder",
+    "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\BL1ZZ4RD-PY__Paris-Housing-Price-Estimator-Deal-Finder\\model.py"
+  },
+  {
+    "repo_name": "KhaledAshrafH__DT-Banknote-Authenticator",
+    "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\KhaledAshrafH__DT-Banknote-Authenticator\\main.py"
+  },
+  {
+    "repo_name": "pablo-reyes8__yolov2-implementation",
+    "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\pablo-reyes8__yolov2-implementation\\src\\data\\dataset_voc.py"
   },
   {
     "repo_name": "pranftw__autopilot",
-    "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\pranftw__autopilot\\tests\\data\\test_datamodule.py"
+    "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\pranftw__autopilot\\tests\\cli\\test_execute_context_placement.py"
+  },
+  {
+    "repo_name": "jcole75__arc_2025_mindsai",
+    "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\jcole75__arc_2025_mindsai\\src\\modules\\visuals.py"
+  },
+  {
+    "repo_name": "keenon__InferBiomechanics",
+    "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\keenon__InferBiomechanics\\src\\cli\\create_splits.py"
+  },
+  {
+    "repo_name": "igorshmukler__kokoro-ruslan",
+    "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\igorshmukler__kokoro-ruslan\\tests\\unit\\test_train_epoch_batch_count_and_averaging.py"
+  },
+  {
+    "repo_name": "daekeun-ml__aws-ai-infra-helper",
+    "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\daekeun-ml__aws-ai-infra-helper\\torchtitan\\torchtitan\\experiments\\graph_trainer\\deepseek_v3\\__init__.py"
+  },
+  {
+    "repo_name": "pranftw__autopilot",
+    "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\pranftw__autopilot\\src\\autopilot\\cli\\commands\\project.py"
+  },
+  {
+    "repo_name": "pranftw__autopilot",
+    "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\pranftw__autopilot\\tests\\integration\\test_multi_tree.py"
+  },
+  {
+    "repo_name": "igorshmukler__kokoro-ruslan",
+    "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\igorshmukler__kokoro-ruslan\\tests\\unit\\conftest.py"
+  },
+  {
+    "repo_name": "daekeun-ml__aws-ai-infra-helper",
+    "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\daekeun-ml__aws-ai-infra-helper\\torchtitan\\torchtitan\\experiments\\vlm\\__init__.py"
+  },
+  {
+    "repo_name": "pranftw__autopilot",
+    "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\pranftw__autopilot\\tests\\core\\test_epoch_orchestrator_loop_delegation.py"
+  },
+  {
+    "repo_name": "pranftw__autopilot",
+    "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\pranftw__autopilot\\tests\\cli\\test_undo_guide.py"
+  },
+  {
+    "repo_name": "daekeun-ml__aws-ai-infra-helper",
+    "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\daekeun-ml__aws-ai-infra-helper\\torchtitan\\torchtitan\\experiments\\ft\\llama3\\config_registry.py"
+  },
+  {
+    "repo_name": "pablo-reyes8__yolov2-implementation",
+    "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\pablo-reyes8__yolov2-implementation\\scripts\\eval.py"
+  },
+  {
+    "repo_name": "pranftw__autopilot",
+    "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\pranftw__autopilot\\tests\\cli\\test_experiment_tree_ux.py"
+  },
+  {
+    "repo_name": "pranftw__autopilot",
+    "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\pranftw__autopilot\\tests\\data\\test_dataloader_iterable.py"
+  },
+  {
+    "repo_name": "raj200501__sdn-nfv-ml-enhancement",
+    "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\raj200501__sdn-nfv-ml-enhancement\\models\\traffic_prediction\\decision_tree.py"
+  },
+  {
+    "repo_name": "pranftw__autopilot",
+    "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\pranftw__autopilot\\tests\\cli\\test_dry_run_e2e.py"
+  },
+  {
+    "repo_name": "pranftw__autopilot",
+    "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\pranftw__autopilot\\tests\\integration\\test_store_checkpoint_integration.py"
+  },
+  {
+    "repo_name": "Chris-hughes10__pytorch-accelerated",
+    "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\Chris-hughes10__pytorch-accelerated\\test\\test_finetuning.py"
+  },
+  {
+    "repo_name": "igorshmukler__kokoro-ruslan",
+    "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\igorshmukler__kokoro-ruslan\\tests\\unit\\test_attention_backward.py"
+  },
+  {
+    "repo_name": "jcole75__arc_2025_mindsai",
+    "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\jcole75__arc_2025_mindsai\\src\\modules\\augmentation_framework.py"
+  },
+  {
+    "repo_name": "pranftw__autopilot",
+    "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\pranftw__autopilot\\tests\\integration\\test_integration_fixtures.py"
+  },
+  {
+    "repo_name": "TheoViel__kaggle_rsna_abdominal_trauma",
+    "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\TheoViel__kaggle_rsna_abdominal_trauma\\src\\params.py"
+  },
+  {
+    "repo_name": "tattaka__Taggle",
+    "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\tattaka__Taggle\\taggle\\models\\common\\cbam.py"
   },
   {
     "repo_name": "pranftw__autopilot",
     "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\pranftw__autopilot\\tests\\core\\test_standalone_eval.py"
   },
   {
+    "repo_name": "pranftw__autopilot",
+    "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\pranftw__autopilot\\src\\autopilot\\core\\callbacks\\callback.py"
+  },
+  {
+    "repo_name": "Chris-hughes10__pytorch-accelerated",
+    "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\Chris-hughes10__pytorch-accelerated\\test\\test_trainer.py"
+  },
+  {
+    "repo_name": "pranftw__autopilot",
+    "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\pranftw__autopilot\\examples\\multi_module\\run_trainer.py"
+  },
+  {
+    "repo_name": "keenon__InferBiomechanics",
+    "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\keenon__InferBiomechanics\\src\\loss\\__init__.py"
+  },
+  {
+    "repo_name": "pranftw__autopilot",
+    "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\pranftw__autopilot\\tests\\data\\test_weighted_sampler.py"
+  },
+  {
+    "repo_name": "Chris-hughes10__pytorch-accelerated",
+    "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\Chris-hughes10__pytorch-accelerated\\pytorch_accelerated\\callbacks.py"
+  },
+  {
+    "repo_name": "pranftw__autopilot",
+    "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\pranftw__autopilot\\src\\autopilot\\policy\\threshold.py"
+  },
+  {
+    "repo_name": "pranftw__autopilot",
+    "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\pranftw__autopilot\\src\\autopilot\\ai\\store\\merge.py"
+  },
+  {
     "repo_name": "tascj__kaggle-map-charting-student-math-misunderstandings",
-    "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\tascj__kaggle-map-charting-student-math-misunderstandings\\map_modules\\data\\dataset_v3.py"
-  },
-  {
-    "repo_name": "Oxen-AI__OxenML",
-    "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\Oxen-AI__OxenML\\oxen\\image\\keypoints\\image_keypoint.py"
+    "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\tascj__kaggle-map-charting-student-math-misunderstandings\\configs\\release\\w8a8\\y_1.py"
   },
   {
     "repo_name": "pranftw__autopilot",
-    "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\pranftw__autopilot\\examples\\textmatch\\textmatch\\optimizer.py"
-  },
-  {
-    "repo_name": "tattaka__Taggle",
-    "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\tattaka__Taggle\\example\\train_mnist_example.py"
-  },
-  {
-    "repo_name": "pranftw__autopilot",
-    "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\pranftw__autopilot\\tests\\core\\test_sanity_check.py"
+    "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\pranftw__autopilot\\tests\\cli\\test_trace_verify.py"
   },
   {
     "repo_name": "daekeun-ml__aws-ai-infra-helper",
-    "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\daekeun-ml__aws-ai-infra-helper\\torchtitan\\torchtitan\\models\\llama4\\config_registry.py"
+    "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\daekeun-ml__aws-ai-infra-helper\\torchtitan\\torchtitan\\experiments\\graph_trainer\\tests\\test_precompile.py"
+  },
+  {
+    "repo_name": "daekeun-ml__aws-ai-infra-helper",
+    "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\daekeun-ml__aws-ai-infra-helper\\torchtitan\\torchtitan\\experiments\\autoparallel\\deepseek_v3\\config_registry.py"
+  },
+  {
+    "repo_name": "keenon__InferBiomechanics",
+    "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\keenon__InferBiomechanics\\src\\cli\\analyze.py"
+  },
+  {
+    "repo_name": "daekeun-ml__aws-ai-infra-helper",
+    "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\daekeun-ml__aws-ai-infra-helper\\torchtitan\\torchtitan\\protocols\\state_dict_adapter.py"
+  },
+  {
+    "repo_name": "Chris-hughes10__pytorch-accelerated",
+    "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\Chris-hughes10__pytorch-accelerated\\test\\scheduler\\test_wsd_scheduler.py"
+  },
+  {
+    "repo_name": "TheoViel__kaggle_rsna_abdominal_trauma",
+    "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\TheoViel__kaggle_rsna_abdominal_trauma\\src\\training\\mix.py"
+  },
+  {
+    "repo_name": "rbiswasfc__eedi-mining-misconceptions",
+    "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\rbiswasfc__eedi-mining-misconceptions\\code\\ranker_pointwise\\ranker_model.py"
+  },
+  {
+    "repo_name": "Hanxian2Ai__Kaggle-Competition-Image-To-Prompt",
+    "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\Hanxian2Ai__Kaggle-Competition-Image-To-Prompt\\infer_model\\infer_ensmable_model.py"
   },
   {
     "repo_name": "pranftw__autopilot",
-    "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\pranftw__autopilot\\tests\\core\\test_resume_tokens.py"
+    "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\pranftw__autopilot\\src\\autopilot\\policy\\quality_first.py"
+  },
+  {
+    "repo_name": "Oxen-AI__OxenML",
+    "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\Oxen-AI__OxenML\\oxen\\image\\classification\\space_jam\\balance.py"
+  },
+  {
+    "repo_name": "pranftw__autopilot",
+    "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\pranftw__autopilot\\src\\autopilot\\core\\trainer\\trainer.py"
+  },
+  {
+    "repo_name": "pranftw__autopilot",
+    "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\pranftw__autopilot\\tests\\integration\\test_gradient_flow.py"
+  },
+  {
+    "repo_name": "daekeun-ml__aws-ai-infra-helper",
+    "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\daekeun-ml__aws-ai-infra-helper\\torchtitan\\torchtitan\\experiments\\autoparallel\\llama3\\parallelize_llama.py"
+  },
+  {
+    "repo_name": "pranftw__autopilot",
+    "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\pranftw__autopilot\\tests\\core\\test_callbacks.py"
+  },
+  {
+    "repo_name": "daekeun-ml__aws-ai-infra-helper",
+    "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\daekeun-ml__aws-ai-infra-helper\\torchtitan\\torchtitan\\config\\manager.py"
   },
   {
     "repo_name": "jcole75__arc_2025_mindsai",
@@ -257,146 +329,74 @@
   },
   {
     "repo_name": "pranftw__autopilot",
-    "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\pranftw__autopilot\\tests\\core\\test_param_groups.py"
-  },
-  {
-    "repo_name": "microsoft__dstoolkit-devcontainers",
-    "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\microsoft__dstoolkit-devcontainers\\src\\sample_pytorch_gpu_project\\train.py"
+    "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\pranftw__autopilot\\examples\\harness\\harness\\evaluator.py"
   },
   {
     "repo_name": "daekeun-ml__aws-ai-infra-helper",
-    "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\daekeun-ml__aws-ai-infra-helper\\torchtitan\\torchtitan\\experiments\\graph_trainer\\deepseek_v3\\config_registry.py"
-  },
-  {
-    "repo_name": "daekeun-ml__aws-ai-infra-helper",
-    "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\daekeun-ml__aws-ai-infra-helper\\torchtitan\\torchtitan\\experiments\\vlm\\__init__.py"
-  },
-  {
-    "repo_name": "daekeun-ml__aws-ai-infra-helper",
-    "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\daekeun-ml__aws-ai-infra-helper\\torchtitan\\torchtitan\\experiments\\ft\\manager.py"
-  },
-  {
-    "repo_name": "daekeun-ml__aws-ai-infra-helper",
-    "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\daekeun-ml__aws-ai-infra-helper\\torchtitan\\torchtitan\\experiments\\autoparallel\\local_map_deepseek_v3\\config_registry.py"
-  },
-  {
-    "repo_name": "pranftw__autopilot",
-    "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\pranftw__autopilot\\tests\\core\\test_public_api.py"
-  },
-  {
-    "repo_name": "tascj__kaggle-map-charting-student-math-misunderstandings",
-    "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\tascj__kaggle-map-charting-student-math-misunderstandings\\map_modules\\data\\dataset_v1.py"
-  },
-  {
-    "repo_name": "pranftw__autopilot",
-    "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\pranftw__autopilot\\src\\autopilot\\ai\\gradient.py"
-  },
-  {
-    "repo_name": "daekeun-ml__aws-ai-infra-helper",
-    "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\daekeun-ml__aws-ai-infra-helper\\torchtitan\\torchtitan\\experiments\\__init__.py"
-  },
-  {
-    "repo_name": "pranftw__autopilot",
-    "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\pranftw__autopilot\\tests\\dogfood_regressions\\test_trainer_policy_and_cli.py"
-  },
-  {
-    "repo_name": "daekeun-ml__aws-ai-infra-helper",
-    "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\daekeun-ml__aws-ai-infra-helper\\torchtitan\\torchtitan\\models\\common\\feed_forward.py"
-  },
-  {
-    "repo_name": "pranftw__autopilot",
-    "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\pranftw__autopilot\\tests\\dogfood_regressions\\test_store_cli_core_regression_guards.py"
-  },
-  {
-    "repo_name": "machml__polars_splitters",
-    "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\machml__polars_splitters\\src\\polars_splitters\\utils\\wrapping_helpers.py"
+    "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\daekeun-ml__aws-ai-infra-helper\\torchtitan\\torchtitan\\models\\llama4\\__init__.py"
   },
   {
     "repo_name": "raj200501__sdn-nfv-ml-enhancement",
-    "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\raj200501__sdn-nfv-ml-enhancement\\preprocessing\\feature_engineering.py"
+    "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\raj200501__sdn-nfv-ml-enhancement\\preprocessing\\sitecustomize.py"
   },
   {
-    "repo_name": "tattaka__Taggle",
-    "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\tattaka__Taggle\\taggle\\models\\common\\cbam.py"
+    "repo_name": "raj200501__sdn-nfv-ml-enhancement",
+    "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\raj200501__sdn-nfv-ml-enhancement\\network_optimization\\deep_q_network.py"
+  },
+  {
+    "repo_name": "pranftw__autopilot",
+    "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\pranftw__autopilot\\tests\\core\\test_epoch_sampler_wiring_real_dataloader.py"
   },
   {
     "repo_name": "daekeun-ml__aws-ai-infra-helper",
-    "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\daekeun-ml__aws-ai-infra-helper\\torchtitan\\torchtitan\\models\\flux\\config_registry.py"
-  },
-  {
-    "repo_name": "rayshaun-code__ML-Image",
-    "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\rayshaun-code__ML-Image\\data\\check_images.py"
+    "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\daekeun-ml__aws-ai-infra-helper\\torchtitan\\torchtitan\\models\\gpt_oss\\config_registry.py"
   },
   {
     "repo_name": "pranftw__autopilot",
-    "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\pranftw__autopilot\\tests\\integration\\test_multi_tree.py"
+    "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\pranftw__autopilot\\tests\\core\\test_trend.py"
   },
   {
     "repo_name": "pranftw__autopilot",
-    "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\pranftw__autopilot\\examples\\harness\\run_trainer.py"
+    "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\pranftw__autopilot\\src\\autopilot\\cli\\commands\\propose.py"
   },
   {
-    "repo_name": "pranftw__autopilot",
-    "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\pranftw__autopilot\\tests\\integration\\test_ephemeral_harness.py"
-  },
-  {
-    "repo_name": "pranftw__autopilot",
-    "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\pranftw__autopilot\\src\\autopilot\\cli\\commands\\workspace.py"
-  },
-  {
-    "repo_name": "pranftw__autopilot",
-    "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\pranftw__autopilot\\tests\\core\\test_trainer_forest.py"
-  },
-  {
-    "repo_name": "pranftw__autopilot",
-    "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\pranftw__autopilot\\tests\\cli\\test_recommend_constraints.py"
+    "repo_name": "Chris-hughes10__pytorch-accelerated",
+    "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\Chris-hughes10__pytorch-accelerated\\pytorch_accelerated\\trainer.py"
   },
   {
     "repo_name": "daekeun-ml__aws-ai-infra-helper",
-    "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\daekeun-ml__aws-ai-infra-helper\\torchtitan\\torchtitan\\experiments\\ft\\llama3\\__init__.py"
+    "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\daekeun-ml__aws-ai-infra-helper\\torchtitan\\scripts\\ensure_tokenizer.py"
+  },
+  {
+    "repo_name": "pranftw__autopilot",
+    "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\pranftw__autopilot\\tests\\core\\test_node.py"
+  },
+  {
+    "repo_name": "Chris-hughes10__pytorch-accelerated",
+    "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\Chris-hughes10__pytorch-accelerated\\examples\\core\\train_with_metrics_in_callback.py"
+  },
+  {
+    "repo_name": "pranftw__autopilot",
+    "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\pranftw__autopilot\\tests\\core\\test_optimizer.py"
+  },
+  {
+    "repo_name": "pranftw__autopilot",
+    "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\pranftw__autopilot\\tests\\core\\test_api_drift_canary.py"
   },
   {
     "repo_name": "jcole75__arc_2025_mindsai",
-    "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\jcole75__arc_2025_mindsai\\src\\modules\\pipeline_orchestrator.py"
+    "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\jcole75__arc_2025_mindsai\\src\\modules\\data_loader.py"
   },
   {
-    "repo_name": "daekeun-ml__aws-ai-infra-helper",
-    "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\daekeun-ml__aws-ai-infra-helper\\torchtitan\\torchtitan\\experiments\\graph_trainer\\compile.py"
-  },
-  {
-    "repo_name": "Oxen-AI__OxenML",
-    "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\Oxen-AI__OxenML\\oxen\\text\\classification\\datasets\\clinc150_uci_dataset.py"
-  },
-  {
-    "repo_name": "microsoft__dstoolkit-devcontainers",
-    "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\microsoft__dstoolkit-devcontainers\\src\\sample_pytorch_gpu_project\\inference.py"
+    "repo_name": "TheoViel__kaggle_rsna_abdominal_trauma",
+    "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\TheoViel__kaggle_rsna_abdominal_trauma\\src\\util\\torch.py"
   },
   {
     "repo_name": "pranftw__autopilot",
-    "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\pranftw__autopilot\\tests\\data\\test_dataset.py"
+    "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\pranftw__autopilot\\src\\autopilot\\ai\\store\\file_store_merge_mixin.py"
   },
   {
-    "repo_name": "harrisonhoran__kaggle-march-mania-2026-1st-place",
-    "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\harrisonhoran__kaggle-march-mania-2026-1st-place\\march-mania-2026.py"
-  },
-  {
-    "repo_name": "igorshmukler__kokoro-ruslan",
-    "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\igorshmukler__kokoro-ruslan\\src\\kokoro\\model\\generator.py"
-  },
-  {
-    "repo_name": "igorshmukler__kokoro-ruslan",
-    "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\igorshmukler__kokoro-ruslan\\tests\\unit\\test_model_log_memory_refactor.py"
-  },
-  {
-    "repo_name": "keenon__InferBiomechanics",
-    "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\keenon__InferBiomechanics\\src\\loss\\RegressionLossEvaluator.py"
-  },
-  {
-    "repo_name": "tascj__kaggle-map-charting-student-math-misunderstandings",
-    "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\tascj__kaggle-map-charting-student-math-misunderstandings\\map_modules\\data\\dataset_v2.py"
-  },
-  {
-    "repo_name": "pranftw__autopilot",
-    "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\pranftw__autopilot\\tests\\core\\test_decision_entry.py"
+    "repo_name": "raj200501__sdn-nfv-ml-enhancement",
+    "fpath": "D:\\VS Codes\\Research AlgoDebt Paper\\scripts\\..\\repos\\raj200501__sdn-nfv-ml-enhancement\\traffic_prediction\\__init__.py"
   }
 ]
