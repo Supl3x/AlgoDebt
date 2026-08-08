@@ -15,9 +15,10 @@ A complete, step-by-step guide to reproduce the entire AlgoDebt evaluation pipel
 7. [Stage 3 — Generate the Evaluation Dataset](#stage-3--generate-the-evaluation-dataset)
 8. [Stage 4 — Run LLM Detectors](#stage-4--run-llm-detectors)
 9. [Stage 5 — Compare Results (Grading)](#stage-5--compare-results-grading)
-10. [Understanding the Output](#6-understanding-the-output)
-11. [Troubleshooting](#7-troubleshooting)
-12. [Project Structure Reference](#8-project-structure-reference)
+10. [Stage 6 — Archive a Completed Batch](#stage-6--archive-a-completed-batch)
+11. [Understanding the Output](#6-understanding-the-output)
+12. [Troubleshooting](#7-troubleshooting)
+13. [Project Structure Reference](#8-project-structure-reference)
 
 ---
 
@@ -308,6 +309,50 @@ Each report contains:
 
 ---
 
+## Stage 6 — Archive a Completed Batch
+
+After all 4 models finish and you've compared results, **archive this batch** before generating a new dataset. This keeps the `results/` folder clean and preserves all data for later combined analysis.
+
+**Windows (PowerShell):**
+```powershell
+# Replace "batch_1" with "batch_2", "batch_3", etc. for subsequent batches
+New-Item -ItemType Directory -Path "results\archive\batch_1" -Force
+Move-Item -Path "results\algorithms\evaluation_dataset.json" -Destination "results\archive\batch_1\evaluation_dataset.json"
+Move-Item -Path "results\llm_findings" -Destination "results\archive\batch_1\llm_findings"
+Move-Item -Path "results\comparison_reports" -Destination "results\archive\batch_1\comparison_reports"
+New-Item -ItemType Directory -Path "results\llm_findings" -Force
+New-Item -ItemType Directory -Path "results\comparison_reports" -Force
+```
+
+**macOS / Linux:**
+```bash
+# Replace "batch_1" with "batch_2", "batch_3", etc. for subsequent batches
+mkdir -p results/archive/batch_1
+mv results/algorithms/evaluation_dataset.json results/archive/batch_1/
+mv results/llm_findings results/archive/batch_1/
+mv results/comparison_reports results/archive/batch_1/
+mkdir -p results/llm_findings results/comparison_reports
+```
+
+**What stays in place (shared across all batches):**
+- `results/algorithms/rule_based_findings.json` — the ground truth doesn't change.
+- `results/algorithms/repo_manifest.json` — the repo metadata doesn't change.
+
+**What gets archived (batch-specific):**
+- `evaluation_dataset.json` — the 200-file sample unique to this batch.
+- `llm_findings/` — all 4 model outputs for this batch.
+- `comparison_reports/` — all 4 model comparison reports for this batch.
+
+After archiving, generate a **fresh dataset** and repeat from Stage 3:
+```powershell
+python scripts/llm_detector.py --generate-dataset --sample 200
+```
+
+> [!TIP]
+> **Running multiple batches** lets you analyze 400, 600, or more files across different random samples, strengthening the statistical power of your results while keeping each batch's data cleanly separated.
+
+---
+
 ## 6. Understanding the Output
 
 ### Directory Structure After a Full Run
@@ -315,16 +360,21 @@ Each report contains:
 ```
 results/
 ├── algorithms/
-│   ├── rule_based_findings.json      # Ground truth (all repos, all files)
-│   ├── evaluation_dataset.json       # Locked 200-file sample
-│   └── repo_manifest.json            # GitHub clone metadata
-├── llm_findings/
+│   ├── rule_based_findings.json      # Ground truth (shared across batches)
+│   ├── evaluation_dataset.json       # Current batch's locked 200-file sample
+│   └── repo_manifest.json            # GitHub clone metadata (shared)
+├── archive/                          # Completed batch archives
+│   └── batch_1/
+│       ├── evaluation_dataset.json   # That batch's locked dataset
+│       ├── llm_findings/             # That batch's LLM outputs
+│       └── comparison_reports/       # That batch's confusion matrices
+├── llm_findings/                     # Active batch LLM outputs
 │   ├── llm_findings_gemini_gemini-3.5-flash.json
 │   ├── llm_findings_mistral_mistral-large-latest.json
 │   ├── llm_findings_cohere_command-r-plus-08-2024.json
 │   ├── llm_findings_groq_llama-3.3-70b-versatile.json
 │   └── token_usage.log               # Timestamped token consumption
-└── comparison_reports/
+└── comparison_reports/               # Active batch confusion matrices
     ├── comparison_report_gemini_gemini-3.5-flash.json
     ├── comparison_report_mistral_mistral-large-latest.json
     ├── comparison_report_cohere_command-r-plus-08-2024.json
@@ -394,7 +444,11 @@ AlgoDebt/
 │   ├── llm_detector.py               # Stage 3+4: Dataset generation + LLM evaluation
 │   └── compare_results.py            # Stage 5: Compute Precision/Recall/F1
 ├── repos/                            # Cloned repositories (git-ignored)
-├── results/                          # All output data
+├── results/
+│   ├── algorithms/                   # Ground truth + active evaluation dataset
+│   ├── archive/                      # Completed batch archives (batch_1/, batch_2/, ...)
+│   ├── llm_findings/                 # Active batch LLM outputs
+│   └── comparison_reports/           # Active batch confusion matrices
 ├── Analysis.md                       # Human-written analysis of results
 ├── API Limits.md                     # Free-tier rate limits per provider
 ├── README.md                         # Project overview + architecture diagram
@@ -435,6 +489,9 @@ python scripts/compare_results.py --model gemini/gemini-3.5-flash
 python scripts/compare_results.py --model mistral/mistral-large-latest
 python scripts/compare_results.py --model cohere/command-r-plus-08-2024
 python scripts/compare_results.py --model groq/llama-3.3-70b-versatile
+
+# 6. Archive this batch before starting the next one (see Stage 6 in guide)
+# Then repeat from step 3 for the next batch
 ```
 
 ---

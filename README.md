@@ -190,8 +190,10 @@ AlgoDebt/
 ├── repos/                            # Cloned repositories (git-ignored)
 ├── results/
 │   ├── algorithms/                   # Ground truth + evaluation dataset
-│   ├── llm_findings/                 # Per-model LLM outputs
-│   └── comparison_reports/           # Per-model confusion matrices
+│   ├── archive/                      # Completed batch archives
+│   │   └── batch_N/                  # Each batch's dataset + results
+│   ├── llm_findings/                 # Active batch LLM outputs
+│   └── comparison_reports/           # Active batch confusion matrices
 ├── Analysis.md                       # Detailed results analysis
 ├── API Limits.md                     # Free-tier rate limits per provider
 ├── HOW_TO_RUN.md                     # Complete setup & run guide
