@@ -23,6 +23,7 @@ import random
 import re
 import sys
 import time
+from datetime import datetime, timezone
 
 import litellm
 from litellm import Router
@@ -146,7 +147,7 @@ def get_router(model):
     )
 
 
-def query_llm(model, files_batch, router=None, max_retries=3, processed_total=0, target_total=0):
+def query_llm(model, files_batch, router=None, max_retries=3, processed_total=0, target_total=0, tracker_path=None, tracker_data=None, session_data=None):
     user_prompt = ""
     for filename, code in files_batch:
         truncated = code[:4000]  # squeeze to fit more in context
@@ -196,12 +197,26 @@ def query_llm(model, files_batch, router=None, max_retries=3, processed_total=0,
                 # Format progress string
                 progress_str = f", {new_total}/{target_total} total" if target_total > 0 else ""
                 
-                print(f"    -> [Token Usage]: {tokens} tokens ({num_files} files{progress_str})")
-                
-                # Log token usage to a separate file
-                log_path = os.path.join(RESULTS_DIR, "llm_findings", "token_usage.log")
-                with open(log_path, "a") as f:
-                    f.write(f"[{time.strftime('%Y-%m-%d %H:%M:%S')}] {model} - {tokens} tokens ({num_files} files{progress_str})\n")
+                if tracker_data is not None and session_data is not None and isinstance(tokens, int):
+                    session_data["tokens"] += tokens
+                    tracker_data["usage"][model] = tracker_data["usage"].get(model, 0) + tokens
+                    if tracker_path:
+                        with open(tracker_path, "w") as f:
+                            json.dump(tracker_data, f, indent=2)
+                            
+                    daily_total = tracker_data["usage"][model]
+                    print(f"    -> [Tokens]: {tokens} | Session: {session_data['tokens']} | Daily ({model}): {daily_total} ({num_files} files{progress_str})")
+                    
+                    log_path = os.path.join(RESULTS_DIR, "llm_findings", "token_usage.log")
+                    with open(log_path, "a") as f:
+                        f.write(f"[{time.strftime('%Y-%m-%d %H:%M:%S')}] {model} - {tokens} tokens | Session: {session_data['tokens']} | Daily: {daily_total} ({num_files} files{progress_str})\n")
+                else:
+                    print(f"    -> [Token Usage]: {tokens} tokens ({num_files} files{progress_str})")
+                    
+                    # Log token usage to a separate file
+                    log_path = os.path.join(RESULTS_DIR, "llm_findings", "token_usage.log")
+                    with open(log_path, "a") as f:
+                        f.write(f"[{time.strftime('%Y-%m-%d %H:%M:%S')}] {model} - {tokens} tokens ({num_files} files{progress_str})\n")
             text = resp.choices[0].message.content.strip()
             # strip markdown fences if the model adds them anyway
             text = re.sub(r"^```json\s*|\s*```$", "", text.strip())
@@ -318,6 +333,29 @@ def main():
     os.makedirs(os.path.join(RESULTS_DIR, "llm_findings"), exist_ok=True)
     out_path = os.path.join(RESULTS_DIR, "llm_findings", f"llm_findings_{args.model.replace('/', '_')}.json")
     
+    # --- Token Tracker Init ---
+    tracker_path = os.path.join(RESULTS_DIR, "llm_findings", "daily_token_tracker.json")
+    tracker = {"last_reset_utc": datetime.now(timezone.utc).strftime("%Y-%m-%dT00:00:00"), "usage": {}}
+    if os.path.exists(tracker_path):
+        try:
+            with open(tracker_path, "r") as f:
+                tracker = json.load(f)
+        except Exception:
+            pass
+
+    now_utc = datetime.now(timezone.utc)
+    last_reset = datetime.fromisoformat(tracker.get("last_reset_utc", "2000-01-01T00:00:00")).replace(tzinfo=timezone.utc)
+    current_midnight_utc = now_utc.replace(hour=0, minute=0, second=0, microsecond=0)
+    
+    if last_reset < current_midnight_utc:
+        tracker["usage"] = {}
+        tracker["last_reset_utc"] = current_midnight_utc.strftime("%Y-%m-%dT00:00:00")
+        with open(tracker_path, "w") as f:
+            json.dump(tracker, f, indent=2)
+            
+    session_data = {"tokens": 0}
+    # --------------------------
+    
     results = {}
     if os.path.exists(out_path):
         try:
@@ -375,7 +413,11 @@ def main():
                 continue
 
             print(f"Processing batch {batch_idx//current_batch_size + 1} (Files {batch_idx + 1} to {min(len(missing_targets), batch_idx + current_batch_size)})...")
-            batch_flags = query_llm(args.model, files_batch, router=router, processed_total=len(results), target_total=len(targets))
+            batch_flags = query_llm(
+                args.model, files_batch, router=router, 
+                processed_total=len(results), target_total=len(targets),
+                tracker_path=tracker_path, tracker_data=tracker, session_data=session_data
+            )
             
             if batch_flags:
                 results.update(batch_flags)
@@ -389,6 +431,8 @@ def main():
         sweep_num += 1
 
     print(f"\nDone. {len(results)} files processed. Saved to {out_path}")
+    print(f"Session Total Tokens: {session_data['tokens']}")
+    print(f"Daily Total Tokens ({args.model}): {tracker['usage'].get(args.model, 0)}\n")
 
 if __name__ == "__main__":
     main()
