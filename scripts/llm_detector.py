@@ -331,39 +331,62 @@ def main():
     if router:
         print("-> litellm.Router active: Automatic Key Pooling is enabled.\n")
 
-    for batch_idx in range(0, len(targets), args.batch_size):
-        batch_targets = targets[batch_idx:batch_idx + args.batch_size]
-        files_batch = []
-        
-        for repo_name, fpath in batch_targets:
+    current_batch_size = args.batch_size
+    sweep_num = 0
+
+    while True:
+        missing_targets = []
+        for repo_name, fpath in targets:
             rel = os.path.relpath(fpath, os.path.join(REPOS_DIR, repo_name))
             full_key = f"{repo_name}/{rel}"
-            
-            # Skip if already processed via checkpointing
-            if full_key in results:
-                continue
-                
-            try:
-                with open(fpath, "r", encoding="utf-8", errors="ignore") as f:
-                    code = f.read()
-                files_batch.append((full_key, code))
-            except Exception as e:
-                print(f"  [read error] {full_key}: {e}")
-
-        if not files_batch:
-            continue
-
-        print(f"Processing batch {batch_idx//args.batch_size + 1} (Files {batch_idx + 1} to {min(len(targets), batch_idx + args.batch_size)})...")
-        batch_flags = query_llm(args.model, files_batch, router=router, processed_total=len(results), target_total=len(targets))
+            if full_key not in results:
+                missing_targets.append((repo_name, fpath))
         
-        if batch_flags:
-            results.update(batch_flags)
-            # Save checkpoint instantly
-            with open(out_path, "w") as f:
-                json.dump(results, f, indent=2)
+        if not missing_targets:
+            break
             
-        if batch_idx + args.batch_size < len(targets):
-            time.sleep(args.delay)
+        if sweep_num > 0:
+            current_batch_size = max(1, current_batch_size // 2)
+            print(f"\n--- Post-Loop Retry Sweep {sweep_num} ---")
+            print(f"Found {len(missing_targets)} missing files. Retrying with batch_size={current_batch_size}...\n")
+            if sweep_num > 5 and current_batch_size == 1:
+                print(f"WARNING: Reached max retries. Giving up on {len(missing_targets)} stubborn files.")
+                break
+                
+        for batch_idx in range(0, len(missing_targets), current_batch_size):
+            batch_targets = missing_targets[batch_idx:batch_idx + current_batch_size]
+            files_batch = []
+            
+            for repo_name, fpath in batch_targets:
+                rel = os.path.relpath(fpath, os.path.join(REPOS_DIR, repo_name))
+                full_key = f"{repo_name}/{rel}"
+                
+                try:
+                    with open(fpath, "r", encoding="utf-8", errors="ignore") as f:
+                        code = f.read()
+                    files_batch.append((full_key, code))
+                except Exception as e:
+                    print(f"  [read error] {full_key}: {e}")
+                    results[full_key] = {p: False for p in ANTI_PATTERNS}
+                    with open(out_path, "w") as f:
+                        json.dump(results, f, indent=2)
+
+            if not files_batch:
+                continue
+
+            print(f"Processing batch {batch_idx//current_batch_size + 1} (Files {batch_idx + 1} to {min(len(missing_targets), batch_idx + current_batch_size)})...")
+            batch_flags = query_llm(args.model, files_batch, router=router, processed_total=len(results), target_total=len(targets))
+            
+            if batch_flags:
+                results.update(batch_flags)
+                # Save checkpoint instantly
+                with open(out_path, "w") as f:
+                    json.dump(results, f, indent=2)
+                
+            if batch_idx + current_batch_size < len(missing_targets):
+                time.sleep(args.delay)
+                
+        sweep_num += 1
 
     print(f"\nDone. {len(results)} files processed. Saved to {out_path}")
 

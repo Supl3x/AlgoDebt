@@ -9,7 +9,7 @@ This document tracks all known issues, edge cases, and limitations discovered du
 ### 1.1. Cohere Output Truncation (The "Dropped Files" Issue)
 - **Issue:** When sending batches of 15 files to Cohere (`command-r-plus-08-2024`), the returned JSON array frequently contains fewer than 15 items (e.g., 12 or 13 files). The terminal log shows progress lagging behind the expected total (e.g., jumping from 15 to 28 instead of 30).
 - **Cause:** Cohere's API does not natively support strict JSON Schema enforcement (`response_format`). We have to rely on prompt instructions ("You MUST return valid JSON..."). Without the strict schema forcing the model's output structure, the LLM hits internal output token limits or context fatigue and silently stops generating array items before completing the full batch.
-- **Mitigation:** The pipeline's checkpointing system naturally handles this. Because results are mapped back via exact `file_id` strings, dropped files are simply treated as "unprocessed." Running the script again will pick up the missing files.
+- **Mitigation:** The pipeline handles this automatically using a **Post-Loop Retry Sweep**. After the initial pass, the script identifies any dropped files, halves the batch size (e.g., from 15 to 7), and sweeps the dataset again. It repeats this halving process until 100% of the files are successfully parsed and saved.
 
 ### 1.2. Groq's Extreme Rate Limits
 - **Issue:** Groq (`llama-3.3-70b-versatile`) cannot process batches larger than 1 file per request.
