@@ -1,0 +1,1766 @@
+{
+  "stats": {
+    "hardcoded_hyperparameters": {
+      "precision": 0.58,
+      "recall": 0.773,
+      "f1": 0.663,
+      "tp": 58,
+      "fp": 42,
+      "fn": 17,
+      "tn": 82
+    },
+    "missing_data_validation": {
+      "precision": 0.034,
+      "recall": 1.0,
+      "f1": 0.065,
+      "tp": 5,
+      "fp": 143,
+      "fn": 0,
+      "tn": 51
+    },
+    "train_test_leakage": {
+      "precision": 0.125,
+      "recall": 0.333,
+      "f1": 0.182,
+      "tp": 1,
+      "fp": 7,
+      "fn": 2,
+      "tn": 189
+    },
+    "no_reproducibility_control": {
+      "precision": 0.168,
+      "recall": 0.923,
+      "f1": 0.284,
+      "tp": 24,
+      "fp": 119,
+      "fn": 2,
+      "tn": 54
+    },
+    "silent_exception_handling": {
+      "precision": 0.667,
+      "recall": 0.429,
+      "f1": 0.522,
+      "tp": 6,
+      "fp": 3,
+      "fn": 8,
+      "tn": 182
+    }
+  },
+  "disagreements": [
+    {
+      "file": "pranftw__autopilot/tests\\cli\\test_cli_json_consistency.py",
+      "pattern": "no_reproducibility_control",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "igorshmukler__kokoro-ruslan/tests\\unit\\test_pitch_energy_normalization.py",
+      "pattern": "missing_data_validation",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "pranftw__autopilot/examples\\textmatch\\textmatch\\optimizer.py",
+      "pattern": "hardcoded_hyperparameters",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "pranftw__autopilot/examples\\textmatch\\textmatch\\optimizer.py",
+      "pattern": "missing_data_validation",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "pranftw__autopilot/examples\\textmatch\\textmatch\\optimizer.py",
+      "pattern": "no_reproducibility_control",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "pranftw__autopilot/tests\\core\\test_training_merge_and_rollback_errors.py",
+      "pattern": "missing_data_validation",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "pranftw__autopilot/src\\autopilot\\ai\\store\\text_merge.py",
+      "pattern": "missing_data_validation",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "pranftw__autopilot/src\\autopilot\\ai\\store\\text_merge.py",
+      "pattern": "no_reproducibility_control",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "daekeun-ml__aws-ai-infra-helper/torchtitan\\torchtitan\\models\\llama3\\config_registry.py",
+      "pattern": "missing_data_validation",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "daekeun-ml__aws-ai-infra-helper/torchtitan\\torchtitan\\models\\llama3\\config_registry.py",
+      "pattern": "no_reproducibility_control",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "raj200501__sdn-nfv-ml-enhancement/data\\synthetic_data_generator.py",
+      "pattern": "missing_data_validation",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "pranftw__autopilot/tests\\core\\test_context_callback.py",
+      "pattern": "no_reproducibility_control",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "Chris-hughes10__pytorch-accelerated/examples\\core\\train_with_metrics_in_callback.py",
+      "pattern": "missing_data_validation",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "Chris-hughes10__pytorch-accelerated/examples\\core\\train_with_metrics_in_callback.py",
+      "pattern": "no_reproducibility_control",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "pranftw__autopilot/tests\\integration\\test_loops_integration.py",
+      "pattern": "missing_data_validation",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "pranftw__autopilot/src\\autopilot\\cli\\commands\\store\\peripherals.py",
+      "pattern": "silent_exception_handling",
+      "type": "LLM said no, rule-based said yes"
+    },
+    {
+      "file": "pranftw__autopilot/tests\\core\\test_api_drift_canary.py",
+      "pattern": "hardcoded_hyperparameters",
+      "type": "LLM said no, rule-based said yes"
+    },
+    {
+      "file": "pranftw__autopilot/tests\\core\\test_api_drift_canary.py",
+      "pattern": "no_reproducibility_control",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "daekeun-ml__aws-ai-infra-helper/torchtitan\\torchtitan\\experiments\\ft\\manager.py",
+      "pattern": "hardcoded_hyperparameters",
+      "type": "LLM said no, rule-based said yes"
+    },
+    {
+      "file": "daekeun-ml__aws-ai-infra-helper/torchtitan\\torchtitan\\experiments\\ft\\manager.py",
+      "pattern": "missing_data_validation",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "daekeun-ml__aws-ai-infra-helper/torchtitan\\torchtitan\\experiments\\ft\\manager.py",
+      "pattern": "no_reproducibility_control",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "pranftw__autopilot/tests\\integration\\test_lightning_alignment.py",
+      "pattern": "hardcoded_hyperparameters",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "pranftw__autopilot/tests\\integration\\test_lightning_alignment.py",
+      "pattern": "missing_data_validation",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "pranftw__autopilot/examples\\harness\\harness\\tools\\retail_tools.py",
+      "pattern": "missing_data_validation",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "pranftw__autopilot/examples\\harness\\harness\\tools\\retail_tools.py",
+      "pattern": "no_reproducibility_control",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "pranftw__autopilot/examples\\multi_module\\run_trainer.py",
+      "pattern": "hardcoded_hyperparameters",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "pranftw__autopilot/examples\\multi_module\\run_trainer.py",
+      "pattern": "missing_data_validation",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "daekeun-ml__aws-ai-infra-helper/torchtitan\\torchtitan\\models\\llama4\\config_registry.py",
+      "pattern": "missing_data_validation",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "daekeun-ml__aws-ai-infra-helper/torchtitan\\torchtitan\\models\\llama4\\config_registry.py",
+      "pattern": "no_reproducibility_control",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "Chris-hughes10__pytorch-accelerated/examples\\core\\custom_callback_event.py",
+      "pattern": "missing_data_validation",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "Chris-hughes10__pytorch-accelerated/examples\\core\\custom_callback_event.py",
+      "pattern": "no_reproducibility_control",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "raj200501__sdn-nfv-ml-enhancement/evaluation\\results_visualization.py",
+      "pattern": "missing_data_validation",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "tascj__kaggle-map-charting-student-math-misunderstandings/map_modules/data/dataset_v2.py",
+      "pattern": "missing_data_validation",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "tascj__kaggle-map-charting-student-math-misunderstandings/map_modules/data/dataset_v2.py",
+      "pattern": "no_reproducibility_control",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "pranftw__autopilot/tests\\ai\\test_data_streaming.py",
+      "pattern": "hardcoded_hyperparameters",
+      "type": "LLM said no, rule-based said yes"
+    },
+    {
+      "file": "pranftw__autopilot/tests\\ai\\test_data_streaming.py",
+      "pattern": "missing_data_validation",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "pranftw__autopilot/tests\\ai\\test_data_streaming.py",
+      "pattern": "no_reproducibility_control",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "pranftw__autopilot/tests\\policy\\test_monotonic_gate.py",
+      "pattern": "hardcoded_hyperparameters",
+      "type": "LLM said no, rule-based said yes"
+    },
+    {
+      "file": "maxreciprocate__kaggle-lmarena-1st-place/stage3\\prepare_student_data.py",
+      "pattern": "hardcoded_hyperparameters",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "maxreciprocate__kaggle-lmarena-1st-place/stage3\\prepare_student_data.py",
+      "pattern": "missing_data_validation",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "loevlie__neuropt/tests\\test_sklearn_introspect.py",
+      "pattern": "missing_data_validation",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "igorshmukler__kokoro-ruslan/tests\\unit\\test_model_log_memory_refactor.py",
+      "pattern": "no_reproducibility_control",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "pranftw__autopilot/tests\\core\\test_cost_tracker.py",
+      "pattern": "no_reproducibility_control",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "Oxen-AI__OxenML/oxen\\image\\keypoints\\human_pose\\resize.py",
+      "pattern": "missing_data_validation",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "Oxen-AI__OxenML/oxen\\image\\keypoints\\human_pose\\resize.py",
+      "pattern": "no_reproducibility_control",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "pranftw__autopilot/tests\\core\\test_epoch_sampler_wiring_real_dataloader.py",
+      "pattern": "missing_data_validation",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "jcole75__arc_2025_mindsai/src/modules/config/model_configs/salesforce_codet5_large.py",
+      "pattern": "hardcoded_hyperparameters",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "jcole75__arc_2025_mindsai/src/modules/config/model_configs/salesforce_codet5_large.py",
+      "pattern": "missing_data_validation",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "jcole75__arc_2025_mindsai/src/modules/config/model_configs/salesforce_codet5_large.py",
+      "pattern": "no_reproducibility_control",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "pranftw__autopilot/tests\\data\\test_dataloader.py",
+      "pattern": "hardcoded_hyperparameters",
+      "type": "LLM said no, rule-based said yes"
+    },
+    {
+      "file": "pranftw__autopilot/tests\\data\\test_dataloader.py",
+      "pattern": "missing_data_validation",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "Hanxian2Ai__Kaggle-Competition-Image-To-Prompt/train/train_clip.py",
+      "pattern": "hardcoded_hyperparameters",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "Hanxian2Ai__Kaggle-Competition-Image-To-Prompt/train/train_clip.py",
+      "pattern": "missing_data_validation",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "Hanxian2Ai__Kaggle-Competition-Image-To-Prompt/train/train_clip.py",
+      "pattern": "no_reproducibility_control",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "pranftw__autopilot/tests\\unit\\core\\test_trainer_fit_decomposition.py",
+      "pattern": "hardcoded_hyperparameters",
+      "type": "LLM said no, rule-based said yes"
+    },
+    {
+      "file": "TheoViel__kaggle_rsna_abdominal_trauma/src\\util\\logger.py",
+      "pattern": "no_reproducibility_control",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "igorshmukler__kokoro-ruslan/tests\\unit\\test_decoder_helpers.py",
+      "pattern": "missing_data_validation",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "igorshmukler__kokoro-ruslan/tests\\unit\\test_decoder_helpers.py",
+      "pattern": "no_reproducibility_control",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "tascj__kaggle-map-charting-student-math-misunderstandings/configs/baseline.py",
+      "pattern": "hardcoded_hyperparameters",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "tascj__kaggle-map-charting-student-math-misunderstandings/configs/baseline.py",
+      "pattern": "missing_data_validation",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "pranftw__autopilot/tests\\core\\test_orchestrator_context.py",
+      "pattern": "hardcoded_hyperparameters",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "pranftw__autopilot/tests\\core\\test_orchestrator_context.py",
+      "pattern": "missing_data_validation",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "raj200501__sdn-nfv-ml-enhancement/models\\anomaly_detection\\random_forest.py",
+      "pattern": "train_test_leakage",
+      "type": "LLM said no, rule-based said yes"
+    },
+    {
+      "file": "igorshmukler__kokoro-ruslan/src\\kokoro\\utils\\cache_manager.py",
+      "pattern": "no_reproducibility_control",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "pranftw__autopilot/src\\autopilot\\core\\recommend.py",
+      "pattern": "no_reproducibility_control",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "pablo-reyes8__yolov2-implementation/src\\models\\layers.py",
+      "pattern": "missing_data_validation",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "pablo-reyes8__yolov2-implementation/src\\models\\layers.py",
+      "pattern": "no_reproducibility_control",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "tascj__kaggle-map-charting-student-math-misunderstandings/map_modules/models/modeling_qwen3.py",
+      "pattern": "hardcoded_hyperparameters",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "tascj__kaggle-map-charting-student-math-misunderstandings/map_modules/models/modeling_qwen3.py",
+      "pattern": "missing_data_validation",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "tascj__kaggle-map-charting-student-math-misunderstandings/map_modules/models/modeling_qwen3.py",
+      "pattern": "no_reproducibility_control",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "Chris-hughes10__pytorch-accelerated/test\\scheduler\\test_scheduler_base.py",
+      "pattern": "hardcoded_hyperparameters",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "Chris-hughes10__pytorch-accelerated/test\\scheduler\\test_scheduler_base.py",
+      "pattern": "missing_data_validation",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "Chris-hughes10__pytorch-accelerated/test\\scheduler\\test_scheduler_base.py",
+      "pattern": "train_test_leakage",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "Chris-hughes10__pytorch-accelerated/test\\scheduler\\test_scheduler_base.py",
+      "pattern": "no_reproducibility_control",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "pranftw__autopilot/tests/cli/test_execute_merge_propose_execution_record.py",
+      "pattern": "no_reproducibility_control",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "maxreciprocate__kaggle-lmarena-1st-place/train.py",
+      "pattern": "hardcoded_hyperparameters",
+      "type": "LLM said no, rule-based said yes"
+    },
+    {
+      "file": "maxreciprocate__kaggle-lmarena-1st-place/train.py",
+      "pattern": "missing_data_validation",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "maxreciprocate__kaggle-lmarena-1st-place/train.py",
+      "pattern": "train_test_leakage",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "tascj__kaggle-map-charting-student-math-misunderstandings/configs\\release\\x_2infer.py",
+      "pattern": "missing_data_validation",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "pranftw__autopilot/tests\\integration\\test_trainer_policy.py",
+      "pattern": "missing_data_validation",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "loevlie__neuropt/neuropt\\search_space.py",
+      "pattern": "missing_data_validation",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "loevlie__neuropt/neuropt\\search_space.py",
+      "pattern": "no_reproducibility_control",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "pranftw__autopilot/src\\autopilot\\ai\\store\\merge.py",
+      "pattern": "missing_data_validation",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "pranftw__autopilot/src\\autopilot\\ai\\store\\merge.py",
+      "pattern": "no_reproducibility_control",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "pranftw__autopilot/src\\autopilot\\ai\\store\\merge.py",
+      "pattern": "silent_exception_handling",
+      "type": "LLM said no, rule-based said yes"
+    },
+    {
+      "file": "pranftw__autopilot/tests\\integration\\doubles.py",
+      "pattern": "missing_data_validation",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "pranftw__autopilot/tests\\integration\\doubles.py",
+      "pattern": "no_reproducibility_control",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "daekeun-ml__aws-ai-infra-helper/torchtitan\\torchtitan\\experiments\\autoparallel\\tests\\integration_tests.py",
+      "pattern": "missing_data_validation",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "daekeun-ml__aws-ai-infra-helper/torchtitan\\torchtitan\\experiments\\autoparallel\\tests\\integration_tests.py",
+      "pattern": "train_test_leakage",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "daekeun-ml__aws-ai-infra-helper/torchtitan\\torchtitan\\experiments\\autoparallel\\tests\\integration_tests.py",
+      "pattern": "no_reproducibility_control",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "igorshmukler__kokoro-ruslan/tests\\unit\\test_dataset_cache_optimizations.py",
+      "pattern": "hardcoded_hyperparameters",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "igorshmukler__kokoro-ruslan/tests\\unit\\test_dataset_cache_optimizations.py",
+      "pattern": "missing_data_validation",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "igorshmukler__kokoro-ruslan/tests\\unit\\test_dataset_cache_optimizations.py",
+      "pattern": "no_reproducibility_control",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "igorshmukler__kokoro-ruslan/tests\\unit\\test_generator.py",
+      "pattern": "missing_data_validation",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "igorshmukler__kokoro-ruslan/tests\\unit\\test_generator.py",
+      "pattern": "no_reproducibility_control",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "pranftw__autopilot/tests\\core\\test_query.py",
+      "pattern": "no_reproducibility_control",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "pranftw__autopilot/tests\\cli\\conftest.py",
+      "pattern": "no_reproducibility_control",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "daekeun-ml__aws-ai-infra-helper/torchtitan\\scripts\\generate\\test_generate.py",
+      "pattern": "hardcoded_hyperparameters",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "daekeun-ml__aws-ai-infra-helper/torchtitan\\scripts\\generate\\test_generate.py",
+      "pattern": "missing_data_validation",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "loevlie__neuropt/examples\\train_resnet.py",
+      "pattern": "missing_data_validation",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "daekeun-ml__aws-ai-infra-helper/deepspeed\\src\\train_deepspeed.py",
+      "pattern": "missing_data_validation",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "daekeun-ml__aws-ai-infra-helper/deepspeed\\src\\train_deepspeed.py",
+      "pattern": "no_reproducibility_control",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "jcole75__arc_2025_mindsai/src/modules/inference_worker.py",
+      "pattern": "hardcoded_hyperparameters",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "jcole75__arc_2025_mindsai/src/modules/inference_worker.py",
+      "pattern": "missing_data_validation",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "jcole75__arc_2025_mindsai/src/modules/inference_worker.py",
+      "pattern": "no_reproducibility_control",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "Chris-hughes10__pytorch-accelerated/test\\test_trainer.py",
+      "pattern": "missing_data_validation",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "Chris-hughes10__pytorch-accelerated/test\\test_trainer.py",
+      "pattern": "no_reproducibility_control",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "pranftw__autopilot/tests\\core\\test_training_pipeline.py",
+      "pattern": "missing_data_validation",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "igorshmukler__kokoro-ruslan/tests\\unit\\test_stop_head_clip.py",
+      "pattern": "missing_data_validation",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "igorshmukler__kokoro-ruslan/tests\\unit\\test_stop_head_clip.py",
+      "pattern": "no_reproducibility_control",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "daekeun-ml__aws-ai-infra-helper/torchtitan\\torchtitan\\models\\qwen3_5_moe\\__init__.py",
+      "pattern": "missing_data_validation",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "daekeun-ml__aws-ai-infra-helper/torchtitan\\torchtitan\\models\\qwen3_5_moe\\__init__.py",
+      "pattern": "no_reproducibility_control",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "daekeun-ml__aws-ai-infra-helper/torchtitan\\torchtitan\\models\\deepseek_v3\\config_registry.py",
+      "pattern": "missing_data_validation",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "daekeun-ml__aws-ai-infra-helper/torchtitan\\torchtitan\\models\\deepseek_v3\\config_registry.py",
+      "pattern": "no_reproducibility_control",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "TheoViel__kaggle_rsna_abdominal_trauma/src\\training\\main_crop.py",
+      "pattern": "no_reproducibility_control",
+      "type": "LLM said no, rule-based said yes"
+    },
+    {
+      "file": "igorshmukler__kokoro-ruslan/tests\\unit\\test_train_epoch_batch_count_and_averaging.py",
+      "pattern": "missing_data_validation",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "igorshmukler__kokoro-ruslan/tests\\unit\\test_train_epoch_batch_count_and_averaging.py",
+      "pattern": "no_reproducibility_control",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "igorshmukler__kokoro-ruslan/tests\\unit\\test_model_inference_adaptor_output.py",
+      "pattern": "missing_data_validation",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "igorshmukler__kokoro-ruslan/tests\\unit\\test_model_inference_adaptor_output.py",
+      "pattern": "no_reproducibility_control",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "tascj__kaggle-map-charting-student-math-misunderstandings/configs/release/w8a8/y_0.py",
+      "pattern": "hardcoded_hyperparameters",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "tascj__kaggle-map-charting-student-math-misunderstandings/configs/release/w8a8/y_0.py",
+      "pattern": "missing_data_validation",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "TheoViel__kaggle_rsna_abdominal_trauma/src\\training\\main_lvl2.py",
+      "pattern": "no_reproducibility_control",
+      "type": "LLM said no, rule-based said yes"
+    },
+    {
+      "file": "pranftw__autopilot/tests\\core\\test_optimizer.py",
+      "pattern": "hardcoded_hyperparameters",
+      "type": "LLM said no, rule-based said yes"
+    },
+    {
+      "file": "pranftw__autopilot/tests\\core\\test_optimizer.py",
+      "pattern": "missing_data_validation",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "pranftw__autopilot/tests\\core\\test_optimizer.py",
+      "pattern": "no_reproducibility_control",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "tascj__kaggle-map-charting-student-math-misunderstandings/configs\\release\\y_2.py",
+      "pattern": "missing_data_validation",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "pranftw__autopilot/src\\autopilot\\core\\module\\autopilot_module.py",
+      "pattern": "missing_data_validation",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "pranftw__autopilot/src\\autopilot\\core\\module\\autopilot_module.py",
+      "pattern": "no_reproducibility_control",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "igorshmukler__kokoro-ruslan/tests\\unit\\test_optimizer_param_groups.py",
+      "pattern": "missing_data_validation",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "igorshmukler__kokoro-ruslan/tests\\unit\\test_optimizer_param_groups.py",
+      "pattern": "no_reproducibility_control",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "pranftw__autopilot/tests\\core\\test_trainer_forest.py",
+      "pattern": "missing_data_validation",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "igorshmukler__kokoro-ruslan/tests\\features\\test_stochastic_depth.py",
+      "pattern": "hardcoded_hyperparameters",
+      "type": "LLM said no, rule-based said yes"
+    },
+    {
+      "file": "igorshmukler__kokoro-ruslan/tests\\features\\test_stochastic_depth.py",
+      "pattern": "missing_data_validation",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "Chris-hughes10__pytorch-accelerated/examples\\core\\train_mnist.py",
+      "pattern": "missing_data_validation",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "Chris-hughes10__pytorch-accelerated/examples\\core\\train_mnist.py",
+      "pattern": "no_reproducibility_control",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "raj200501__sdn-nfv-ml-enhancement/preprocessing/normalization.py",
+      "pattern": "missing_data_validation",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "raj200501__sdn-nfv-ml-enhancement/preprocessing/normalization.py",
+      "pattern": "no_reproducibility_control",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "daekeun-ml__aws-ai-infra-helper/torchtitan\\torchtitan\\models\\deepseek_v3\\__init__.py",
+      "pattern": "missing_data_validation",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "daekeun-ml__aws-ai-infra-helper/torchtitan\\torchtitan\\models\\deepseek_v3\\__init__.py",
+      "pattern": "no_reproducibility_control",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "daekeun-ml__aws-ai-infra-helper/lightning/train.py",
+      "pattern": "hardcoded_hyperparameters",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "daekeun-ml__aws-ai-infra-helper/lightning/train.py",
+      "pattern": "missing_data_validation",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "daekeun-ml__aws-ai-infra-helper/lightning/train.py",
+      "pattern": "no_reproducibility_control",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "daekeun-ml__aws-ai-infra-helper/lightning/train.py",
+      "pattern": "silent_exception_handling",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "TheoViel__kaggle_rsna_abdominal_trauma/src\\model_zoo\\models.py",
+      "pattern": "hardcoded_hyperparameters",
+      "type": "LLM said no, rule-based said yes"
+    },
+    {
+      "file": "TheoViel__kaggle_rsna_abdominal_trauma/src\\model_zoo\\models.py",
+      "pattern": "missing_data_validation",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "TheoViel__kaggle_rsna_abdominal_trauma/src\\model_zoo\\models.py",
+      "pattern": "no_reproducibility_control",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "pranftw__autopilot/src\\autopilot\\core\\experiment.py",
+      "pattern": "missing_data_validation",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "pranftw__autopilot/src\\autopilot\\core\\experiment.py",
+      "pattern": "no_reproducibility_control",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "microsoft__dstoolkit-devcontainers/src\\sample_pytorch_gpu_project\\inference.py",
+      "pattern": "missing_data_validation",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "microsoft__dstoolkit-devcontainers/src\\sample_pytorch_gpu_project\\inference.py",
+      "pattern": "no_reproducibility_control",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "Chris-hughes10__pytorch-accelerated/examples\\vision\\using_timm_components\\train_mixup_ema.py",
+      "pattern": "missing_data_validation",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "Chris-hughes10__pytorch-accelerated/examples\\vision\\using_timm_components\\train_mixup_ema.py",
+      "pattern": "no_reproducibility_control",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "pranftw__autopilot/tests\\cli\\test_tree_switch_param_registration.py",
+      "pattern": "no_reproducibility_control",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "pranftw__autopilot/tests\\core\\test_param_groups.py",
+      "pattern": "missing_data_validation",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "pranftw__autopilot/tests\\core\\test_param_groups.py",
+      "pattern": "no_reproducibility_control",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "pranftw__autopilot/tests\\integration\\test_parallel_experiments.py",
+      "pattern": "hardcoded_hyperparameters",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "pranftw__autopilot/tests\\integration\\test_parallel_experiments.py",
+      "pattern": "missing_data_validation",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "igorshmukler__kokoro-ruslan/tests\\unit\\test_gradient_checkpointing.py",
+      "pattern": "missing_data_validation",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "igorshmukler__kokoro-ruslan/tests\\unit\\test_gradient_checkpointing.py",
+      "pattern": "no_reproducibility_control",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "pranftw__autopilot/tests\\integration\\test_trainer_integration.py",
+      "pattern": "missing_data_validation",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "rbiswasfc__eedi-mining-misconceptions/code\\llm_embedding\\eedi_dataset.py",
+      "pattern": "missing_data_validation",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "rbiswasfc__eedi-mining-misconceptions/code\\llm_embedding\\eedi_dataset.py",
+      "pattern": "no_reproducibility_control",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "maxreciprocate__kaggle-lmarena-1st-place/packing/models/modeling_qwen2.py",
+      "pattern": "hardcoded_hyperparameters",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "maxreciprocate__kaggle-lmarena-1st-place/packing/models/modeling_qwen2.py",
+      "pattern": "missing_data_validation",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "maxreciprocate__kaggle-lmarena-1st-place/packing/models/modeling_qwen2.py",
+      "pattern": "no_reproducibility_control",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "daekeun-ml__aws-ai-infra-helper/torchtitan\\torchtitan\\models\\llama4\\__init__.py",
+      "pattern": "missing_data_validation",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "daekeun-ml__aws-ai-infra-helper/torchtitan\\torchtitan\\models\\llama4\\__init__.py",
+      "pattern": "no_reproducibility_control",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "jcole75__arc_2025_mindsai/src/modules/data_loader.py",
+      "pattern": "missing_data_validation",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "loevlie__neuropt/examples\\benchmark_utils.py",
+      "pattern": "missing_data_validation",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "jcole75__arc_2025_mindsai/src/modules/visuals.py",
+      "pattern": "missing_data_validation",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "jcole75__arc_2025_mindsai/src/modules/visuals.py",
+      "pattern": "no_reproducibility_control",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "jcole75__arc_2025_mindsai/src/modules/visuals.py",
+      "pattern": "silent_exception_handling",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "daekeun-ml__aws-ai-infra-helper/torchtitan\\torchtitan\\distributed\\activation_checkpoint.py",
+      "pattern": "missing_data_validation",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "daekeun-ml__aws-ai-infra-helper/torchtitan\\torchtitan\\distributed\\activation_checkpoint.py",
+      "pattern": "no_reproducibility_control",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "daekeun-ml__aws-ai-infra-helper/torchtitan\\torchtitan\\distributed\\activation_checkpoint.py",
+      "pattern": "silent_exception_handling",
+      "type": "LLM said no, rule-based said yes"
+    },
+    {
+      "file": "rbiswasfc__eedi-mining-misconceptions/code/ranker_pointwise/ranker_model.py",
+      "pattern": "hardcoded_hyperparameters",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "rbiswasfc__eedi-mining-misconceptions/code/ranker_pointwise/ranker_model.py",
+      "pattern": "missing_data_validation",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "rbiswasfc__eedi-mining-misconceptions/code/ranker_pointwise/ranker_model.py",
+      "pattern": "no_reproducibility_control",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "jcole75__arc_2025_mindsai/src/modules/config/model_configs/codet5_660m.py",
+      "pattern": "hardcoded_hyperparameters",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "jcole75__arc_2025_mindsai/src/modules/config/model_configs/codet5_660m.py",
+      "pattern": "missing_data_validation",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "jcole75__arc_2025_mindsai/src/modules/config/model_configs/codet5_660m.py",
+      "pattern": "no_reproducibility_control",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "pranftw__autopilot/tests\\core\\test_on_exception_callback.py",
+      "pattern": "hardcoded_hyperparameters",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "pranftw__autopilot/tests\\core\\test_on_exception_callback.py",
+      "pattern": "missing_data_validation",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "pranftw__autopilot/tests\\integration\\test_full_loop_e2e.py",
+      "pattern": "missing_data_validation",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "tattaka__Taggle/taggle\\utils\\metrics.py",
+      "pattern": "hardcoded_hyperparameters",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "tattaka__Taggle/taggle\\utils\\metrics.py",
+      "pattern": "missing_data_validation",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "tattaka__Taggle/taggle\\utils\\metrics.py",
+      "pattern": "no_reproducibility_control",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "daekeun-ml__aws-ai-infra-helper/torchtitan\\torchtitan\\models\\deepseek_v3\\parallelize.py",
+      "pattern": "missing_data_validation",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "daekeun-ml__aws-ai-infra-helper/torchtitan\\torchtitan\\models\\deepseek_v3\\parallelize.py",
+      "pattern": "no_reproducibility_control",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "daekeun-ml__aws-ai-infra-helper/torchtitan\\torchtitan\\components\\quantization\\mx.py",
+      "pattern": "missing_data_validation",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "daekeun-ml__aws-ai-infra-helper/torchtitan\\torchtitan\\components\\quantization\\mx.py",
+      "pattern": "no_reproducibility_control",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "pranftw__autopilot/examples\\harness\\tests\\test_integration_audit.py",
+      "pattern": "missing_data_validation",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "pranftw__autopilot/examples\\harness\\tests\\test_integration_audit.py",
+      "pattern": "no_reproducibility_control",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "daekeun-ml__aws-ai-infra-helper/torchtitan\\torchtitan\\experiments\\transformers_modeling_backend\\__init__.py",
+      "pattern": "missing_data_validation",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "daekeun-ml__aws-ai-infra-helper/torchtitan\\torchtitan\\experiments\\transformers_modeling_backend\\__init__.py",
+      "pattern": "no_reproducibility_control",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "Chris-hughes10__pytorch-accelerated/examples\\vision\\faster_rcnn\\train_cars.py",
+      "pattern": "missing_data_validation",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "raj200501__sdn-nfv-ml-enhancement/models\\traffic_prediction\\lstm.py",
+      "pattern": "hardcoded_hyperparameters",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "pranftw__autopilot/examples\\harness\\tests\\test_data.py",
+      "pattern": "hardcoded_hyperparameters",
+      "type": "LLM said no, rule-based said yes"
+    },
+    {
+      "file": "pranftw__autopilot/examples\\harness\\tests\\test_data.py",
+      "pattern": "missing_data_validation",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "pranftw__autopilot/examples\\harness\\tests\\test_data.py",
+      "pattern": "no_reproducibility_control",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "igorshmukler__kokoro-ruslan/tests\\unit\\test_gradient_accumulation.py",
+      "pattern": "missing_data_validation",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "igorshmukler__kokoro-ruslan/tests\\unit\\test_gradient_accumulation.py",
+      "pattern": "no_reproducibility_control",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "pranftw__autopilot/tests\\core\\test_trainer_profiler.py",
+      "pattern": "missing_data_validation",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "tascj__kaggle-map-charting-student-math-misunderstandings/map_modules\\data\\dataset_v3.py",
+      "pattern": "hardcoded_hyperparameters",
+      "type": "LLM said no, rule-based said yes"
+    },
+    {
+      "file": "tascj__kaggle-map-charting-student-math-misunderstandings/map_modules\\data\\dataset_v3.py",
+      "pattern": "missing_data_validation",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "tascj__kaggle-map-charting-student-math-misunderstandings/map_modules\\data\\dataset_v3.py",
+      "pattern": "no_reproducibility_control",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "Chris-hughes10__pytorch-accelerated/examples\\vision\\faster_rcnn\\frcnn\\dataset.py",
+      "pattern": "missing_data_validation",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "Chris-hughes10__pytorch-accelerated/examples\\vision\\faster_rcnn\\frcnn\\dataset.py",
+      "pattern": "no_reproducibility_control",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "daekeun-ml__aws-ai-infra-helper/torchtitan\\torchtitan\\models\\llama3\\__init__.py",
+      "pattern": "missing_data_validation",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "daekeun-ml__aws-ai-infra-helper/torchtitan\\torchtitan\\models\\llama3\\__init__.py",
+      "pattern": "no_reproducibility_control",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "tascj__kaggle-map-charting-student-math-misunderstandings/map_modules/models/trim_token_embedding.py",
+      "pattern": "hardcoded_hyperparameters",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "tascj__kaggle-map-charting-student-math-misunderstandings/map_modules/models/trim_token_embedding.py",
+      "pattern": "missing_data_validation",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "tascj__kaggle-map-charting-student-math-misunderstandings/map_modules/models/trim_token_embedding.py",
+      "pattern": "no_reproducibility_control",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "pranftw__autopilot/tests\\cli\\test_stabilize_numeric.py",
+      "pattern": "no_reproducibility_control",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "igorshmukler__kokoro-ruslan/tests\\features\\test_pitch_energy_conversion.py",
+      "pattern": "hardcoded_hyperparameters",
+      "type": "LLM said no, rule-based said yes"
+    },
+    {
+      "file": "igorshmukler__kokoro-ruslan/tests\\features\\test_pitch_energy_conversion.py",
+      "pattern": "missing_data_validation",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "igorshmukler__kokoro-ruslan/tests\\features\\test_pitch_energy_conversion.py",
+      "pattern": "no_reproducibility_control",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "keenon__InferBiomechanics/src\\cli\\create_splits.py",
+      "pattern": "missing_data_validation",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "keenon__InferBiomechanics/src\\cli\\create_splits.py",
+      "pattern": "no_reproducibility_control",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "raj200501__sdn-nfv-ml-enhancement/models\\anomaly_detection\\svm.py",
+      "pattern": "hardcoded_hyperparameters",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "raj200501__sdn-nfv-ml-enhancement/models\\anomaly_detection\\svm.py",
+      "pattern": "train_test_leakage",
+      "type": "LLM said no, rule-based said yes"
+    },
+    {
+      "file": "pranftw__autopilot/tests\\cli\\test_workspace_metadata.py",
+      "pattern": "no_reproducibility_control",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "tascj__kaggle-map-charting-student-math-misunderstandings/configs/release/w8a8/y_2.py",
+      "pattern": "hardcoded_hyperparameters",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "tascj__kaggle-map-charting-student-math-misunderstandings/configs/release/w8a8/y_2.py",
+      "pattern": "missing_data_validation",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "jcole75__arc_2025_mindsai/src\\main.py",
+      "pattern": "no_reproducibility_control",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "pranftw__autopilot/tests\\core\\test_autopilot_module.py",
+      "pattern": "no_reproducibility_control",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "pranftw__autopilot/tests\\dogfood_regressions\\test_store_cli_core_regression_guards.py",
+      "pattern": "hardcoded_hyperparameters",
+      "type": "LLM said no, rule-based said yes"
+    },
+    {
+      "file": "keenon__InferBiomechanics/src\\models\\TransformerBaseline.py",
+      "pattern": "missing_data_validation",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "keenon__InferBiomechanics/src\\models\\TransformerBaseline.py",
+      "pattern": "train_test_leakage",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "keenon__InferBiomechanics/src\\models\\TransformerBaseline.py",
+      "pattern": "no_reproducibility_control",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "loevlie__neuropt/examples\\train_xgboost.py",
+      "pattern": "missing_data_validation",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "tattaka__Taggle/taggle\\models\\heads\\pspnet.py",
+      "pattern": "hardcoded_hyperparameters",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "tattaka__Taggle/taggle\\models\\heads\\pspnet.py",
+      "pattern": "missing_data_validation",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "tattaka__Taggle/taggle\\models\\heads\\pspnet.py",
+      "pattern": "no_reproducibility_control",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "daekeun-ml__aws-ai-infra-helper/torchtitan\\torchtitan\\models\\flux\\model\\state_dict_adapter.py",
+      "pattern": "missing_data_validation",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "daekeun-ml__aws-ai-infra-helper/torchtitan\\torchtitan\\models\\flux\\model\\state_dict_adapter.py",
+      "pattern": "no_reproducibility_control",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "pranftw__autopilot/examples\\harness\\harness\\trainer.py",
+      "pattern": "hardcoded_hyperparameters",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "pranftw__autopilot/examples\\harness\\harness\\trainer.py",
+      "pattern": "missing_data_validation",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "pranftw__autopilot/examples\\harness\\harness\\trainer.py",
+      "pattern": "no_reproducibility_control",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "jcole75__arc_2025_mindsai/src/modules/augmentation_framework.py",
+      "pattern": "missing_data_validation",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "jcole75__arc_2025_mindsai/src/modules/augmentation_framework.py",
+      "pattern": "no_reproducibility_control",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "MhmdGamalAskar__Unet-Segmentation-from-scratch/Model.py",
+      "pattern": "hardcoded_hyperparameters",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "MhmdGamalAskar__Unet-Segmentation-from-scratch/Model.py",
+      "pattern": "missing_data_validation",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "MhmdGamalAskar__Unet-Segmentation-from-scratch/Model.py",
+      "pattern": "no_reproducibility_control",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "Chris-hughes10__pytorch-accelerated/pytorch_accelerated\\schedulers\\wsd_scheduler.py",
+      "pattern": "hardcoded_hyperparameters",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "Chris-hughes10__pytorch-accelerated/pytorch_accelerated\\schedulers\\wsd_scheduler.py",
+      "pattern": "missing_data_validation",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "Chris-hughes10__pytorch-accelerated/pytorch_accelerated\\schedulers\\wsd_scheduler.py",
+      "pattern": "no_reproducibility_control",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "igorshmukler__kokoro-ruslan/src\\kokoro\\training\\config.py",
+      "pattern": "missing_data_validation",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "igorshmukler__kokoro-ruslan/src\\kokoro\\training\\config.py",
+      "pattern": "no_reproducibility_control",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "Chris-hughes10__pytorch-accelerated/test\\scheduler\\test_cosine_scheduler.py",
+      "pattern": "missing_data_validation",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "Chris-hughes10__pytorch-accelerated/test\\scheduler\\test_cosine_scheduler.py",
+      "pattern": "no_reproducibility_control",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "pranftw__autopilot/tests\\integration\\test_textmatch_e2e.py",
+      "pattern": "hardcoded_hyperparameters",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "pranftw__autopilot/tests\\integration\\test_textmatch_e2e.py",
+      "pattern": "missing_data_validation",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "tascj__kaggle-map-charting-student-math-misunderstandings/map_modules/models/modeling_qwen2.py",
+      "pattern": "hardcoded_hyperparameters",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "tascj__kaggle-map-charting-student-math-misunderstandings/map_modules/models/modeling_qwen2.py",
+      "pattern": "missing_data_validation",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "tascj__kaggle-map-charting-student-math-misunderstandings/map_modules/models/modeling_qwen2.py",
+      "pattern": "no_reproducibility_control",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "pranftw__autopilot/tests\\ai\\test_checkpoints.py",
+      "pattern": "no_reproducibility_control",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "pranftw__autopilot/tests\\ai\\test_checkpoints.py",
+      "pattern": "silent_exception_handling",
+      "type": "LLM said no, rule-based said yes"
+    },
+    {
+      "file": "daekeun-ml__aws-ai-infra-helper/observability\\stop_observability.py",
+      "pattern": "no_reproducibility_control",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "pranftw__autopilot/tests\\integration\\test_full_experiment_lifecycle.py",
+      "pattern": "missing_data_validation",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "TheoViel__kaggle_rsna_abdominal_trauma/src\\inference\\processing.py",
+      "pattern": "hardcoded_hyperparameters",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "TheoViel__kaggle_rsna_abdominal_trauma/src\\inference\\processing.py",
+      "pattern": "missing_data_validation",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "TheoViel__kaggle_rsna_abdominal_trauma/src\\inference\\processing.py",
+      "pattern": "no_reproducibility_control",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "jcole75__arc_2025_mindsai/src/modules/config/run_logging.py",
+      "pattern": "missing_data_validation",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "jcole75__arc_2025_mindsai/src/modules/config/run_logging.py",
+      "pattern": "no_reproducibility_control",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "jcole75__arc_2025_mindsai/src/modules/config/run_logging.py",
+      "pattern": "silent_exception_handling",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "tattaka__Taggle/taggle\\models\\common\\jpu.py",
+      "pattern": "hardcoded_hyperparameters",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "tattaka__Taggle/taggle\\models\\common\\jpu.py",
+      "pattern": "missing_data_validation",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "tattaka__Taggle/taggle\\models\\common\\jpu.py",
+      "pattern": "train_test_leakage",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "tattaka__Taggle/taggle\\models\\common\\jpu.py",
+      "pattern": "no_reproducibility_control",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "tascj__kaggle-map-charting-student-math-misunderstandings/configs/release/w8a8/x_0.py",
+      "pattern": "hardcoded_hyperparameters",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "tascj__kaggle-map-charting-student-math-misunderstandings/configs/release/w8a8/x_0.py",
+      "pattern": "missing_data_validation",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "igorshmukler__kokoro-ruslan/tests\\unit\\test_checkpoint_val_loss_separation.py",
+      "pattern": "no_reproducibility_control",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "TheoViel__kaggle_rsna_abdominal_trauma/src\\main_crop.py",
+      "pattern": "hardcoded_hyperparameters",
+      "type": "LLM said no, rule-based said yes"
+    },
+    {
+      "file": "TheoViel__kaggle_rsna_abdominal_trauma/src\\main_crop.py",
+      "pattern": "missing_data_validation",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "TheoViel__kaggle_rsna_abdominal_trauma/src\\main_crop.py",
+      "pattern": "train_test_leakage",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "pranftw__autopilot/tests\\ai\\test_store_repair.py",
+      "pattern": "no_reproducibility_control",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "pranftw__autopilot/tests\\ai\\test_generator.py",
+      "pattern": "missing_data_validation",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "pranftw__autopilot/tests\\cli\\test_recommend_constraints.py",
+      "pattern": "no_reproducibility_control",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "igorshmukler__kokoro-ruslan/tests\\unit\\test_pitch_extractor.py",
+      "pattern": "hardcoded_hyperparameters",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "igorshmukler__kokoro-ruslan/tests\\unit\\test_pitch_extractor.py",
+      "pattern": "missing_data_validation",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "igorshmukler__kokoro-ruslan/tests\\unit\\test_pitch_extractor.py",
+      "pattern": "no_reproducibility_control",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "jcole75__arc_2025_mindsai/src/modules/config/env.py",
+      "pattern": "missing_data_validation",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "jcole75__arc_2025_mindsai/src/modules/config/env.py",
+      "pattern": "no_reproducibility_control",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "igorshmukler__kokoro-ruslan/src\\kokoro\\data\\dataset.py",
+      "pattern": "missing_data_validation",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "igorshmukler__kokoro-ruslan/src\\kokoro\\data\\dataset.py",
+      "pattern": "no_reproducibility_control",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "igorshmukler__kokoro-ruslan/tests\\unit\\test_stress_embedding.py",
+      "pattern": "hardcoded_hyperparameters",
+      "type": "LLM said no, rule-based said yes"
+    },
+    {
+      "file": "igorshmukler__kokoro-ruslan/tests\\unit\\test_stress_embedding.py",
+      "pattern": "missing_data_validation",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "igorshmukler__kokoro-ruslan/tests\\unit\\test_stress_embedding.py",
+      "pattern": "no_reproducibility_control",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "pranftw__autopilot/tests\\cli\\test_trace_verify.py",
+      "pattern": "no_reproducibility_control",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "pranftw__autopilot/tests\\cli\\test_trace_verify.py",
+      "pattern": "silent_exception_handling",
+      "type": "LLM said no, rule-based said yes"
+    },
+    {
+      "file": "loevlie__neuropt/tests\\test_core.py",
+      "pattern": "missing_data_validation",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "loevlie__neuropt/tests\\test_core.py",
+      "pattern": "no_reproducibility_control",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "daekeun-ml__aws-ai-infra-helper/torchtitan\\torchtitan\\experiments\\ft\\llama3\\config_registry.py",
+      "pattern": "missing_data_validation",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "daekeun-ml__aws-ai-infra-helper/torchtitan\\torchtitan\\experiments\\ft\\llama3\\config_registry.py",
+      "pattern": "no_reproducibility_control",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "daekeun-ml__aws-ai-infra-helper/torchtitan\\torchtitan\\experiments\\autoparallel\\deepseek_v3\\config_registry.py",
+      "pattern": "missing_data_validation",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "daekeun-ml__aws-ai-infra-helper/torchtitan\\torchtitan\\experiments\\autoparallel\\deepseek_v3\\config_registry.py",
+      "pattern": "no_reproducibility_control",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "TheoViel__kaggle_rsna_abdominal_trauma/src\\main_seg_cls.py",
+      "pattern": "hardcoded_hyperparameters",
+      "type": "LLM said no, rule-based said yes"
+    },
+    {
+      "file": "TheoViel__kaggle_rsna_abdominal_trauma/src\\main_seg_cls.py",
+      "pattern": "missing_data_validation",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "TheoViel__kaggle_rsna_abdominal_trauma/src\\main_seg_cls.py",
+      "pattern": "train_test_leakage",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "tascj__kaggle-map-charting-student-math-misunderstandings/configs\\x_1.py",
+      "pattern": "hardcoded_hyperparameters",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "tascj__kaggle-map-charting-student-math-misunderstandings/configs\\x_1.py",
+      "pattern": "missing_data_validation",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "pranftw__autopilot/tests\\core\\test_orchestrator_stop_reason.py",
+      "pattern": "hardcoded_hyperparameters",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "pranftw__autopilot/tests\\core\\test_orchestrator_stop_reason.py",
+      "pattern": "missing_data_validation",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "Chris-hughes10__pytorch-accelerated/examples\\vision\\transfer_learning\\pytorch_tutorial_finetune.py",
+      "pattern": "missing_data_validation",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "Chris-hughes10__pytorch-accelerated/examples\\vision\\transfer_learning\\pytorch_tutorial_finetune.py",
+      "pattern": "no_reproducibility_control",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "rayshaun-code__ML-Image/data\\get_pet_labels_hints.py",
+      "pattern": "missing_data_validation",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "rayshaun-code__ML-Image/data\\get_pet_labels_hints.py",
+      "pattern": "no_reproducibility_control",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "Hanxian2Ai__Kaggle-Competition-Image-To-Prompt/infer_model\\infer_single_model.py",
+      "pattern": "missing_data_validation",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "Hanxian2Ai__Kaggle-Competition-Image-To-Prompt/infer_model\\infer_single_model.py",
+      "pattern": "no_reproducibility_control",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "pranftw__autopilot/examples\\protim\\run_trainer.py",
+      "pattern": "missing_data_validation",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "pranftw__autopilot/src\\autopilot\\core\\trainer\\checkpoint.py",
+      "pattern": "missing_data_validation",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "pranftw__autopilot/src\\autopilot\\core\\trainer\\checkpoint.py",
+      "pattern": "no_reproducibility_control",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "pranftw__autopilot/src\\autopilot\\core\\trainer\\checkpoint.py",
+      "pattern": "silent_exception_handling",
+      "type": "LLM said no, rule-based said yes"
+    },
+    {
+      "file": "raj200501__sdn-nfv-ml-enhancement/models/network_optimization/deep_q_network.py",
+      "pattern": "hardcoded_hyperparameters",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "raj200501__sdn-nfv-ml-enhancement/models/network_optimization/deep_q_network.py",
+      "pattern": "missing_data_validation",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "raj200501__sdn-nfv-ml-enhancement/models/network_optimization/deep_q_network.py",
+      "pattern": "no_reproducibility_control",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "pranftw__autopilot/tests\\core\\test_trainer.py",
+      "pattern": "missing_data_validation",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "rbiswasfc__eedi-mining-misconceptions/code\\train_ranker_pointwise.py",
+      "pattern": "missing_data_validation",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "rbiswasfc__eedi-mining-misconceptions/code\\train_ranker_pointwise.py",
+      "pattern": "silent_exception_handling",
+      "type": "LLM said no, rule-based said yes"
+    },
+    {
+      "file": "pranftw__autopilot/tests\\integration\\test_gradient_flow.py",
+      "pattern": "missing_data_validation",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "pranftw__autopilot/tests\\cli\\test_debug_profiler.py",
+      "pattern": "no_reproducibility_control",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "daekeun-ml__aws-ai-infra-helper/torchtitan\\torchtitan\\models\\qwen3_5_moe\\config_registry.py",
+      "pattern": "missing_data_validation",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "daekeun-ml__aws-ai-infra-helper/torchtitan\\torchtitan\\models\\qwen3_5_moe\\config_registry.py",
+      "pattern": "no_reproducibility_control",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "maxreciprocate__kaggle-lmarena-1st-place/format.py",
+      "pattern": "hardcoded_hyperparameters",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "maxreciprocate__kaggle-lmarena-1st-place/format.py",
+      "pattern": "missing_data_validation",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "maxreciprocate__kaggle-lmarena-1st-place/format.py",
+      "pattern": "no_reproducibility_control",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "igorshmukler__kokoro-ruslan/tests\\features\\test_validation.py",
+      "pattern": "missing_data_validation",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "pranftw__autopilot/src\\autopilot\\core\\trainer\\journal.py",
+      "pattern": "missing_data_validation",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "pranftw__autopilot/src\\autopilot\\core\\trainer\\journal.py",
+      "pattern": "no_reproducibility_control",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "pranftw__autopilot/src\\autopilot\\core\\trainer\\journal.py",
+      "pattern": "silent_exception_handling",
+      "type": "LLM said no, rule-based said yes"
+    },
+    {
+      "file": "maxreciprocate__kaggle-lmarena-1st-place/packing\\data\\collators.py",
+      "pattern": "hardcoded_hyperparameters",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "maxreciprocate__kaggle-lmarena-1st-place/packing\\data\\collators.py",
+      "pattern": "missing_data_validation",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "maxreciprocate__kaggle-lmarena-1st-place/packing\\data\\collators.py",
+      "pattern": "no_reproducibility_control",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "daekeun-ml__aws-ai-infra-helper/torchtitan\\torchtitan\\models\\flux\\config_registry.py",
+      "pattern": "missing_data_validation",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "daekeun-ml__aws-ai-infra-helper/torchtitan\\torchtitan\\models\\flux\\config_registry.py",
+      "pattern": "no_reproducibility_control",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "daekeun-ml__aws-ai-infra-helper/torchtitan\\torchtitan\\models\\llama4\\model.py",
+      "pattern": "hardcoded_hyperparameters",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "daekeun-ml__aws-ai-infra-helper/torchtitan\\torchtitan\\models\\llama4\\model.py",
+      "pattern": "missing_data_validation",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "daekeun-ml__aws-ai-infra-helper/torchtitan\\torchtitan\\models\\llama4\\model.py",
+      "pattern": "no_reproducibility_control",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "tascj__kaggle-map-charting-student-math-misunderstandings/configs\\x_0.py",
+      "pattern": "hardcoded_hyperparameters",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "tascj__kaggle-map-charting-student-math-misunderstandings/configs\\x_0.py",
+      "pattern": "missing_data_validation",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "igorshmukler__kokoro-ruslan/tests\\unit\\test_encode_and_expand.py",
+      "pattern": "missing_data_validation",
+      "type": "LLM said yes, rule-based said no"
+    },
+    {
+      "file": "igorshmukler__kokoro-ruslan/tests\\unit\\test_encode_and_expand.py",
+      "pattern": "no_reproducibility_control",
+      "type": "LLM said yes, rule-based said no"
+    }
+  ]
+}
