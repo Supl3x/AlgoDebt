@@ -267,7 +267,11 @@ python scripts/llm_detector.py --model groq/llama-3.3-70b-versatile
 ```
 results/llm_findings/llm_findings_<model_name>.json
 results/llm_findings/token_usage.log
+results/llm_findings/daily_token_tracker.json
 ```
+
+> [!TIP]
+> **Real-Time Token Tracking:** The pipeline automatically tracks your total token usage across all API keys and resets every day at Midnight UTC. The terminal prints a live dashboard updating your session and daily tokens so you never accidentally exceed your quotas!
 
 ---
 
