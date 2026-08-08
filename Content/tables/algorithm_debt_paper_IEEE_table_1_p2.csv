@@ -1,0 +1,6 @@
+Anti-Pattern,Precision,Recall,F1
+Hardcoded,0.83,0.83,0.83
+Missing data validation,0.00,0.00,0.00
+Train/test leakage,N/A*,N/A*,N/A*
+No reproducibility control,0.13,1.00,0.23
+Silent exception handling,0.83,0.83,0.83

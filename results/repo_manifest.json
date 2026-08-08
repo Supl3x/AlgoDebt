@@ -1,0 +1,242 @@
+[
+  {
+    "full_name": "machml/polars_splitters",
+    "clone_url": "https://github.com/machml/polars_splitters.git",
+    "stars": 5,
+    "description": "Polars-based splitter functions similar to sklearn.model_selection.train_test_split  and sklearn.model_selection.StratifiedKFold",
+    "local_dir": "machml__polars_splitters",
+    "cloned": true
+  },
+  {
+    "full_name": "KhaledAshrafH/DT-Banknote-Authenticator",
+    "clone_url": "https://github.com/KhaledAshrafH/DT-Banknote-Authenticator.git",
+    "stars": 5,
+    "description": "This Python code utilizes the decision tree algorithm from the scikit-learn library to perform banknote authentication. The code aims to analyze the impact of different train-test split ratios and training set sizes on the accuracy and size of the learned decision tree.",
+    "local_dir": "KhaledAshrafH__DT-Banknote-Authenticator",
+    "cloned": true
+  },
+  {
+    "full_name": "pablo-reyes8/pytorch-cnn-architectures",
+    "clone_url": "https://github.com/pablo-reyes8/pytorch-cnn-architectures.git",
+    "stars": 5,
+    "description": "Implementation of iconic convolutional neural networks \u2014 LeNet-5, AlexNet, ResNet, U-Net, and Inception \u2014 built from scratch using PyTorch. Each model includes custom training loops, evaluation utilities, and visualization tools to explore learned features and embeddings.",
+    "local_dir": "pablo-reyes8__pytorch-cnn-architectures",
+    "cloned": false
+  },
+  {
+    "full_name": "pranftw/autopilot",
+    "clone_url": "https://github.com/pranftw/autopilot.git",
+    "stars": 5,
+    "description": "A PyTorch/Lightning inspired framework for generalized software optimization. Formalizes the training loop   (forward -> loss -> backward -> step) for prompts, heuristics, and code.",
+    "local_dir": "pranftw__autopilot",
+    "cloned": false
+  },
+  {
+    "full_name": "Chris-hughes10/pytorch-accelerated",
+    "clone_url": "https://github.com/Chris-hughes10/pytorch-accelerated.git",
+    "stars": 193,
+    "description": "A lightweight library designed to accelerate the process of training PyTorch models by providing a minimal, but extensible training loop which is flexible enough to handle the majority of use cases, and capable of utilizing different hardware options with no code changes required. Docs: https://pytorch-accelerated.readthedocs.io/en/latest/ ",
+    "local_dir": "Chris-hughes10__pytorch-accelerated",
+    "cloned": true
+  },
+  {
+    "full_name": "Ayush-Aditya/decoder-only-seq2seq",
+    "clone_url": "https://github.com/Ayush-Aditya/decoder-only-seq2seq.git",
+    "stars": 7,
+    "description": "Minimal decoder-only seq2seq pipeline with proper causal masking, teacher forcing, Ignite training loop, and checkpointed inference",
+    "local_dir": "Ayush-Aditya__decoder-only-seq2seq",
+    "cloned": true
+  },
+  {
+    "full_name": "MhmdGamalAskar/Unet-Segmentation-from-scratch",
+    "clone_url": "https://github.com/MhmdGamalAskar/Unet-Segmentation-from-scratch.git",
+    "stars": 6,
+    "description": "Deep learning project for binary image segmentation using a U-Net model built from scratch with PyTorch. Includes custom dataset loading, training loop, and mask prediction",
+    "local_dir": "MhmdGamalAskar__Unet-Segmentation-from-scratch",
+    "cloned": false
+  },
+  {
+    "full_name": "pablo-reyes8/yolov2-implementation",
+    "clone_url": "https://github.com/pablo-reyes8/yolov2-implementation.git",
+    "stars": 5,
+    "description": "A modular YOLOv2 implementation in PyTorch with the Darknet-19 backbone. Includes dataset handling (VOC), letterbox preprocessing, training loop, custom loss, decoding, NMS, and VOC07 mAP evaluation. Designed for clarity, reproducibility, and research use, with unit tests and visualization tools.",
+    "local_dir": "pablo-reyes8__yolov2-implementation",
+    "cloned": false
+  },
+  {
+    "full_name": "acforvs/dhc-robust-mapf",
+    "clone_url": "https://github.com/acforvs/dhc-robust-mapf.git",
+    "stars": 24,
+    "description": "Learnable MAPF. \u201cDistributed Heuristic Multi-Agent Path Finding with Communication\u201d (DHC) algorithm from ICRA 2021 is implemented and benchmarked in out-of-distribution (OOD) scenarios.  A new robust training loop to handle communication failures is introduced. ",
+    "local_dir": "acforvs__dhc-robust-mapf",
+    "cloned": false
+  },
+  {
+    "full_name": "tattaka/Taggle",
+    "clone_url": "https://github.com/tattaka/Taggle.git",
+    "stars": 8,
+    "description": "The Customizable wrapper for PyTorch training loop and The helper function for getting major criterion, computer vision model, optimizer",
+    "local_dir": "tattaka__Taggle",
+    "cloned": true
+  },
+  {
+    "full_name": "imkoushal/fake-news-detector-ai",
+    "clone_url": "https://github.com/imkoushal/fake-news-detector-ai.git",
+    "stars": 12,
+    "description": "AI-powered fake news detection system using FastAPI and machine learning pipeline",
+    "local_dir": "imkoushal__fake-news-detector-ai",
+    "cloned": false
+  },
+  {
+    "full_name": "imagodata/IGN_LIDAR_HD_DATASET",
+    "clone_url": "https://github.com/imagodata/IGN_LIDAR_HD_DATASET.git",
+    "stars": 8,
+    "description": "\ud83c\udfd7\ufe0f Comprehensive Python library for processing IGN LiDAR HD data into machine learning-ready datasets for Building Level of Detail (LOD) classification. Features GPU/CPU processing, smart data management, and complete ML pipeline integration.",
+    "local_dir": "imagodata__IGN_LIDAR_HD_DATASET",
+    "cloned": false
+  },
+  {
+    "full_name": "microsoft/dstoolkit-devcontainers",
+    "clone_url": "https://github.com/microsoft/dstoolkit-devcontainers.git",
+    "stars": 51,
+    "description": "A machine learning project template that makes it easy to work with multiple Docker based VSCode Dev Containers. Easily transition projects to the cloud and production with automated code quality checks, pytest configuration, CI pipeline templates & AML cloud example",
+    "local_dir": "microsoft__dstoolkit-devcontainers",
+    "cloned": true
+  },
+  {
+    "full_name": "OpenSTEF/openstef",
+    "clone_url": "https://github.com/OpenSTEF/openstef.git",
+    "stars": 157,
+    "description": "Automated Machine Learning pipelines. Builds the Open Short Term Energy Forecasting package.",
+    "local_dir": "OpenSTEF__openstef",
+    "cloned": false
+  },
+  {
+    "full_name": "BL1ZZ4RD-PY/Paris-Housing-Price-Estimator-Deal-Finder",
+    "clone_url": "https://github.com/BL1ZZ4RD-PY/Paris-Housing-Price-Estimator-Deal-Finder.git",
+    "stars": 6,
+    "description": "A end-to-end Machine Learning pipeline that scrapes Parisian rental listings, predicts fair market prices using Random Forest Regression, and automatically detects undervalued apartments.",
+    "local_dir": "BL1ZZ4RD-PY__Paris-Housing-Price-Estimator-Deal-Finder",
+    "cloned": true
+  },
+  {
+    "full_name": "zhenglz/dockingML",
+    "clone_url": "https://github.com/zhenglz/dockingML.git",
+    "stars": 48,
+    "description": "A package for MD, Docking and Machine learning drug discovery pipeline",
+    "local_dir": "zhenglz__dockingML",
+    "cloned": false
+  },
+  {
+    "full_name": "Tahirpathan-AiLab/Machine_Learning_Project",
+    "clone_url": "https://github.com/Tahirpathan-AiLab/Machine_Learning_Project.git",
+    "stars": 7,
+    "description": "End-to-end Machine Learning pipeline for wearable sensor data featuring preprocessing, feature engineering, PCA, FFT, outlier detection, and repetition counting for barbell exercises.",
+    "local_dir": "Tahirpathan-AiLab__Machine_Learning_Project",
+    "cloned": false
+  },
+  {
+    "full_name": "CoreyLeath-code/ML-Docker-Orchestrator-with-full-MLops-pipeline",
+    "clone_url": "https://github.com/CoreyLeath-code/ML-Docker-Orchestrator-with-full-MLops-pipeline.git",
+    "stars": 9,
+    "description": " A containerized machine learning deployment pipeline using FastAPI, Docker Compose, and GitHub Actions",
+    "local_dir": "CoreyLeath-code__ML-Docker-Orchestrator-with-full-MLops-pipeline",
+    "cloned": true
+  },
+  {
+    "full_name": "Nasef2017/Bathymetrix-AI",
+    "clone_url": "https://github.com/Nasef2017/Bathymetrix-AI.git",
+    "stars": 19,
+    "description": "An advanced Machine Learning pipeline for Satellite-Derived Bathymetry (SDB). Features ICESat-2 integration, Statistical In-Situ data filtering, and Spatial Residual Correction.",
+    "local_dir": "Nasef2017__Bathymetrix-AI",
+    "cloned": false
+  },
+  {
+    "full_name": "ArjunCodess/men2-predictor",
+    "clone_url": "https://github.com/ArjunCodess/men2-predictor.git",
+    "stars": 7,
+    "description": "A machine learning pipeline for predicting Multiple Endocrine Neoplasia type 2 (MEN2) syndrome.",
+    "local_dir": "ArjunCodess__men2-predictor",
+    "cloned": false
+  },
+  {
+    "full_name": "jcole75/arc_2025_mindsai",
+    "clone_url": "https://github.com/jcole75/arc_2025_mindsai.git",
+    "stars": 9,
+    "description": "Solution for the ARC Prize 2025 Kaggle competition.",
+    "local_dir": "jcole75__arc_2025_mindsai",
+    "cloned": true
+  },
+  {
+    "full_name": "harrisonhoran/kaggle-march-mania-2026-1st-place",
+    "clone_url": "https://github.com/harrisonhoran/kaggle-march-mania-2026-1st-place.git",
+    "stars": 6,
+    "description": "Winning solution for the Kaggle March Machine Learning Mania 2026 data science competition.",
+    "local_dir": "harrisonhoran__kaggle-march-mania-2026-1st-place",
+    "cloned": true
+  },
+  {
+    "full_name": "iaditya-DA/Accident_classifire-2Coool_comp",
+    "clone_url": "https://github.com/iaditya-DA/Accident_classifire-2Coool_comp.git",
+    "stars": 17,
+    "description": "The Traffic Incident Analysis System is an advanced computer vision\u2013based solution developed for the 2Coool Kaggle Competition. The system is designed to automatically detect, classify, and analyze traffic incidents from video data using deep learning and object detection techniques.",
+    "local_dir": "iaditya-DA__Accident_classifire-2Coool_comp",
+    "cloned": false
+  },
+  {
+    "full_name": "amita1996/MABe-Kaggle-Challenge",
+    "clone_url": "https://github.com/amita1996/MABe-Kaggle-Challenge.git",
+    "stars": 5,
+    "description": "Code to 19th place solution in MABe kaggle competition",
+    "local_dir": "amita1996__MABe-Kaggle-Challenge",
+    "cloned": true
+  },
+  {
+    "full_name": "tascj/kaggle-map-charting-student-math-misunderstandings",
+    "clone_url": "https://github.com/tascj/kaggle-map-charting-student-math-misunderstandings.git",
+    "stars": 27,
+    "description": "Solution of Kaggle competition: MAP - Charting Student Math Misunderstandings",
+    "local_dir": "tascj__kaggle-map-charting-student-math-misunderstandings",
+    "cloned": true
+  },
+  {
+    "full_name": "tascj/kaggle-waveform-inversion",
+    "clone_url": "https://github.com/tascj/kaggle-waveform-inversion.git",
+    "stars": 8,
+    "description": "Solution of Kaggle competition: Yale/UNC-CH - Geophysical Waveform Inversion",
+    "local_dir": "tascj__kaggle-waveform-inversion",
+    "cloned": false
+  },
+  {
+    "full_name": "maxreciprocate/kaggle-lmarena-1st-place",
+    "clone_url": "https://github.com/maxreciprocate/kaggle-lmarena-1st-place.git",
+    "stars": 12,
+    "description": "Solution of Kaggle \"Multilingual Chatbot Arena\" competition",
+    "local_dir": "maxreciprocate__kaggle-lmarena-1st-place",
+    "cloned": true
+  },
+  {
+    "full_name": "Hanxian2Ai/Kaggle-Competition-Image-To-Prompt",
+    "clone_url": "https://github.com/Hanxian2Ai/Kaggle-Competition-Image-To-Prompt.git",
+    "stars": 19,
+    "description": "\u94f6\u724c\u89e3\u51b3\u65b9\u6848\uff1aKaggle\u7ade\u8d5b\uff1a\u7a33\u5b9a\u6269\u6563 - \u56fe\u50cf\u5230\u63d0\u793a     Bronze Medal Solution For 'Kaggle Complete : Stable Diffusion - Image to Prompts'",
+    "local_dir": "Hanxian2Ai__Kaggle-Competition-Image-To-Prompt",
+    "cloned": true
+  },
+  {
+    "full_name": "rbiswasfc/eedi-mining-misconceptions",
+    "clone_url": "https://github.com/rbiswasfc/eedi-mining-misconceptions.git",
+    "stars": 59,
+    "description": "1st Place Solution for Eedi - Mining Misconceptions in Mathematics Kaggle Competition",
+    "local_dir": "rbiswasfc__eedi-mining-misconceptions",
+    "cloned": true
+  },
+  {
+    "full_name": "TheoViel/kaggle_rsna_abdominal_trauma",
+    "clone_url": "https://github.com/TheoViel/kaggle_rsna_abdominal_trauma.git",
+    "stars": 44,
+    "description": "2nd Place Solution for the RSNA 2023 Abdominal Trauma Detection Kaggle Competition",
+    "local_dir": "TheoViel__kaggle_rsna_abdominal_trauma",
+    "cloned": true
+  }
+]
