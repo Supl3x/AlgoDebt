@@ -24,7 +24,7 @@ python scripts/llm_detector.py --model mistral/mistral-large-latest
 
 ### 4. Run Cohere Command R+
 ```powershell
-python scripts/llm_detector.py --model cohere/command-r-plus
+python scripts/llm_detector.py --model cohere/command-r-plus-08-2024
 ```
 
 ### 5. Run Groq (Llama 3.3)
@@ -46,7 +46,7 @@ python scripts/compare_results.py --model mistral/mistral-large-latest
 ```
 
 ```powershell
-python scripts/compare_results.py --model cohere/command-r-plus
+python scripts/compare_results.py --model cohere/command-r-plus-08-2024
 ```
 
 ```powershell

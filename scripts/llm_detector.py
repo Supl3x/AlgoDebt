@@ -27,6 +27,9 @@ import time
 import litellm
 from litellm import Router
 
+# Force litellm to drop unsupported parameters (like response_format for Cohere)
+litellm.drop_params = True
+
 try:
     from dotenv import load_dotenv
     load_dotenv()
@@ -143,31 +146,62 @@ def get_router(model):
     )
 
 
-def query_llm(model, files_batch, router=None, max_retries=3):
+def query_llm(model, files_batch, router=None, max_retries=3, processed_total=0, target_total=0):
     user_prompt = ""
     for filename, code in files_batch:
         truncated = code[:4000]  # squeeze to fit more in context
         user_prompt += f"File: {filename}\n```python\n{truncated}\n```\n\n"
 
+    messages = [
+        {"role": "system", "content": SYSTEM_PROMPT},
+        {"role": "user", "content": user_prompt},
+    ]
+
+    completion_kwargs = {
+        "model": model,
+        "messages": messages,
+        "temperature": 0.0,
+        "response_format": JSON_SCHEMA,
+    }
+    
+    # Cohere and Groq's backend APIs have strict/buggy schema validators, so we strip response_format out before sending
+    if "cohere/" in model or "groq/" in model:
+        if "response_format" in completion_kwargs:
+            del completion_kwargs["response_format"]
+        messages[0]["content"] += (
+            "\n\nYou MUST return your answer in strictly valid JSON format. "
+            "Return a JSON object containing a single 'results' array. Each item in the array "
+            "must have a 'file_id' string (matching the given filename EXACTLY, character for character) "
+            "and 5 boolean fields for the anti-patterns. Do NOT include any conversational text."
+        )
+        
+    if "groq/" in model:
+        messages[0]["content"] += (
+            "\n\nCRITICAL: The 'file_id' field in your JSON MUST be the full exact string path "
+            "provided to you. Do NOT shorten it to just the base filename, or it will break the evaluation!"
+        )
+        
     for attempt in range(max_retries):
         try:
-            completion_kwargs = {
-                "model": model,
-                "messages": [
-                    {"role": "system", "content": SYSTEM_PROMPT},
-                    {"role": "user", "content": user_prompt},
-                ],
-                "response_format": JSON_SCHEMA,
-            }
-            
             if router:
                 resp = router.completion(**completion_kwargs)
             else:
                 resp = litellm.completion(**completion_kwargs)
             
             if hasattr(resp, 'usage') and resp.usage:
-                print(f"    -> [Token Usage]: {getattr(resp.usage, 'total_tokens', 'Unknown')} tokens")
+                tokens = getattr(resp.usage, 'total_tokens', 'Unknown')
+                num_files = len(files_batch)
+                new_total = processed_total + num_files
                 
+                # Format progress string
+                progress_str = f", {new_total}/{target_total} total" if target_total > 0 else ""
+                
+                print(f"    -> [Token Usage]: {tokens} tokens ({num_files} files{progress_str})")
+                
+                # Log token usage to a separate file
+                log_path = os.path.join(RESULTS_DIR, "llm_findings", "token_usage.log")
+                with open(log_path, "a") as f:
+                    f.write(f"[{time.strftime('%Y-%m-%d %H:%M:%S')}] {model} - {tokens} tokens ({num_files} files{progress_str})\n")
             text = resp.choices[0].message.content.strip()
             # strip markdown fences if the model adds them anyway
             text = re.sub(r"^```json\s*|\s*```$", "", text.strip())
@@ -239,7 +273,7 @@ def main():
     parser.add_argument("--generate-dataset", action="store_true")
     args = parser.parse_args()
 
-    dataset_path = os.path.join(RESULTS_DIR, "evaluation_dataset.json")
+    dataset_path = os.path.join(RESULTS_DIR, "algorithms", "evaluation_dataset.json")
 
     if args.generate_dataset:
         targets = collect_target_files(sample_n=args.sample)
@@ -264,8 +298,12 @@ def main():
         elif args.model.startswith("gemini/"):
             auto_batch = 25
             auto_delay = 4.0
-        elif args.model.startswith("mistral/") or args.model.startswith("cohere/"):
+        elif args.model.startswith("mistral/"):
             auto_batch = 25
+            auto_delay = 2.0
+        elif args.model.startswith("cohere/"):
+            # Increased to 15 to speed up processing, since command-r-plus-08-2024 has a high context window
+            auto_batch = 15
             auto_delay = 2.0
         else:
             auto_batch = 1
@@ -277,8 +315,7 @@ def main():
     print(f"Running LLM detection on {len(targets)} files using {args.model}...")
     print(f"Configuration: batch_size={args.batch_size}, delay={args.delay}s\n")
 
-    safe_model_name = args.model.replace("/", "_").replace(":", "_")
-    out_path = os.path.join(RESULTS_DIR, f"llm_findings_{safe_model_name}.json")
+    out_path = os.path.join(RESULTS_DIR, "llm_findings", f"llm_findings_{args.model.replace('/', '_')}.json")
     
     results = {}
     if os.path.exists(out_path):
@@ -316,7 +353,7 @@ def main():
             continue
 
         print(f"Processing batch {batch_idx//args.batch_size + 1} (Files {batch_idx + 1} to {min(len(targets), batch_idx + args.batch_size)})...")
-        batch_flags = query_llm(args.model, files_batch, router=router)
+        batch_flags = query_llm(args.model, files_batch, router=router, processed_total=len(results), target_total=len(targets))
         
         if batch_flags:
             results.update(batch_flags)

@@ -23,7 +23,7 @@ ANTI_PATTERNS = [
 
 def load_rule_based_flags():
     """Returns dict: 'repo_name/relpath' -> {pattern: bool}"""
-    path = os.path.join(RESULTS_DIR, "rule_based_findings.json")
+    path = os.path.join(RESULTS_DIR, "algorithms", "rule_based_findings.json")
     with open(path) as f:
         baseline = json.load(f)
 
@@ -48,7 +48,7 @@ def main():
     rule_flags = load_rule_based_flags()
 
     safe_model_name = args.model.replace("/", "_").replace(":", "_")
-    llm_path = os.path.join(RESULTS_DIR, f"llm_findings_{safe_model_name}.json")
+    llm_path = os.path.join(RESULTS_DIR, "llm_findings", f"llm_findings_{safe_model_name}.json")
     if not os.path.exists(llm_path):
         print(f"ERROR: {llm_path} not found. Run llm_detector.py with this model first.")
         sys.exit(1)
@@ -100,7 +100,7 @@ def main():
         }
         print(f"{p:30s} {precision:>10.2f} {recall:>10.2f} {f1:>8.2f} {tp:>5d} {fp:>5d} {fn:>5d} {tn:>5d}")
 
-    out_path = os.path.join(RESULTS_DIR, f"comparison_report_{safe_model_name}.json")
+    out_path = os.path.join(RESULTS_DIR, "comparison_reports", f"comparison_report_{safe_model_name}.json")
     with open(out_path, "w") as f:
         json.dump({"stats": report, "disagreements": disagreements}, f, indent=2)
 
