@@ -315,6 +315,7 @@ def main():
     print(f"Running LLM detection on {len(targets)} files using {args.model}...")
     print(f"Configuration: batch_size={args.batch_size}, delay={args.delay}s\n")
 
+    os.makedirs(os.path.join(RESULTS_DIR, "llm_findings"), exist_ok=True)
     out_path = os.path.join(RESULTS_DIR, "llm_findings", f"llm_findings_{args.model.replace('/', '_')}.json")
     
     results = {}

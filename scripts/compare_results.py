@@ -100,6 +100,7 @@ def main():
         }
         print(f"{p:30s} {precision:>10.2f} {recall:>10.2f} {f1:>8.2f} {tp:>5d} {fp:>5d} {fn:>5d} {tn:>5d}")
 
+    os.makedirs(os.path.join(RESULTS_DIR, "comparison_reports"), exist_ok=True)
     out_path = os.path.join(RESULTS_DIR, "comparison_reports", f"comparison_report_{safe_model_name}.json")
     with open(out_path, "w") as f:
         json.dump({"stats": report, "disagreements": disagreements}, f, indent=2)
