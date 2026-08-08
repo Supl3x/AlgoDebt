@@ -38,9 +38,21 @@ def load_rule_based_flags():
 
 
 def main():
+    import argparse
+    import sys
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--model", type=str, required=True,
+                         help="Model name to compare results for (e.g. llama-3.3-70b-versatile)")
+    args = parser.parse_args()
+
     rule_flags = load_rule_based_flags()
 
-    llm_path = os.path.join(RESULTS_DIR, "llm_findings.json")
+    safe_model_name = args.model.replace("/", "_").replace(":", "_")
+    llm_path = os.path.join(RESULTS_DIR, f"llm_findings_{safe_model_name}.json")
+    if not os.path.exists(llm_path):
+        print(f"ERROR: {llm_path} not found. Run llm_detector.py with this model first.")
+        sys.exit(1)
+        
     with open(llm_path) as f:
         llm_flags = json.load(f)
 
@@ -88,7 +100,7 @@ def main():
         }
         print(f"{p:30s} {precision:>10.2f} {recall:>10.2f} {f1:>8.2f} {tp:>5d} {fp:>5d} {fn:>5d} {tn:>5d}")
 
-    out_path = os.path.join(RESULTS_DIR, "comparison_report.json")
+    out_path = os.path.join(RESULTS_DIR, f"comparison_report_{safe_model_name}.json")
     with open(out_path, "w") as f:
         json.dump({"stats": report, "disagreements": disagreements}, f, indent=2)
 
