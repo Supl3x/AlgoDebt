@@ -33,26 +33,26 @@ Instead of relying on prompt engineering, we pass a strict `response_format` to 
 ```mermaid
 graph TD
     A[Real-World ML Repositories] -->|Python Files| B(Rule-Based AST Detector)
-    B -->|Generates Ground Truth| C[results/rule_based_findings.json]
+    B -->|Generates Ground Truth| C[results/algorithms/rule_based_findings.json]
     
     C -->|Random Sampling| D{Generate Evaluation Dataset}
-    D -->|Locks in 200 files| E[results/evaluation_dataset.json]
+    D -->|Locks in 200 files| E[results/algorithms/evaluation_dataset.json]
     
     E -->|Batches of 25 files| F[LiteLLM Router]
     
     F -->|Key 1 Exhausted| G1((API Key 1))
     F -->|Seamless Failover| G2((API Key 2))
     
-    G1 & G2 -->|Valid JSON Schema| H[results/llm_findings_model_name.json]
+    G1 & G2 -->|Valid JSON Schema| H[results/llm_findings/llm_findings_model_name.json]
     H -->|Instant Disk Save| H
     
     C -->|Ground Truth| I{compare_results.py}
     H -->|Predictions| I
     
-    I -->|Calculates F1, Precision, Recall| J([comparison_report_model_name.json])
+    I -->|Calculates F1, Precision, Recall| J([results/comparison_reports/comparison_report_model_name.json])
     
-    classDef file fill:#f9f,stroke:#333,stroke-width:2px;
-    classDef script fill:#bbf,stroke:#333,stroke-width:2px;
+    classDef file fill:#f9f,stroke:#333,stroke-width:2px,color:#000;
+    classDef script fill:#bbf,stroke:#333,stroke-width:2px,color:#000;
     class C,E,H,J file;
     class B,D,F,I script;
 ```
