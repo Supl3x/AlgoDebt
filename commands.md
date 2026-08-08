@@ -34,6 +34,13 @@ python scripts/llm_detector.py --model groq/llama-3.3-70b-versatile
 
 ---
 
+### 🌟 All-in-One Sequential Run (Run all 4 one by one in the same terminal)
+```powershell
+python scripts/llm_detector.py --model gemini/gemini-3.5-flash ; python scripts/llm_detector.py --model mistral/mistral-large-latest ; python scripts/llm_detector.py --model cohere/command-r-plus-08-2024 ; python scripts/llm_detector.py --model groq/llama-3.3-70b-versatile
+```
+
+---
+
 ### 6. Compare Results (Grading)
 *Run this for each model once they finish to get their Precision/Recall/F1 scores.*
 
