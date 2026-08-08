@@ -17,9 +17,18 @@ We specifically hunt for 5 anti-patterns:
 
 ---
 
-## 🏗️ Architecture & Pipeline
+## 🏗️ Architecture & Pipeline (Built for Academic Rigor)
 
-Our pipeline pits a Rule-Based Baseline against various LLMs. Here is how the evaluation workflow operates:
+To process massive datasets on free-tier APIs without hitting limits or corrupting data, we use a robust pipeline featuring **Key-Pooling**, **Strict JSON Schema Enforcement**, and **Instant Checkpointing**.
+
+### 1. Key-Pool Routing (Bypassing Rate Limits)
+The `litellm.Router` acts as a load balancer. By placing multiple numbered API keys in the `.env` file (e.g., `GEMINI_API_KEY_1`, `GEMINI_API_KEY_2`), the router instantly swaps keys the millisecond one hits its daily quota.
+
+### 2. Resumable Checkpointing
+The script writes results to disk immediately after every batch. If you run out of all keys or the script crashes, you lose no data. The script will automatically skip graded files on the next run.
+
+### 3. Strict JSON Schema (Preventing Truncation)
+Instead of relying on prompt engineering, we pass a strict `response_format` to the LLM to force structural JSON output. This allows us to use massive batch sizes (up to 25 files at once) without the LLM getting lazy and truncating the output.
 
 ```mermaid
 graph TD
@@ -27,17 +36,15 @@ graph TD
     B -->|Generates Ground Truth| C[results/rule_based_findings.json]
     
     C -->|Random Sampling| D{Generate Evaluation Dataset}
-    D -->|Locks in 100 files| E[results/evaluation_dataset.json]
+    D -->|Locks in 200 files| E[results/evaluation_dataset.json]
     
-    E -->|Batched Prompting| F[LiteLLM Router]
+    E -->|Batches of 25 files| F[LiteLLM Router]
     
-    F -->|API Request| G1((Groq))
-    F -->|API Request| G2((Gemini))
-    F -->|API Request| G3((Anthropic))
-    F -->|API Request| G4((DeepSeek))
-    F -->|API Request| G5((Mistral))
+    F -->|Key 1 Exhausted| G1((API Key 1))
+    F -->|Seamless Failover| G2((API Key 2))
     
-    G1 & G2 & G3 & G4 & G5 -->|LLM Predictions| H[results/llm_findings_model_name.json]
+    G1 & G2 -->|Valid JSON Schema| H[results/llm_findings_model_name.json]
+    H -->|Instant Disk Save| H
     
     C -->|Ground Truth| I{compare_results.py}
     H -->|Predictions| I
@@ -66,41 +73,12 @@ graph TD
    ```
 
 3. **Configure API Keys:**
-   Create a `.env` file in the root directory and add your API keys:
+   Create a `.env` file in the root directory and add multiple keys for automatic rotation:
    ```env
-   GROQ_API_KEY=your_key
-   GEMINI_API_KEY=your_key
-   ANTHROPIC_API_KEY=your_key
-   DEEPSEEK_API_KEY=your_key
+   GROQ_API_KEY_1=your_key
+   GROQ_API_KEY_2=your_key
+   GEMINI_API_KEY_1=your_key
+   GEMINI_API_KEY_2=your_key
+   COHERE_API_KEY=your_key
    MISTRAL_API_KEY=your_key
    ```
-
----
-
-## ⚙️ Usage Guide
-
-### Step 1: Generate the Test Dataset (Run Once)
-To ensure a fair comparison, all models must be tested on the exact same files.
-```powershell
-python scripts/llm_detector.py --sample 100 --generate-dataset
-```
-
-### Step 2: Run the LLM Detector
-We use `litellm` to route requests, meaning you can test almost any model just by changing the `--model` flag.
-
-* **For APIs with strict Rate Limits (e.g., Groq):** Process 1 file at a time with a delay.
-  ```powershell
-  python scripts/llm_detector.py --model groq/llama-3.3-70b-versatile --batch-size 1 --delay 3
-  ```
-
-* **For APIs with high limits (e.g., Gemini, Anthropic):** Batch files together for massive speedups!
-  ```powershell
-  python scripts/llm_detector.py --model gemini/gemini-1.5-flash --batch-size 25 --delay 1
-  ```
-
-### Step 3: Compare and Grade
-Once the model finishes, generate its performance report (Precision, Recall, F1 Score).
-```powershell
-python scripts/compare_results.py --model gemini/gemini-1.5-flash
-```
-This will output a `results/comparison_report_model_name.json` containing the final grading.
