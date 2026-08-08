@@ -228,7 +228,7 @@ def query_llm(model, files_batch, router=None, max_retries=3, processed_total=0,
 
 
 def collect_target_files(sample_n=None):
-    baseline_path = os.path.join(RESULTS_DIR, "rule_based_findings.json")
+    baseline_path = os.path.join(RESULTS_DIR, "algorithms", "rule_based_findings.json")
     with open(baseline_path) as f:
         baseline = json.load(f)
 

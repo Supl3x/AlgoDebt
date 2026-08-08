@@ -49,8 +49,8 @@ def main():
             "findings": repo_result,
         }
 
-    os.makedirs(RESULTS_DIR, exist_ok=True)
-    out_path = os.path.join(RESULTS_DIR, "rule_based_findings.json")
+    os.makedirs(os.path.join(RESULTS_DIR, "algorithms"), exist_ok=True)
+    out_path = os.path.join(RESULTS_DIR, "algorithms", "rule_based_findings.json")
     with open(out_path, "w") as f:
         json.dump(all_results, f, indent=2)
 
