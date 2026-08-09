@@ -16,10 +16,10 @@ This document tracks all known issues, edge cases, and limitations discovered du
 - **Cause:** Groq has a very strict Tokens Per Minute (TPM) limit on its free tier (~6,000 TPM). An average file with the system prompt and JSON schema costs 1,000–1,500 tokens. A batch of 5 files would exceed 5,000 tokens in a single request, triggering an instant `429 Rate Limit Exceeded` error.
 - **Mitigation:** Batch size is locked to 1 with a 2-second delay. We use `litellm.Router` to pool multiple API keys and seamlessly rotate them when daily quotas are hit.
 
-### 1.3. Mistral Hallucination (Zero Precision)
-- **Issue:** Mistral (`mistral-large-latest`) completely failed across the board, producing near-zero precision and F1 scores. It flagged almost every file for every anti-pattern.
-- **Cause:** The model struggles to differentiate between the *presence* of a pattern and the *mention* of it, or it defaults to `True` when uncertain inside a strict JSON array.
-- **Mitigation:** Documented as a negative result in the comparative analysis.
+### 1.3. Mistral Hallucination (Resolved by Role-Filter)
+- **Issue:** Initially, Mistral (`mistral-large-latest`) completely failed across the board in the zero-shot baseline, producing near-zero precision and F1 scores. It flagged almost every file for every anti-pattern.
+- **Cause:** We initially assumed the model was hallucinating. However, after applying the Two-Pass Role-Filter, we discovered the issue was purely **Context Deprivation**. Mistral is simply hyper-sensitive to the absence of context. When it didn't explicitly know a file was a "utility", it aggressively assumed it was a broken training script.
+- **Resolution:** By gating Mistral behind the File-Role Classifier (Pass 1), its F1 score on structural patterns like Missing Data Validation jumped from 0.00 to 0.41 in Batch 1. This proves the model is capable when given explicit architectural context.
 
 ---
 

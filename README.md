@@ -184,8 +184,8 @@ A two-pass LLM architecture that first classifies each file's role (e.g., *train
 | `utility` | ❌ | ❌ | ❌ | ❌ | ✅ |
 | `test` / `config` | ❌ | ❌ | ❌ | ❌ | ❌ |
 
-### 2. Multi-Model Ensemble Approach
-Combine models with complementary strengths — use Llama 3.3 for hardcoded hyperparameters (high recall) and Gemini for structural patterns (high precision) — to create a hybrid detector that outperforms any single model.
+### 2. Multi-Model Ensemble Approach (Proposed for Production)
+Based on our cross-batch findings, the ultimate production pipeline for Algorithm Debt is an **Ensemble Model**. We propose using a highly capable LLM (Llama 3.3 / Groq) for high-recall syntactic checks (hardcoded values, exceptions) combined with a structurally dominant model (Gemini 3.5 Flash) for leakage and validation checks. All of this must be gated behind a Gemini-powered File-Role classification pass to eliminate context-deprived false positives.
 
 ### 3. Few-Shot and Chain-of-Thought Prompting
 Evaluate whether providing 2–3 annotated examples in the prompt (few-shot) or asking the LLM to reason step-by-step (chain-of-thought) before making a classification significantly reduces false positives on structural anti-patterns.

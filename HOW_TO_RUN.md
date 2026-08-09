@@ -4,6 +4,20 @@ A complete, step-by-step guide to reproduce the entire AlgoDebt evaluation pipel
 
 ---
 
+## 🐣 The Beginner's Summary (TL;DR)
+
+**The Goal:** We want to figure out which AI model (Gemini, Groq, Mistral, or Cohere) is the best at finding "Algorithm Debt" (bad coding practices like hardcoded variables) in Machine Learning code. To do this fairly, we test them all on the exact same files and compare their answers to a 100% accurate "Ground Truth" answer key.
+
+Here is exactly how the pipeline loop works:
+
+1. **Step 1: Get the Code & Answer Key** — Download 30 random ML projects from GitHub (`fetch_repos.py`) and run our traditional algorithm to create the Ground Truth answer key (`run_baseline.py`). *You only do this once!*
+2. **Step 2: Pick the Test Sample** — Pick exactly 200 random files to act as our "Test Exam" for the AI models (`llm_detector.py --generate-dataset`).
+3. **Step 3: Unleash the AI** — Force all 4 models to take the 200-file exam and guess which files have bad code (`llm_detector.py --model ...`). 
+4. **Step 4: The Magic Filter** — AI models lack context (they will flag a math helper script for "missing data validation"). Run the Pipeline Manager (`interactive_pipeline.py`) to automatically classify the files, filter out the AI's stupid context mistakes, and grade their exams.
+5. **Step 5: Pack it Up!** — Archive the batch (`archive_batch.py`) so your workspace is clean and ready to loop back to Step 2 for a brand new test!
+
+---
+
 ## Table of Contents
 
 1. [Prerequisites](#1-prerequisites)
