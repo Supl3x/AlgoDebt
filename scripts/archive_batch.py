@@ -75,8 +75,11 @@ def main():
     print(f"\nArchiving to {new_batch_dir}...")
     os.makedirs(new_batch_dir, exist_ok=True)
     
-    # Move files
-    shutil.move(dataset_path, os.path.join(new_batch_dir, "evaluation_dataset.json"))
+    # Move dataset to centralized datasets folder
+    datasets_dir = os.path.join(archive_dir, "datasets")
+    os.makedirs(datasets_dir, exist_ok=True)
+    new_dataset_path = os.path.join(datasets_dir, f"batch_{next_batch}_dataset.json")
+    shutil.move(dataset_path, new_dataset_path)
     
     if os.path.exists(llm_findings_dir):
         shutil.move(llm_findings_dir, os.path.join(new_batch_dir, "llm_findings"))

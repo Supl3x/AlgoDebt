@@ -17,6 +17,7 @@ USAGE:
 """
 
 import argparse
+import glob
 import json
 import os
 import random
@@ -398,6 +399,36 @@ def collect_target_files(sample_n=None):
     with open(baseline_path) as f:
         baseline = json.load(f)
 
+    # Build exclusion set from historical datasets
+    exclusion_set = set()
+    archive_dir = os.path.join(RESULTS_DIR, "archive")
+    
+    # Check new centralized datasets folder
+    datasets_dir = os.path.join(archive_dir, "datasets")
+    if os.path.exists(datasets_dir):
+        for ds_file in glob.glob(os.path.join(datasets_dir, "*.json")):
+            with open(ds_file, "r") as f:
+                try:
+                    historical_ds = json.load(f)
+                    for item in historical_ds:
+                        exclusion_set.add((item.get("repo_name"), item.get("fpath")))
+                except Exception:
+                    pass
+                    
+    # Check legacy locations just in case (batch_*/evaluation_dataset.json)
+    if os.path.exists(archive_dir):
+        for legacy_ds in glob.glob(os.path.join(archive_dir, "batch_*", "evaluation_dataset.json")):
+            with open(legacy_ds, "r") as f:
+                try:
+                    historical_ds = json.load(f)
+                    for item in historical_ds:
+                        exclusion_set.add((item.get("repo_name"), item.get("fpath")))
+                except Exception:
+                    pass
+                    
+    if exclusion_set:
+        print(f"\n[INFO] Found {len(exclusion_set)} previously evaluated files in archives. Excluding them from the new sample.\n")
+
     flagged_files = []
     clean_files = []
 
@@ -409,6 +440,11 @@ def collect_target_files(sample_n=None):
                 if not fname.endswith(".py"):
                     continue
                 fpath = os.path.join(root, fname)
+                
+                # Skip if already evaluated in a previous batch
+                if (repo_name, fpath) in exclusion_set:
+                    continue
+                    
                 rel = os.path.relpath(fpath, repo_path)
                 if rel in flagged_rel:
                     flagged_files.append((repo_name, fpath))

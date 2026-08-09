@@ -51,6 +51,9 @@ The script writes results to disk immediately after every batch. If you run out 
 ### 5. Strict JSON Schema (Preventing Truncation)
 Instead of relying on prompt engineering, we pass a strict `response_format` to the LLM to force structural JSON output. This allows us to use massive batch sizes (up to 25 files at once) without the LLM getting lazy and truncating the output.
 
+### 6. Cross-Batch Dataset Centralization (Anti-Leakage)
+To prevent data leakage across multiple batches, all randomly generated 200-file datasets are automatically migrated to a centralized `results/archive/datasets/` folder upon archival. When the pipeline generates a new dataset for a new batch, it recursively scans this centralized folder to guarantee that no historical files are ever repeated, ensuring each batch is a completely blind, non-overlapping test.
+
 ```mermaid
 graph TD
     A["Real-World ML Repositories"] -->|Python Files| B(Rule-Based AST Detector)
@@ -237,7 +240,8 @@ AlgoDebt/
 ├── results/
 │   ├── algorithms/                   # Ground truth + evaluation dataset
 │   ├── archive/                      # Completed batch archives
-│   │   └── batch_N/                  # Each batch's dataset + results
+│   │   ├── datasets/                 # Centralized historical datasets (Anti-Leakage)
+│   │   └── batch_N/                  # Each batch's results (llm_findings, comparison_reports)
 │   ├── llm_findings/                 # Active batch LLM outputs
 │   └── comparison_reports/           # Active batch confusion matrices
 ├── Analysis.md                       # Detailed results analysis

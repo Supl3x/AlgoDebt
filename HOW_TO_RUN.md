@@ -11,10 +11,9 @@ A complete, step-by-step guide to reproduce the entire AlgoDebt evaluation pipel
 Here is exactly how the pipeline loop works:
 
 1. **Step 1: Get the Code & Answer Key** — Download 30 random ML projects from GitHub (`fetch_repos.py`) and run our traditional algorithm to create the Ground Truth answer key (`run_baseline.py`). *You only do this once!*
-2. **Step 2: Pick the Test Sample** — Pick exactly 200 random files to act as our "Test Exam" for the AI models (`llm_detector.py --generate-dataset`).
-3. **Step 3: Unleash the AI** — Force all 4 models to take the 200-file exam and guess which files have bad code (`llm_detector.py --model ...`). 
-4. **Step 4: The Magic Filter** — AI models lack context (they will flag a math helper script for "missing data validation"). Run the Pipeline Manager (`interactive_pipeline.py`) to automatically classify the files, filter out the AI's stupid context mistakes, and grade their exams.
-5. **Step 5: Pack it Up!** — Archive the batch (`archive_batch.py`) so your workspace is clean and ready to loop back to Step 2 for a brand new test!
+2. **Step 2: Generate Dataset & Unleash the AI** — Open the Pipeline Manager (`interactive_pipeline.py`) and select **Option 0**. If you don't have a 200-file test exam ready, it will automatically generate a random one for you, and then prompt you to select which AI model(s) should take the exam!
+3. **Step 3: The Magic Filter** — AI models lack context (they will flag a math helper script for "missing data validation"). Run the Pipeline Manager (`interactive_pipeline.py`) again to automatically classify the files (Options 2-5), filter out the AI's stupid context mistakes, and grade their exams.
+4. **Step 4: Pack it Up!** — Archive the batch (`archive_batch.py`) so your workspace is clean and ready to loop back to Step 2 for a brand new test!
 
 ---
 
@@ -224,32 +223,29 @@ python scripts/llm_detector.py --generate-dataset --sample 200
 
 **What happens:**
 - Draws a **60/40 stratified sample**: 60% of files are ones the rule-based detector flagged (positive cases), 40% are clean files (negative cases).
-- Saves the exact file list to `results/algorithms/evaluation_dataset.json`.
-- This file is **locked** — every subsequent LLM run reads from this same list.
+## Stage 3 — Generate Dataset & Run LLM Detectors
 
-**Expected output:**
-```
-Dataset of 200 files generated and saved to results/algorithms/evaluation_dataset.json
-```
+You can now automate the entire front-end of the pipeline using the **Interactive Pipeline Manager** (Option 0). 
 
-> [!WARNING]
-> **Run this only ONCE.** If you re-run it, it will overwrite the dataset with a new random sample, invalidating any prior LLM results. Only regenerate if you intentionally want a fresh sample.
+If you do not already have an active evaluation dataset, the manager will **automatically generate a random 200-file sample** for you, and then immediately prompt you to select which LLMs to run.
 
-**⏱ Estimated time:** < 5 seconds.
-
----
-
-## Stage 4 — Run LLM Detectors
-
-Now run each LLM against the locked 200-file dataset. Each model can be run independently and in any order.
-
-### 4a. Gemini 3.5 Flash
 ```powershell
-python scripts/llm_detector.py --model gemini/gemini-3.5-flash
+python scripts/interactive_pipeline.py
+# Select Option 0: Run LLM Detection Pass
 ```
-- **Batch size:** 25 files/request (auto-configured)
-- **Delay:** 4 seconds between batches
-- **Expected requests:** ~8 total
+
+> [!TIP]
+> **Anti-Leakage Protocol:** When the pipeline auto-generates a new dataset, it secretly scans the `results/archive/datasets/` folder to identify every single file you've evaluated in historical batches. It permanently bans those files from being selected, guaranteeing that every new batch you run is a 100% blind, non-overlapping test!
+
+> [!NOTE]
+> Because Groq and Cohere have strict rate limits, running them sequentially will take several hours. If you prefer, you can manually generate the dataset (`python scripts/llm_detector.py --generate-dataset --sample 200`) and then run the models in parallel in 4 separate terminal windows:
+> ```powershell
+> python scripts/llm_detector.py --model gemini/gemini-3.5-flash
+> python scripts/llm_detector.py --model mistral/mistral-large-latest
+> python scripts/llm_detector.py --model cohere/command-r-plus-08-2024
+> python scripts/llm_detector.py --model groq/llama-3.3-70b-versatile
+> ```
+
 - **⏱ Estimated time:** ~2–5 minutes
 
 ### 4b. Mistral Large
@@ -301,9 +297,10 @@ python scripts/interactive_pipeline.py
 
 **What happens:**
 1. It asks for your target directory (press **Enter** to accept the default).
-2. It asks you to select a pipeline mode:
-   - **`0` (Normal Pipeline):** Generates the raw, baseline F1 comparison reports for all 4 models (without applying the role filter) and neatly packs them into a `normal_processing/` folder.
-   - **`1-4` (Role-Based Pipeline):** You select a model (e.g., Gemini) to act as the "File-Role Classifier". The pipeline automatically classifies the files, applies the strict eligibility filter to all 4 models' findings, generates *both* filtered and unfiltered comparison reports, and packs everything into a `{model}_processing/` folder.
+2. It asks you to select an action:
+   - **`0` (Run LLM Detection Pass):** Opens a sub-menu allowing you to run the LLM scan for a specific model (options 2-5) or ALL 4 models sequentially (option 6).
+   - **`1` (Normal Pipeline):** Generates the raw, baseline F1 comparison reports for all 4 models (without applying the role filter) and neatly packs them into a `normal_processing/` folder.
+   - **`2-5` (Role-Based Pipeline):** You select a model (e.g., `2` for Gemini) to act as the "File-Role Classifier". The pipeline automatically classifies the files, applies the strict eligibility filter to all 4 models' findings, generates *both* filtered and unfiltered comparison reports, and packs everything into a `{model}_processing/` folder.
 
 This manager replaces the old manual filtering and grading scripts, handling the entire back-end of the evaluation in seconds.
 
@@ -334,9 +331,9 @@ If either condition fails, it refuses to archive unless `--force` is used.
 - `results/algorithms/repo_manifest.json` — the repo metadata doesn't change.
 
 **What gets archived (batch-specific):**
-- `evaluation_dataset.json` — the 200-file sample unique to this batch.
 - `llm_findings/` — all model outputs + role classifications for this batch.
 - `comparison_reports/` — all comparison reports (including role-filtered ones).
+- The `evaluation_dataset.json` is stripped from the batch and moved to the centralized `results/archive/datasets/` folder to fuel the Anti-Leakage Protocol for future batches.
 
 After archiving, generate a **fresh dataset** and repeat from Stage 3:
 ```powershell
@@ -444,6 +441,8 @@ AlgoDebt/
 ├── results/
 │   ├── algorithms/                   # Ground truth + active evaluation dataset
 │   ├── archive/                      # Completed batch archives (batch_1/, batch_2/, ...)
+│   │   ├── datasets/                 # Centralized historical datasets (Anti-Leakage)
+│   │   └── batch_N/                  # Each batch's results (llm_findings, comparison_reports)
 │   ├── llm_findings/                 # Active batch LLM outputs
 │   └── comparison_reports/           # Active batch confusion matrices
 ├── Analysis.md                       # Human-written analysis of results
