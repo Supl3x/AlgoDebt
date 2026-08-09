@@ -33,7 +33,8 @@ def load_rule_based_flags():
         # rule_based_findings.json only stores files WITH findings;
         # llm_findings.json may include clean files too, so default to all-False
         for rel, flags in flagged_files.items():
-            flags_by_file[f"{repo_name}/{rel}"] = flags
+            file_key = f"{repo_name}/{rel}".replace("\\", "/")
+            flags_by_file[file_key] = flags
     return flags_by_file
 
 
@@ -43,18 +44,21 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--model", type=str, required=True,
                          help="Model name to compare results for (e.g. llama-3.3-70b-versatile)")
+    parser.add_argument("--results-dir", type=str, default=RESULTS_DIR,
+                         help="Directory containing algorithms, llm_findings, and comparison_reports")
     args = parser.parse_args()
 
     rule_flags = load_rule_based_flags()
 
     safe_model_name = args.model.replace("/", "_").replace(":", "_")
-    llm_path = os.path.join(RESULTS_DIR, "llm_findings", f"llm_findings_{safe_model_name}.json")
+    llm_path = os.path.join(args.results_dir, "llm_findings", f"llm_findings_{safe_model_name}.json")
     if not os.path.exists(llm_path):
         print(f"ERROR: {llm_path} not found. Run llm_detector.py with this model first.")
         sys.exit(1)
         
     with open(llm_path) as f:
-        llm_flags = json.load(f)
+        llm_flags_raw = json.load(f)
+        llm_flags = {k.replace("\\", "/"): v for k, v in llm_flags_raw.items()}
 
     # Confusion matrix counts per pattern
     stats = {p: {"tp": 0, "fp": 0, "fn": 0, "tn": 0} for p in ANTI_PATTERNS}
@@ -100,8 +104,8 @@ def main():
         }
         print(f"{p:30s} {precision:>10.2f} {recall:>10.2f} {f1:>8.2f} {tp:>5d} {fp:>5d} {fn:>5d} {tn:>5d}")
 
-    os.makedirs(os.path.join(RESULTS_DIR, "comparison_reports"), exist_ok=True)
-    out_path = os.path.join(RESULTS_DIR, "comparison_reports", f"comparison_report_{safe_model_name}.json")
+    os.makedirs(os.path.join(args.results_dir, "comparison_reports"), exist_ok=True)
+    out_path = os.path.join(args.results_dir, "comparison_reports", f"comparison_report_{safe_model_name}.json")
     with open(out_path, "w") as f:
         json.dump({"stats": report, "disagreements": disagreements}, f, indent=2)
 
