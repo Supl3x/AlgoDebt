@@ -4,7 +4,7 @@ This repository contains the evaluation pipeline for our research on detecting *
 
 ---
 
-## 🧠 What is Algorithm Debt?
+## What is Algorithm Debt?
 
 Algorithm Debt refers to poor coding practices in ML systems that might work in the short term but cause significant maintenance, reproducibility, or accuracy issues in the long term. 
 
@@ -17,17 +17,38 @@ We specifically hunt for 5 anti-patterns:
 
 ---
 
-## 🏗️ Architecture & Pipeline (Built for Academic Rigor)
+## Architecture & Pipeline
 
-To process massive datasets on free-tier APIs without hitting limits or corrupting data, we use a robust pipeline featuring **Key-Pooling**, **Strict JSON Schema Enforcement**, and **Instant Checkpointing**.
+To process massive datasets on free-tier APIs without hitting limits or corrupting data, we use a robust pipeline featuring **Key-Pooling**, **Strict JSON Schema Enforcement**, **Instant Checkpointing**, and a **Two-Pass Classification Architecture**.
 
-### 1. Key-Pool Routing (Bypassing Rate Limits)
+### 1. Two-Pass Classification Architecture (Pre-Filter)
+The primary failure mode of zero-shot LLMs is context deprivation (e.g., incorrectly flagging a utility script for missing data validation). To resolve this, our pipeline enforces a two-pass system:
+- **Pass 1:** The LLM classifies the file's role (e.g., `training_script`, `utility`, `test`).
+- **Pass 2:** Existing raw detection flags are filtered against an eligibility matrix. Ineligible flags are automatically reversed.
+
+### 2. Interactive Pipeline Manager
+To facilitate comparative research, we designed an interactive CLI (`scripts/interactive_pipeline.py`) that fully automates the classification and filtering workflows. It executes the file classification using a user-selected model, automatically filters all findings, generates updated comparison reports, and cleanly packages the results into distinct execution folders.
+
+```mermaid
+graph TD
+    A[Raw Batch Directory] -->|User Selects Model| B(interactive_pipeline.py)
+    B -->|1. Classify| C[Pass 1: File-Role Classification]
+    C -->|2. Apply Filter| D[Pass 2: Apply Role Filter]
+    D -->|3. Compare| E[Pass 3: Generate F1 Reports]
+    E -->|4. Organize| F{Move to Processing Folder}
+    
+    F -->|If Gemini Selected| G(gemini_processing/)
+    F -->|If Mistral Selected| H(mistral_processing/)
+    F -->|If Cohere Selected| I(cohere_processing/)
+```
+
+### 3. Key-Pool Routing (Bypassing Rate Limits)
 The `litellm.Router` acts as a load balancer. By placing multiple numbered API keys in the `.env` file (e.g., `GEMINI_API_KEY_1`, `GEMINI_API_KEY_2`), the router instantly swaps keys the millisecond one hits its daily quota.
 
-### 2. Resumable Checkpointing
+### 4. Resumable Checkpointing
 The script writes results to disk immediately after every batch. If you run out of all keys or the script crashes, you lose no data. The script will automatically skip graded files on the next run.
 
-### 3. Strict JSON Schema (Preventing Truncation)
+### 5. Strict JSON Schema (Preventing Truncation)
 Instead of relying on prompt engineering, we pass a strict `response_format` to the LLM to force structural JSON output. This allows us to use massive batch sizes (up to 25 files at once) without the LLM getting lazy and truncating the output.
 
 ```mermaid
@@ -68,7 +89,7 @@ graph TD
 
 ---
 
-## 🚀 Setup Instructions
+## Setup Instructions
 
 1. **Create and activate the virtual environment:**
    ```powershell
@@ -96,7 +117,7 @@ graph TD
 
 ---
 
-## 📊 Results Summary
+## Results Summary
 
 We evaluated **4 LLMs** against the rule-based AST baseline across a locked dataset of **200 Python files** from **28 real-world GitHub repositories**.
 
@@ -120,7 +141,7 @@ We evaluated **4 LLMs** against the rule-based AST baseline across a locked data
 
 ---
 
-## ⚠️ Limitations
+## Limitations
 
 ### 1. Rule-Based Ground Truth is Heuristic, Not Perfect
 The AST-based detector serves as the ground truth baseline, but it is itself a heuristic. Some of the LLM's "false positives" may actually be legitimate detections that the rule-based tool missed (e.g., the LLM recognizing a subtle form of hardcoded hyperparameter that doesn't match the keyword list). The rule-based detector was validated on synthetic test cases, but not exhaustively verified across all 1,619 files.
@@ -145,9 +166,9 @@ All LLMs were evaluated using a single zero-shot system prompt with `temperature
 
 ---
 
-## 🔮 Future Scope
+## Future Scope
 
-### 1. ✅ File-Role Classification Pre-Filter (Implemented)
+### 1. File-Role Classification Pre-Filter (Implemented)
 A two-pass LLM architecture that first classifies each file's role (e.g., *training script*, *model architecture*, *utility/helper*, *test file*, *config*) before checking for anti-patterns. Only patterns relevant to the file's role are checked — for example, `missing_data_validation` is only checked on training scripts and data pipelines, not on utility files or tests. This eliminates the primary source of false positives observed across all models.
 
 **How it works:**
@@ -192,7 +213,7 @@ Package the rule-based detector as a VS Code / PyCharm extension that provides r
 
 ---
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 AlgoDebt/
@@ -210,7 +231,8 @@ AlgoDebt/
 │   ├── llm_detector.py               # LLM evaluation with key pooling + file classification
 │   ├── compare_results.py            # Precision / Recall / F1 calculator
 │   ├── apply_role_filter.py          # Apply role-based filtering to existing findings
-│   └── archive_batch.py              # Archive completed batch to results/archive/
+│   ├── archive_batch.py              # Archive completed batch to results/archive/
+│   └── interactive_pipeline.py       # Interactive CLI for multi-model processing
 ├── repos/                            # Cloned repositories (git-ignored)
 ├── results/
 │   ├── algorithms/                   # Ground truth + evaluation dataset
@@ -229,7 +251,7 @@ AlgoDebt/
 
 ---
 
-## 📝 Citation
+## Citation
 
 If you use this pipeline or dataset in your research, please cite:
 

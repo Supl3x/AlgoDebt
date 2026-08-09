@@ -1,0 +1,765 @@
+{
+  "machml__polars_splitters/tests/unit/test_tests_utils.py": {
+    "hardcoded_hyperparameters": false,
+    "missing_data_validation": false,
+    "train_test_leakage": false,
+    "no_reproducibility_control": false,
+    "silent_exception_handling": false
+  },
+  "raj200501__sdn-nfv-ml-enhancement/models/anomaly_detection/autoencoder.py": {
+    "hardcoded_hyperparameters": true,
+    "missing_data_validation": true,
+    "train_test_leakage": false,
+    "no_reproducibility_control": false,
+    "silent_exception_handling": false
+  },
+  "pranftw__autopilot/src/autopilot/core/loops/loop.py": {
+    "hardcoded_hyperparameters": true,
+    "missing_data_validation": false,
+    "train_test_leakage": false,
+    "no_reproducibility_control": false,
+    "silent_exception_handling": false
+  },
+  "raj200501__sdn-nfv-ml-enhancement/sklearn/preprocessing.py": {
+    "hardcoded_hyperparameters": false,
+    "missing_data_validation": false,
+    "train_test_leakage": false,
+    "no_reproducibility_control": false,
+    "silent_exception_handling": false
+  },
+  "loevlie__neuropt/examples/train_resnet.py": {
+    "hardcoded_hyperparameters": true,
+    "missing_data_validation": true,
+    "train_test_leakage": false,
+    "no_reproducibility_control": false,
+    "silent_exception_handling": false
+  },
+  "tascj__kaggle-map-charting-student-math-misunderstandings/configs/release/y_0.py": {
+    "hardcoded_hyperparameters": false,
+    "missing_data_validation": false,
+    "train_test_leakage": false,
+    "no_reproducibility_control": false,
+    "silent_exception_handling": false
+  },
+  "raj200501__sdn-nfv-ml-enhancement/evaluation/model_evaluation.py": {
+    "hardcoded_hyperparameters": false,
+    "missing_data_validation": true,
+    "train_test_leakage": false,
+    "no_reproducibility_control": true,
+    "silent_exception_handling": false
+  },
+  "rayshaun-code__ML-Image/data/classifier.py": {
+    "hardcoded_hyperparameters": true,
+    "missing_data_validation": false,
+    "train_test_leakage": false,
+    "no_reproducibility_control": false,
+    "silent_exception_handling": false
+  },
+  "igorshmukler__kokoro-ruslan/tests/unit/test_decoder_checkpoint_regression.py": {
+    "hardcoded_hyperparameters": false,
+    "missing_data_validation": false,
+    "train_test_leakage": false,
+    "no_reproducibility_control": false,
+    "silent_exception_handling": false
+  },
+  "pranftw__autopilot/tests/core/test_training_pipeline.py": {
+    "hardcoded_hyperparameters": false,
+    "missing_data_validation": false,
+    "train_test_leakage": false,
+    "no_reproducibility_control": false,
+    "silent_exception_handling": false
+  },
+  "pranftw__autopilot/tests/core/test_experiment_rollback.py": {
+    "hardcoded_hyperparameters": false,
+    "missing_data_validation": false,
+    "train_test_leakage": false,
+    "no_reproducibility_control": false,
+    "silent_exception_handling": false
+  },
+  "MhmdGamalAskar__Unet-Segmentation-from-scratch/train.py": {
+    "hardcoded_hyperparameters": true,
+    "missing_data_validation": true,
+    "train_test_leakage": false,
+    "no_reproducibility_control": true,
+    "silent_exception_handling": false
+  },
+  "jcole75__arc_2025_mindsai/src/modules/dataset_generator.py": {
+    "hardcoded_hyperparameters": true,
+    "missing_data_validation": true,
+    "train_test_leakage": false,
+    "no_reproducibility_control": false,
+    "silent_exception_handling": true
+  },
+  "pranftw__autopilot/tests/ai/test_generator.py": {
+    "hardcoded_hyperparameters": false,
+    "missing_data_validation": false,
+    "train_test_leakage": false,
+    "no_reproducibility_control": false,
+    "silent_exception_handling": false
+  },
+  "pranftw__autopilot/tests/integration/test_trainer_callbacks_hooks.py": {
+    "hardcoded_hyperparameters": false,
+    "missing_data_validation": false,
+    "train_test_leakage": false,
+    "no_reproducibility_control": false,
+    "silent_exception_handling": false
+  },
+  "tascj__kaggle-map-charting-student-math-misunderstandings/prepare_submission.py": {
+    "hardcoded_hyperparameters": false,
+    "missing_data_validation": true,
+    "train_test_leakage": true,
+    "no_reproducibility_control": false,
+    "silent_exception_handling": false
+  },
+  "daekeun-ml__aws-ai-infra-helper/torchtitan/torchtitan/experiments/autoparallel/local_map_deepseek_v3/args.py": {
+    "hardcoded_hyperparameters": false,
+    "missing_data_validation": false,
+    "train_test_leakage": false,
+    "no_reproducibility_control": false,
+    "silent_exception_handling": false
+  },
+  "pranftw__autopilot/src/autopilot/ai/store/refs.py": {
+    "hardcoded_hyperparameters": false,
+    "missing_data_validation": false,
+    "train_test_leakage": false,
+    "no_reproducibility_control": false,
+    "silent_exception_handling": false
+  },
+  "pranftw__autopilot/tests/ai/test_data_streaming.py": {
+    "hardcoded_hyperparameters": false,
+    "missing_data_validation": false,
+    "train_test_leakage": false,
+    "no_reproducibility_control": false,
+    "silent_exception_handling": false
+  },
+  "pranftw__autopilot/tests/core/test_orchestrator.py": {
+    "hardcoded_hyperparameters": false,
+    "missing_data_validation": false,
+    "train_test_leakage": false,
+    "no_reproducibility_control": false,
+    "silent_exception_handling": false
+  },
+  "pranftw__autopilot/src/autopilot/cli/commands/stabilize.py": {
+    "hardcoded_hyperparameters": false,
+    "missing_data_validation": false,
+    "train_test_leakage": false,
+    "no_reproducibility_control": false,
+    "silent_exception_handling": false
+  },
+  "Chris-hughes10__pytorch-accelerated/examples/vision/faster_rcnn/evaluation/coco_evaluator.py": {
+    "hardcoded_hyperparameters": true,
+    "missing_data_validation": false,
+    "train_test_leakage": false,
+    "no_reproducibility_control": false,
+    "silent_exception_handling": false
+  },
+  "pranftw__autopilot/tests/core/test_resume_tokens.py": {
+    "hardcoded_hyperparameters": false,
+    "missing_data_validation": false,
+    "train_test_leakage": false,
+    "no_reproducibility_control": false,
+    "silent_exception_handling": false
+  },
+  "loevlie__neuropt/neuropt/introspect.py": {
+    "hardcoded_hyperparameters": false,
+    "missing_data_validation": false,
+    "train_test_leakage": false,
+    "no_reproducibility_control": false,
+    "silent_exception_handling": false
+  },
+  "igorshmukler__kokoro-ruslan/scripts/analyze_training_regression.py": {
+    "hardcoded_hyperparameters": false,
+    "missing_data_validation": false,
+    "train_test_leakage": false,
+    "no_reproducibility_control": false,
+    "silent_exception_handling": true
+  },
+  "raj200501__sdn-nfv-ml-enhancement/models/traffic_prediction/linear_regression.py": {
+    "hardcoded_hyperparameters": true,
+    "missing_data_validation": true,
+    "train_test_leakage": false,
+    "no_reproducibility_control": false,
+    "silent_exception_handling": false
+  },
+  "pranftw__autopilot/tests/core/test_error_messages.py": {
+    "hardcoded_hyperparameters": false,
+    "missing_data_validation": false,
+    "train_test_leakage": false,
+    "no_reproducibility_control": false,
+    "silent_exception_handling": false
+  },
+  "pranftw__autopilot/tests/integration/test_full_experiment_lifecycle.py": {
+    "hardcoded_hyperparameters": false,
+    "missing_data_validation": false,
+    "train_test_leakage": false,
+    "no_reproducibility_control": false,
+    "silent_exception_handling": false
+  },
+  "tascj__kaggle-map-charting-student-math-misunderstandings/configs/x_0.py": {
+    "hardcoded_hyperparameters": true,
+    "missing_data_validation": true,
+    "train_test_leakage": false,
+    "no_reproducibility_control": false,
+    "silent_exception_handling": false
+  },
+  "igorshmukler__kokoro-ruslan/tests/unit/test_stress_embedding.py": {
+    "hardcoded_hyperparameters": false,
+    "missing_data_validation": false,
+    "train_test_leakage": false,
+    "no_reproducibility_control": false,
+    "silent_exception_handling": false
+  },
+  "daekeun-ml__aws-ai-infra-helper/torchtitan/scripts/ensure_tokenizer.py": {
+    "hardcoded_hyperparameters": false,
+    "missing_data_validation": false,
+    "train_test_leakage": false,
+    "no_reproducibility_control": false,
+    "silent_exception_handling": false
+  },
+  "pranftw__autopilot/src/autopilot/core/status.py": {
+    "hardcoded_hyperparameters": false,
+    "missing_data_validation": false,
+    "train_test_leakage": false,
+    "no_reproducibility_control": false,
+    "silent_exception_handling": false
+  },
+  "pranftw__autopilot/tests/core/test_experiment_context.py": {
+    "hardcoded_hyperparameters": false,
+    "missing_data_validation": false,
+    "train_test_leakage": false,
+    "no_reproducibility_control": false,
+    "silent_exception_handling": false
+  },
+  "pranftw__autopilot/src/autopilot/ai/store/file_store_core_peripherals.py": {
+    "hardcoded_hyperparameters": false,
+    "missing_data_validation": false,
+    "train_test_leakage": false,
+    "no_reproducibility_control": false,
+    "silent_exception_handling": false
+  },
+  "microsoft__dstoolkit-devcontainers/notebooks/sample_notebook.py": {
+    "hardcoded_hyperparameters": false,
+    "missing_data_validation": false,
+    "train_test_leakage": false,
+    "no_reproducibility_control": false,
+    "silent_exception_handling": false
+  },
+  "loevlie__neuropt/neuropt/arch_search.py": {
+    "hardcoded_hyperparameters": true,
+    "missing_data_validation": true,
+    "train_test_leakage": false,
+    "no_reproducibility_control": true,
+    "silent_exception_handling": false
+  },
+  "daekeun-ml__aws-ai-infra-helper/torchtitan/torchtitan/experiments/autoparallel/local_map_deepseek_v3/config_registry.py": {
+    "hardcoded_hyperparameters": false,
+    "missing_data_validation": false,
+    "train_test_leakage": false,
+    "no_reproducibility_control": false,
+    "silent_exception_handling": false
+  },
+  "daekeun-ml__aws-ai-infra-helper/fsdp/src/model_utils/train_utils.py": {
+    "hardcoded_hyperparameters": true,
+    "missing_data_validation": true,
+    "train_test_leakage": false,
+    "no_reproducibility_control": true,
+    "silent_exception_handling": false
+  },
+  "pranftw__autopilot/tests/unit/test_readme_contracts.py": {
+    "hardcoded_hyperparameters": false,
+    "missing_data_validation": false,
+    "train_test_leakage": false,
+    "no_reproducibility_control": false,
+    "silent_exception_handling": false
+  },
+  "pranftw__autopilot/tests/test_quality/test_template_accuracy.py": {
+    "hardcoded_hyperparameters": false,
+    "missing_data_validation": false,
+    "train_test_leakage": false,
+    "no_reproducibility_control": false,
+    "silent_exception_handling": false
+  },
+  "TheoViel__kaggle_rsna_abdominal_trauma/src/training/main_lvl2.py": {
+    "hardcoded_hyperparameters": false,
+    "missing_data_validation": true,
+    "train_test_leakage": false,
+    "no_reproducibility_control": false,
+    "silent_exception_handling": false
+  },
+  "jcole75__arc_2025_mindsai/src/modules/distributed_executor.py": {
+    "hardcoded_hyperparameters": false,
+    "missing_data_validation": true,
+    "train_test_leakage": false,
+    "no_reproducibility_control": true,
+    "silent_exception_handling": true
+  },
+  "pranftw__autopilot/src/autopilot/ai/store/doctor.py": {
+    "hardcoded_hyperparameters": false,
+    "missing_data_validation": false,
+    "train_test_leakage": false,
+    "no_reproducibility_control": false,
+    "silent_exception_handling": false
+  },
+  "pranftw__autopilot/tests/integration/test_experiment_loop_contract.py": {
+    "hardcoded_hyperparameters": false,
+    "missing_data_validation": false,
+    "train_test_leakage": false,
+    "no_reproducibility_control": false,
+    "silent_exception_handling": false
+  },
+  "daekeun-ml__aws-ai-infra-helper/torchtitan/torchtitan/experiments/transformers_modeling_backend/config_registry.py": {
+    "hardcoded_hyperparameters": false,
+    "missing_data_validation": false,
+    "train_test_leakage": false,
+    "no_reproducibility_control": false,
+    "silent_exception_handling": false
+  },
+  "pranftw__autopilot/examples/protim/protim/data.py": {
+    "hardcoded_hyperparameters": false,
+    "missing_data_validation": true,
+    "train_test_leakage": false,
+    "no_reproducibility_control": false,
+    "silent_exception_handling": false
+  },
+  "tascj__kaggle-map-charting-student-math-misunderstandings/configs/release/y_2.py": {
+    "hardcoded_hyperparameters": false,
+    "missing_data_validation": false,
+    "train_test_leakage": false,
+    "no_reproducibility_control": false,
+    "silent_exception_handling": false
+  },
+  "KhaledAshrafH__DT-Banknote-Authenticator/main.py": {
+    "hardcoded_hyperparameters": true,
+    "missing_data_validation": true,
+    "train_test_leakage": false,
+    "no_reproducibility_control": true,
+    "silent_exception_handling": false
+  },
+  "amita1996__MABe-Kaggle-Challenge/run.py": {
+    "hardcoded_hyperparameters": false,
+    "missing_data_validation": true,
+    "train_test_leakage": false,
+    "no_reproducibility_control": false,
+    "silent_exception_handling": false
+  },
+  "pranftw__autopilot/examples/protim/protim/module.py": {
+    "hardcoded_hyperparameters": false,
+    "missing_data_validation": false,
+    "train_test_leakage": false,
+    "no_reproducibility_control": false,
+    "silent_exception_handling": false
+  },
+  "igorshmukler__kokoro-ruslan/src/kokoro/cli/precompute_features.py": {
+    "hardcoded_hyperparameters": false,
+    "missing_data_validation": false,
+    "train_test_leakage": false,
+    "no_reproducibility_control": false,
+    "silent_exception_handling": true
+  },
+  "jcole75__arc_2025_mindsai/src/modules/config/paths.py": {
+    "hardcoded_hyperparameters": false,
+    "missing_data_validation": false,
+    "train_test_leakage": false,
+    "no_reproducibility_control": false,
+    "silent_exception_handling": false
+  },
+  "daekeun-ml__aws-ai-infra-helper/torchtitan/torchtitan/experiments/graph_trainer/tests/test_numerics.py": {
+    "hardcoded_hyperparameters": false,
+    "missing_data_validation": false,
+    "train_test_leakage": false,
+    "no_reproducibility_control": false,
+    "silent_exception_handling": false
+  },
+  "loevlie__neuropt/examples/train_fashion.py": {
+    "hardcoded_hyperparameters": true,
+    "missing_data_validation": true,
+    "train_test_leakage": false,
+    "no_reproducibility_control": false,
+    "silent_exception_handling": false
+  },
+  "pranftw__autopilot/tests/integration/test_cli_report_notes_api_contracts_smoke.py": {
+    "hardcoded_hyperparameters": false,
+    "missing_data_validation": false,
+    "train_test_leakage": false,
+    "no_reproducibility_control": false,
+    "silent_exception_handling": false
+  },
+  "tascj__kaggle-map-charting-student-math-misunderstandings/configs/baseline.py": {
+    "hardcoded_hyperparameters": false,
+    "missing_data_validation": false,
+    "train_test_leakage": false,
+    "no_reproducibility_control": false,
+    "silent_exception_handling": false
+  },
+  "igorshmukler__kokoro-ruslan/tests/unit/test_optimizer_param_groups.py": {
+    "hardcoded_hyperparameters": false,
+    "missing_data_validation": false,
+    "train_test_leakage": false,
+    "no_reproducibility_control": false,
+    "silent_exception_handling": false
+  },
+  "pranftw__autopilot/tests/ai/test_checkpoints.py": {
+    "hardcoded_hyperparameters": false,
+    "missing_data_validation": false,
+    "train_test_leakage": false,
+    "no_reproducibility_control": false,
+    "silent_exception_handling": false
+  },
+  "Hanxian2Ai__Kaggle-Competition-Image-To-Prompt/train/train_vit.py": {
+    "hardcoded_hyperparameters": false,
+    "missing_data_validation": true,
+    "train_test_leakage": false,
+    "no_reproducibility_control": false,
+    "silent_exception_handling": false
+  },
+  "daekeun-ml__aws-ai-infra-helper/torchtitan/torchtitan/experiments/vlm/__init__.py": {
+    "hardcoded_hyperparameters": true,
+    "missing_data_validation": false,
+    "train_test_leakage": false,
+    "no_reproducibility_control": false,
+    "silent_exception_handling": false
+  },
+  "Hanxian2Ai__Kaggle-Competition-Image-To-Prompt/data_clean/data_clean.py": {
+    "hardcoded_hyperparameters": true,
+    "missing_data_validation": false,
+    "train_test_leakage": false,
+    "no_reproducibility_control": false,
+    "silent_exception_handling": false
+  },
+  "loevlie__neuropt/examples/benchmark_utils.py": {
+    "hardcoded_hyperparameters": true,
+    "missing_data_validation": false,
+    "train_test_leakage": false,
+    "no_reproducibility_control": false,
+    "silent_exception_handling": false
+  },
+  "pranftw__autopilot/src/autopilot/cli/output.py": {
+    "hardcoded_hyperparameters": false,
+    "missing_data_validation": false,
+    "train_test_leakage": false,
+    "no_reproducibility_control": false,
+    "silent_exception_handling": false
+  },
+  "pranftw__autopilot/tests/cli/test_experiment_tree_ux.py": {
+    "hardcoded_hyperparameters": false,
+    "missing_data_validation": false,
+    "train_test_leakage": false,
+    "no_reproducibility_control": false,
+    "silent_exception_handling": false
+  },
+  "Chris-hughes10__pytorch-accelerated/examples/vision/transfer_learning/pets_finetune.py": {
+    "hardcoded_hyperparameters": true,
+    "missing_data_validation": true,
+    "train_test_leakage": false,
+    "no_reproducibility_control": true,
+    "silent_exception_handling": false
+  },
+  "tascj__kaggle-map-charting-student-math-misunderstandings/map_modules/optim/offload_adam_gr.py": {
+    "hardcoded_hyperparameters": true,
+    "missing_data_validation": false,
+    "train_test_leakage": false,
+    "no_reproducibility_control": false,
+    "silent_exception_handling": false
+  },
+  "tattaka__Taggle/taggle/models/sync_batchnorm/batchnorm_reimpl.py": {
+    "hardcoded_hyperparameters": true,
+    "missing_data_validation": false,
+    "train_test_leakage": false,
+    "no_reproducibility_control": false,
+    "silent_exception_handling": false
+  },
+  "tascj__kaggle-map-charting-student-math-misunderstandings/configs/release/x_2infer.py": {
+    "hardcoded_hyperparameters": false,
+    "missing_data_validation": false,
+    "train_test_leakage": false,
+    "no_reproducibility_control": false,
+    "silent_exception_handling": false
+  },
+  "pranftw__autopilot/tests/cli/test_reflog_commands.py": {
+    "hardcoded_hyperparameters": false,
+    "missing_data_validation": false,
+    "train_test_leakage": false,
+    "no_reproducibility_control": false,
+    "silent_exception_handling": false
+  },
+  "TheoViel__kaggle_rsna_abdominal_trauma/src/model_zoo/models.py": {
+    "hardcoded_hyperparameters": false,
+    "missing_data_validation": false,
+    "train_test_leakage": false,
+    "no_reproducibility_control": false,
+    "silent_exception_handling": false
+  },
+  "pranftw__autopilot/tests/cli/test_tag_verify.py": {
+    "hardcoded_hyperparameters": false,
+    "missing_data_validation": false,
+    "train_test_leakage": false,
+    "no_reproducibility_control": false,
+    "silent_exception_handling": false
+  },
+  "pranftw__autopilot/src/autopilot/core/store/types.py": {
+    "hardcoded_hyperparameters": false,
+    "missing_data_validation": false,
+    "train_test_leakage": false,
+    "no_reproducibility_control": false,
+    "silent_exception_handling": false
+  },
+  "pranftw__autopilot/tests/integration/test_gradient_flow.py": {
+    "hardcoded_hyperparameters": false,
+    "missing_data_validation": false,
+    "train_test_leakage": false,
+    "no_reproducibility_control": false,
+    "silent_exception_handling": false
+  },
+  "pranftw__autopilot/tests/cli/test_stabilize_numeric.py": {
+    "hardcoded_hyperparameters": false,
+    "missing_data_validation": false,
+    "train_test_leakage": false,
+    "no_reproducibility_control": false,
+    "silent_exception_handling": false
+  },
+  "maxreciprocate__kaggle-lmarena-1st-place/label.py": {
+    "hardcoded_hyperparameters": true,
+    "missing_data_validation": true,
+    "train_test_leakage": false,
+    "no_reproducibility_control": true,
+    "silent_exception_handling": false
+  },
+  "pranftw__autopilot/tests/dogfood_regressions/test_v7_regressions.py": {
+    "hardcoded_hyperparameters": false,
+    "missing_data_validation": false,
+    "train_test_leakage": false,
+    "no_reproducibility_control": false,
+    "silent_exception_handling": false
+  },
+  "daekeun-ml__aws-ai-infra-helper/torchtitan/torchtitan/models/flux/model/model.py": {
+    "hardcoded_hyperparameters": true,
+    "missing_data_validation": false,
+    "train_test_leakage": false,
+    "no_reproducibility_control": false,
+    "silent_exception_handling": false
+  },
+  "jcole75__arc_2025_mindsai/src/modules/config/env.py": {
+    "hardcoded_hyperparameters": false,
+    "missing_data_validation": false,
+    "train_test_leakage": false,
+    "no_reproducibility_control": false,
+    "silent_exception_handling": false
+  },
+  "igorshmukler__kokoro-ruslan/tests/unit/test_dataset_energy_log_domain_explicit.py": {
+    "hardcoded_hyperparameters": false,
+    "missing_data_validation": false,
+    "train_test_leakage": false,
+    "no_reproducibility_control": false,
+    "silent_exception_handling": false
+  },
+  "Ayush-Aditya__decoder-only-seq2seq/src/training/trainer.py": {
+    "hardcoded_hyperparameters": false,
+    "missing_data_validation": true,
+    "train_test_leakage": false,
+    "no_reproducibility_control": true,
+    "silent_exception_handling": false
+  },
+  "tascj__kaggle-map-charting-student-math-misunderstandings/train_aux.py": {
+    "hardcoded_hyperparameters": true,
+    "missing_data_validation": true,
+    "train_test_leakage": false,
+    "no_reproducibility_control": false,
+    "silent_exception_handling": false
+  },
+  "pranftw__autopilot/tests/core/test_optimizer_step_evidence.py": {
+    "hardcoded_hyperparameters": false,
+    "missing_data_validation": false,
+    "train_test_leakage": false,
+    "no_reproducibility_control": false,
+    "silent_exception_handling": false
+  },
+  "daekeun-ml__aws-ai-infra-helper/fsdp/src/model_utils/concat_dataset.py": {
+    "hardcoded_hyperparameters": true,
+    "missing_data_validation": true,
+    "train_test_leakage": false,
+    "no_reproducibility_control": false,
+    "silent_exception_handling": false
+  },
+  "Chris-hughes10__pytorch-accelerated/test/scheduler/test_cosine_scheduler.py": {
+    "hardcoded_hyperparameters": true,
+    "missing_data_validation": true,
+    "train_test_leakage": false,
+    "no_reproducibility_control": true,
+    "silent_exception_handling": false
+  },
+  "igorshmukler__kokoro-ruslan/tests/unit/test_model_positional_encoding.py": {
+    "hardcoded_hyperparameters": false,
+    "missing_data_validation": false,
+    "train_test_leakage": false,
+    "no_reproducibility_control": false,
+    "silent_exception_handling": false
+  },
+  "pranftw__autopilot/tests/core/test_truthiness_cleanup.py": {
+    "hardcoded_hyperparameters": false,
+    "missing_data_validation": false,
+    "train_test_leakage": false,
+    "no_reproducibility_control": false,
+    "silent_exception_handling": false
+  },
+  "pranftw__autopilot/tests/integration/test_trainer_integration.py": {
+    "hardcoded_hyperparameters": false,
+    "missing_data_validation": false,
+    "train_test_leakage": false,
+    "no_reproducibility_control": false,
+    "silent_exception_handling": false
+  },
+  "TheoViel__kaggle_rsna_abdominal_trauma/src/util/torch.py": {
+    "hardcoded_hyperparameters": false,
+    "missing_data_validation": false,
+    "train_test_leakage": false,
+    "no_reproducibility_control": false,
+    "silent_exception_handling": true
+  },
+  "pranftw__autopilot/src/autopilot/cli/helpers.py": {
+    "hardcoded_hyperparameters": false,
+    "missing_data_validation": false,
+    "train_test_leakage": false,
+    "no_reproducibility_control": false,
+    "silent_exception_handling": false
+  },
+  "machml__polars_splitters/src/polars_splitters/utils/guardrails.py": {
+    "hardcoded_hyperparameters": false,
+    "missing_data_validation": false,
+    "train_test_leakage": false,
+    "no_reproducibility_control": false,
+    "silent_exception_handling": false
+  },
+  "pranftw__autopilot/src/autopilot/cli/commands/project.py": {
+    "hardcoded_hyperparameters": false,
+    "missing_data_validation": false,
+    "train_test_leakage": false,
+    "no_reproducibility_control": false,
+    "silent_exception_handling": false
+  },
+  "tascj__kaggle-map-charting-student-math-misunderstandings/map_modules/optim/adam_gr.py": {
+    "hardcoded_hyperparameters": true,
+    "missing_data_validation": false,
+    "train_test_leakage": false,
+    "no_reproducibility_control": false,
+    "silent_exception_handling": false
+  },
+  "pranftw__autopilot/tests/core/test_trainer_forest.py": {
+    "hardcoded_hyperparameters": false,
+    "missing_data_validation": false,
+    "train_test_leakage": false,
+    "no_reproducibility_control": false,
+    "silent_exception_handling": false
+  },
+  "pranftw__autopilot/tests/core/test_gradient_journal.py": {
+    "hardcoded_hyperparameters": false,
+    "missing_data_validation": false,
+    "train_test_leakage": false,
+    "no_reproducibility_control": false,
+    "silent_exception_handling": false
+  },
+  "jcole75__arc_2025_mindsai/src/modules/training_worker.py": {
+    "hardcoded_hyperparameters": true,
+    "missing_data_validation": true,
+    "train_test_leakage": false,
+    "no_reproducibility_control": true,
+    "silent_exception_handling": true
+  },
+  "igorshmukler__kokoro-ruslan/tests/unit/test_model_log_memory_refactor.py": {
+    "hardcoded_hyperparameters": false,
+    "missing_data_validation": false,
+    "train_test_leakage": false,
+    "no_reproducibility_control": false,
+    "silent_exception_handling": false
+  },
+  "tattaka__Taggle/taggle/models/__init__.py": {
+    "hardcoded_hyperparameters": false,
+    "missing_data_validation": false,
+    "train_test_leakage": false,
+    "no_reproducibility_control": false,
+    "silent_exception_handling": false
+  },
+  "daekeun-ml__aws-ai-infra-helper/torchtitan/torchtitan/experiments/vlm/config_registry.py": {
+    "hardcoded_hyperparameters": false,
+    "missing_data_validation": false,
+    "train_test_leakage": false,
+    "no_reproducibility_control": false,
+    "silent_exception_handling": false
+  },
+  "daekeun-ml__aws-ai-infra-helper/eks/inference/kvcache-and-intelligent-routing/benchmark.py": {
+    "hardcoded_hyperparameters": true,
+    "missing_data_validation": true,
+    "train_test_leakage": false,
+    "no_reproducibility_control": true,
+    "silent_exception_handling": true
+  },
+  "pranftw__autopilot/tests/cli/test_command.py": {
+    "hardcoded_hyperparameters": false,
+    "missing_data_validation": false,
+    "train_test_leakage": false,
+    "no_reproducibility_control": false,
+    "silent_exception_handling": false
+  },
+  "pranftw__autopilot/examples/textmatch/run.py": {
+    "hardcoded_hyperparameters": false,
+    "missing_data_validation": true,
+    "train_test_leakage": false,
+    "no_reproducibility_control": true,
+    "silent_exception_handling": false
+  },
+  "pranftw__autopilot/tests/ai/test_store_merge_agent_dedup.py": {
+    "hardcoded_hyperparameters": false,
+    "missing_data_validation": false,
+    "train_test_leakage": false,
+    "no_reproducibility_control": false,
+    "silent_exception_handling": false
+  },
+  "tascj__kaggle-map-charting-student-math-misunderstandings/map_modules/models/modeling_qwen3_w8a8.py": {
+    "hardcoded_hyperparameters": true,
+    "missing_data_validation": false,
+    "train_test_leakage": false,
+    "no_reproducibility_control": false,
+    "silent_exception_handling": false
+  },
+  "harrisonhoran__kaggle-march-mania-2026-1st-place/march-mania-2026.py": {
+    "hardcoded_hyperparameters": false,
+    "missing_data_validation": true,
+    "train_test_leakage": false,
+    "no_reproducibility_control": true,
+    "silent_exception_handling": false
+  },
+  "pranftw__autopilot/tests/ai/test_filestore_log.py": {
+    "hardcoded_hyperparameters": false,
+    "missing_data_validation": false,
+    "train_test_leakage": false,
+    "no_reproducibility_control": false,
+    "silent_exception_handling": false
+  },
+  "pranftw__autopilot/src/autopilot/core/callbacks/diagnostics.py": {
+    "hardcoded_hyperparameters": false,
+    "missing_data_validation": false,
+    "train_test_leakage": false,
+    "no_reproducibility_control": false,
+    "silent_exception_handling": false
+  },
+  "pranftw__autopilot/tests/data/test_dataloader_properties.py": {
+    "hardcoded_hyperparameters": false,
+    "missing_data_validation": false,
+    "train_test_leakage": false,
+    "no_reproducibility_control": false,
+    "silent_exception_handling": false
+  },
+  "pranftw__autopilot/tests/doubles.py": {
+    "hardcoded_hyperparameters": true,
+    "missing_data_validation": false,
+    "train_test_leakage": false,
+    "no_reproducibility_control": false,
+    "silent_exception_handling": false
+  },
+  "tascj__kaggle-map-charting-student-math-misunderstandings/configs/x_2.py": {
+    "hardcoded_hyperparameters": true,
+    "missing_data_validation": true,
+    "train_test_leakage": false,
+    "no_reproducibility_control": false,
+    "silent_exception_handling": false
+  }
+}

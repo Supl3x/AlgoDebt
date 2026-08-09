@@ -1,0 +1,9 @@
+{
+  "last_reset_utc": "2026-08-09T00:00:00",
+  "usage": {
+    "gemini/gemini-3.5-flash": 196060,
+    "mistral/mistral-large-latest": 152603,
+    "cohere/command-r-plus-08-2024": 155384,
+    "groq/llama-3.3-70b-versatile": 123594
+  }
+}

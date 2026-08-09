@@ -29,10 +29,10 @@ ROLE_ELIGIBLE_PATTERNS = {
     "training_script":    {"hardcoded_hyperparameters", "missing_data_validation",
                            "train_test_leakage", "no_reproducibility_control",
                            "silent_exception_handling"},
-    "data_pipeline":      {"missing_data_validation", "train_test_leakage",
-                           "silent_exception_handling"},
+    "data_pipeline":      {"hardcoded_hyperparameters", "missing_data_validation",
+                           "train_test_leakage", "silent_exception_handling"},
     "model_architecture": {"hardcoded_hyperparameters", "silent_exception_handling"},
-    "utility":            {"silent_exception_handling"},
+    "utility":            {"hardcoded_hyperparameters", "silent_exception_handling"},
     "test":               set(),
     "config":             set(),
 }

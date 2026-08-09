@@ -1,0 +1,8 @@
+{
+  "last_reset_utc": "2026-08-09T00:00:00",
+  "usage": {
+    "mistral/mistral-large-latest": 36198,
+    "groq/llama-3.3-70b-versatile": 167176,
+    "cohere/command-r-plus-08-2024": 188465
+  }
+}

@@ -277,124 +277,23 @@ results/llm_findings/daily_token_tracker.json
 
 ---
 
-## Stage 5 — Compare Results (Grading)
+## Stage 5 — Process, Filter & Compare Results
 
-Once an LLM run is complete, compute its **Precision, Recall, and F1 Score** against the rule-based baseline.
-
-```powershell
-# Run whichever model(s) have completed:
-python scripts/compare_results.py --model gemini/gemini-3.5-flash
-python scripts/compare_results.py --model mistral/mistral-large-latest
-python scripts/compare_results.py --model cohere/command-r-plus-08-2024
-python scripts/compare_results.py --model groq/llama-3.3-70b-versatile
-```
-
-**Expected output (example for Groq):**
-```
-Compared 199 files.
-
-Anti-pattern                    Precision     Recall       F1    TP    FP    FN    TN
-------------------------------------------------------------------------------------------
-hardcoded_hyperparameters            0.58       0.77     0.66    58    42    17    82
-missing_data_validation              0.03       1.00     0.07     5   143     0    51
-train_test_leakage                   0.12       0.33     0.18     1     7     2   189
-no_reproducibility_control           0.17       0.92     0.28    24   119     2    54
-silent_exception_handling            0.67       0.43     0.52     6     3     8   182
-
-Saved full report + 343 disagreement cases to results/comparison_reports/comparison_report_groq_llama-3.3-70b-versatile.json
-```
-
-**Output files are saved to:**
-```
-results/comparison_reports/comparison_report_<model_name>.json
-```
-
-Each report contains:
-- **`stats`**: Per-pattern precision, recall, F1, TP, FP, FN, TN.
-- **`disagreements`**: Every file+pattern where the LLM and rule-based detector disagreed — invaluable for qualitative analysis.
-
----
-
-## Stage 4.5 — Classify File Roles (Pre-Filter)
-
-This is the **File-Role Classification Pre-Filter** — a two-pass architecture that dramatically reduces false positives. It classifies each file's role (training script, utility, test, etc.) so that only relevant anti-patterns are checked.
+Once the LLMs have finished their detection passes, use the **Interactive Pipeline Manager** to automatically grade the results, apply the file-role filter (if desired), and organize the output into neat folders.
 
 ```powershell
-# Classify using Gemini (fastest, uses batch_size=25)
-python scripts/llm_detector.py --classify --model gemini/gemini-3.5-flash
+python scripts/interactive_pipeline.py
 ```
 
 **What happens:**
-- Each file in the dataset is sent to the LLM with a classification prompt.
-- The LLM assigns one of 6 roles: `training_script`, `data_pipeline`, `model_architecture`, `utility`, `test`, `config`.
-- Results are saved to `results/llm_findings/file_roles_gemini_gemini-3.5-flash.json`.
-- Supports checkpointing — resumable if interrupted.
+1. It asks for your target directory (press **Enter** to accept the default).
+2. It asks you to select a pipeline mode:
+   - **`0` (Normal Pipeline):** Generates the raw, baseline F1 comparison reports for all 4 models (without applying the role filter) and neatly packs them into a `normal_processing/` folder.
+   - **`1-4` (Role-Based Pipeline):** You select a model (e.g., Gemini) to act as the "File-Role Classifier". The pipeline automatically classifies the files, applies the strict eligibility filter to all 4 models' findings, generates *both* filtered and unfiltered comparison reports, and packs everything into a `{model}_processing/` folder.
 
-**To classify files from an archived batch:**
-```powershell
-python scripts/llm_detector.py --classify --model gemini/gemini-3.5-flash --dataset-path results/archive/batch_1/evaluation_dataset.json --output-dir results/archive/batch_1/llm_findings
-```
+This manager replaces the old manual filtering and grading scripts, handling the entire back-end of the evaluation in seconds.
 
-**Expected output:**
-```
-Classifying 200 files using gemini/gemini-3.5-flash...
-Configuration: batch_size=25, delay=4.0s
-
-Classifying batch 1 (25 files, 0/200 total)...
-...
-
-Classification complete. 200 files classified. Saved to results/llm_findings/file_roles_gemini_gemini-3.5-flash.json
-
-Role distribution:
-  training_script              62 files
-  utility                      55 files
-  model_architecture           38 files
-  config                       25 files
-  test                         12 files
-  data_pipeline                 8 files
-```
-
-> [!NOTE]
-> You only need to classify **once** per dataset. A single model's classification (e.g., Gemini) can be used to filter all 4 models' findings using the `--roles-model` flag in the next stage.
-
-**⏱ Estimated time:** ~2–3 minutes (Gemini with batch_size=25).
-
----
-
-## Stage 5.5 — Apply Role Filter & Compare
-
-After classification, apply the role-based filter to each model's existing findings. This retroactively suppresses ineligible anti-pattern flags based on the file's classified role.
-
-```powershell
-# Apply Gemini's classification to each model's findings
-python scripts/apply_role_filter.py --model gemini/gemini-3.5-flash
-python scripts/apply_role_filter.py --model mistral/mistral-large-latest --roles-model gemini/gemini-3.5-flash
-python scripts/apply_role_filter.py --model cohere/command-r-plus-08-2024 --roles-model gemini/gemini-3.5-flash
-python scripts/apply_role_filter.py --model groq/llama-3.3-70b-versatile --roles-model gemini/gemini-3.5-flash
-```
-
-**What happens:**
-- For each file, the script looks up its role and checks the eligibility matrix.
-- If a pattern is not eligible for that role (e.g., `missing_data_validation` on a `utility` file), the flag is forced to `False`.
-- Saves filtered findings as `llm_findings_{model}_role_filtered.json`.
-
-**Then compare the filtered results:**
-```powershell
-python scripts/compare_results.py --model gemini/gemini-3.5-flash --suffix _role_filtered
-python scripts/compare_results.py --model mistral/mistral-large-latest --suffix _role_filtered
-python scripts/compare_results.py --model cohere/command-r-plus-08-2024 --suffix _role_filtered
-python scripts/compare_results.py --model groq/llama-3.3-70b-versatile --suffix _role_filtered
-```
-
-This generates `comparison_report_{model}_role_filtered.json` alongside the original reports, allowing direct before/after comparison.
-
-**For archived batches:**
-```powershell
-python scripts/apply_role_filter.py --model gemini/gemini-3.5-flash --results-dir results/archive/batch_1
-python scripts/compare_results.py --model gemini/gemini-3.5-flash --results-dir results/archive/batch_1 --suffix _role_filtered
-```
-
-**⏱ Estimated time:** < 5 seconds per model (no API calls, pure local processing).
+**⏱ Estimated time:** ~2 minutes for Role-Based (it must query the LLM for classification), or < 5 seconds for Normal.
 
 ---
 
@@ -568,22 +467,9 @@ python scripts/llm_detector.py --model mistral/mistral-large-latest
 python scripts/llm_detector.py --model cohere/command-r-plus-08-2024
 python scripts/llm_detector.py --model groq/llama-3.3-70b-versatile
 
-# 5. Grade each model
-python scripts/compare_results.py --model gemini/gemini-3.5-flash
-python scripts/compare_results.py --model mistral/mistral-large-latest
-python scripts/compare_results.py --model cohere/command-r-plus-08-2024
-python scripts/compare_results.py --model groq/llama-3.3-70b-versatile
-
-# 5.5. (Optional) Classify file roles and apply role filter
-python scripts/llm_detector.py --classify --model gemini/gemini-3.5-flash
-python scripts/apply_role_filter.py --model gemini/gemini-3.5-flash
-python scripts/apply_role_filter.py --model mistral/mistral-large-latest --roles-model gemini/gemini-3.5-flash
-python scripts/apply_role_filter.py --model cohere/command-r-plus-08-2024 --roles-model gemini/gemini-3.5-flash
-python scripts/apply_role_filter.py --model groq/llama-3.3-70b-versatile --roles-model gemini/gemini-3.5-flash
-python scripts/compare_results.py --model gemini/gemini-3.5-flash --suffix _role_filtered
-python scripts/compare_results.py --model mistral/mistral-large-latest --suffix _role_filtered
-python scripts/compare_results.py --model cohere/command-r-plus-08-2024 --suffix _role_filtered
-python scripts/compare_results.py --model groq/llama-3.3-70b-versatile --suffix _role_filtered
+# 5. Process, Filter, and Compare
+python scripts/interactive_pipeline.py
+# (Follow the prompts to choose Normal Pipeline or Role-Based Pipeline)
 
 # 6. Archive this batch
 python scripts/archive_batch.py

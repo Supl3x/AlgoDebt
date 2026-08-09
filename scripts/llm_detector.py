@@ -295,7 +295,7 @@ def query_llm(model, files_batch, router=None, max_retries=3, processed_total=0,
     return None
 
 
-def query_llm_classify(model, files_batch, router=None, max_retries=3):
+def query_llm_classify(model, files_batch, router=None, max_retries=3, processed_total=0, target_total=0, tracker_path=None, tracker_data=None, session_data=None):
     """Send files to LLM for role classification. Returns dict: {file_id: role}"""
     user_prompt = ""
     for filename, code in files_batch:
@@ -337,6 +337,35 @@ def query_llm_classify(model, files_batch, router=None, max_retries=3):
                 resp = router.completion(**completion_kwargs)
             else:
                 resp = litellm.completion(**completion_kwargs)
+
+            if hasattr(resp, 'usage') and resp.usage:
+                tokens = getattr(resp.usage, 'total_tokens', 'Unknown')
+                num_files = len(files_batch)
+                new_total = processed_total + num_files
+                
+                # Format progress string
+                progress_str = f", {new_total}/{target_total} total" if target_total > 0 else ""
+                
+                if tracker_data is not None and session_data is not None and isinstance(tokens, int):
+                    session_data["tokens"] += tokens
+                    tracker_data["usage"][model] = tracker_data["usage"].get(model, 0) + tokens
+                    if tracker_path:
+                        with open(tracker_path, "w") as f:
+                            json.dump(tracker_data, f, indent=2)
+                            
+                    daily_total = tracker_data["usage"][model]
+                    print(f"    -> [Tokens]: {tokens} | Session: {session_data['tokens']} | Daily ({model}): {daily_total} ({num_files} files{progress_str})")
+                    
+                    # Log to the specific directory (might be archive)
+                    log_path = os.path.join(os.path.dirname(tracker_path) if tracker_path else os.path.join(RESULTS_DIR, "llm_findings"), "token_usage.log")
+                    with open(log_path, "a") as f:
+                        f.write(f"[{time.strftime('%Y-%m-%d %H:%M:%S')}] {model} - {tokens} tokens | Session: {session_data['tokens']} | Daily: {daily_total} ({num_files} files{progress_str})\n")
+                else:
+                    print(f"    -> [Token Usage]: {tokens} tokens ({num_files} files{progress_str})")
+                    
+                    log_path = os.path.join(RESULTS_DIR, "llm_findings", "token_usage.log")
+                    with open(log_path, "a") as f:
+                        f.write(f"[{time.strftime('%Y-%m-%d %H:%M:%S')}] {model} - {tokens} tokens ({num_files} files{progress_str})\n")
 
             text = resp.choices[0].message.content.strip()
             text = re.sub(r"^```json\s*|\s*```$", "", text.strip())
@@ -435,19 +464,42 @@ def run_classification(args):
     if router:
         print("-> litellm.Router active: Automatic Key Pooling is enabled.\n")
 
-    # Build list of unclassified files
-    missing = []
-    for repo_name, fpath in targets:
-        rel = os.path.relpath(fpath, os.path.join(REPOS_DIR, repo_name))
-        full_key = f"{repo_name}/{rel}".replace("\\", "/")
-        if full_key not in roles:
-            missing.append((repo_name, fpath))
+    # --- Token Tracker Init ---
+    tracker_path = os.path.join(output_dir, "daily_token_tracker.json")
+    tracker = {"last_reset_utc": datetime.now(timezone.utc).strftime("%Y-%m-%dT00:00:00"), "usage": {}}
+    if os.path.exists(tracker_path):
+        try:
+            with open(tracker_path, "r") as f:
+                tracker = json.load(f)
+        except Exception:
+            pass
 
-    if not missing:
-        print("All files already classified.")
-    else:
-        for batch_idx in range(0, len(missing), args.batch_size):
-            batch_targets = missing[batch_idx:batch_idx + args.batch_size]
+    now_utc = datetime.now(timezone.utc)
+    last_reset = datetime.fromisoformat(tracker.get("last_reset_utc", "2000-01-01T00:00:00")).replace(tzinfo=timezone.utc)
+    current_midnight_utc = now_utc.replace(hour=0, minute=0, second=0, microsecond=0)
+    
+    if last_reset < current_midnight_utc:
+        tracker = {"last_reset_utc": current_midnight_utc.strftime("%Y-%m-%dT00:00:00"), "usage": {}}
+
+    session_data = {"tokens": 0}
+
+    # Build list of unclassified files with Retry Sweep
+    sweep_num = 1
+    while sweep_num <= 5:
+        missing = []
+        for repo_name, fpath in targets:
+            rel = os.path.relpath(fpath, os.path.join(REPOS_DIR, repo_name))
+            full_key = f"{repo_name}/{rel}".replace("\\", "/")
+            if full_key not in roles:
+                missing.append((repo_name, fpath))
+
+        if not missing:
+            break
+
+        current_batch_size = max(1, args.batch_size // sweep_num)
+
+        for batch_idx in range(0, len(missing), current_batch_size):
+            batch_targets = missing[batch_idx:batch_idx + current_batch_size]
             files_batch = []
 
             for repo_name, fpath in batch_targets:
@@ -466,20 +518,29 @@ def run_classification(args):
             if not files_batch:
                 continue
 
-            print(f"Classifying batch {batch_idx // args.batch_size + 1} "
+            print(f"Classifying batch {batch_idx // current_batch_size + 1} "
                   f"({len(files_batch)} files, {len(roles)}/{len(targets)} total)...")
 
-            batch_roles = query_llm_classify(args.model, files_batch, router=router)
+            batch_roles = query_llm_classify(
+                args.model, files_batch, router=router,
+                processed_total=len(roles), target_total=len(targets),
+                tracker_path=tracker_path, tracker_data=tracker, session_data=session_data
+            )
 
             if batch_roles:
                 roles.update(batch_roles)
                 with open(out_path, "w") as f:
                     json.dump(roles, f, indent=2)
 
-            if batch_idx + args.batch_size < len(missing):
+            if batch_idx + current_batch_size < len(missing):
                 time.sleep(args.delay)
+                
+        sweep_num += 1
 
-    print(f"\nClassification complete. {len(roles)} files classified. Saved to {out_path}")
+    if len(roles) < len(targets):
+        print(f"\n[WARNING] Classification incomplete. {len(roles)}/{len(targets)} classified.")
+    else:
+        print(f"\nClassification complete. {len(roles)} files classified. Saved to {out_path}")
 
     # Print summary
     role_counts = {}
