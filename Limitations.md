@@ -47,9 +47,10 @@ The AST-based detector (`rule_based_detector.py`) is used as the absolute "groun
 
 ## 3. Experimental Design Limitations
 
-### 3.1. File-Role Context Deprivation
-- **Issue:** LLMs were observed to heavily over-flag "Missing Data Validation" and "No Reproducibility Control".
-- **Limitation:** We ask the LLM to evaluate files in a vacuum. A utility script containing helper functions *should not* have data validation or random seeds. Because the LLM does not know if the file is a training script or a helper file, it flags the absence of these features everywhere. This highlights a flaw in the prompting strategy (lack of file-role context) rather than a flaw in the LLM's reasoning capabilities.
+### 3.1. File-Role Context Deprivation (Mitigated in v2)
+- **Issue:** Initially, LLMs were observed to heavily over-flag "Missing Data Validation" and "No Reproducibility Control".
+- **Limitation:** We asked the LLM to evaluate files in a vacuum. A utility script containing helper functions *should not* have data validation or random seeds. Because the LLM did not know if the file was a training script or a helper file, it flagged the absence of these features everywhere. This highlighted a flaw in the original prompting strategy (lack of file-role context) rather than a flaw in the LLM's reasoning capabilities.
+- **Resolution:** This limitation was fully addressed by introducing the **File-Role Classification Pre-Filter** (a two-pass architecture) that classifies each file's role before applying role-specific anti-pattern checks.
 
 ### 3.2. Single Prompting Strategy (Zero-Shot)
 - **Issue:** All evaluations were performed using a single, zero-shot system prompt.

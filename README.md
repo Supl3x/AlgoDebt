@@ -32,29 +32,38 @@ Instead of relying on prompt engineering, we pass a strict `response_format` to 
 
 ```mermaid
 graph TD
-    A[Real-World ML Repositories] -->|Python Files| B(Rule-Based AST Detector)
-    B -->|Generates Ground Truth| C[results/algorithms/rule_based_findings.json]
+    A["Real-World ML Repositories"] -->|Python Files| B(Rule-Based AST Detector)
+    B -->|Generates Ground Truth| C["results/algorithms/rule_based_findings.json"]
     
     C -->|Random Sampling| D{Generate Evaluation Dataset}
-    D -->|Locks in 200 files| E[results/algorithms/evaluation_dataset.json]
+    D -->|Locks in 200 files| E["results/algorithms/evaluation_dataset.json"]
     
-    E -->|Batches of 25 files| F[LiteLLM Router]
+    E -->|"Pass 1: Classification"| CL["LLM Classifies File Roles"]
+    CL -->|"training_script / utility / test / ..."| RF["file_roles_model.json"]
+    
+    RF -->|Role Filter| FLT{"Eligible for pattern?"}
+    E -->|"Pass 2: Detection"| FLT
+    
+    FLT -->|"Yes: Send to LLM"| F[LiteLLM Router]
+    FLT -->|"No: Auto-fill False"| H
     
     F -->|Key 1 Exhausted| G1((API Key 1))
     F -->|Seamless Failover| G2((API Key 2))
     
-    G1 & G2 -->|Valid JSON Schema| H[results/llm_findings/llm_findings_model_name.json]
+    G1 & G2 -->|Valid JSON Schema| H["results/llm_findings/llm_findings_model_name.json"]
     H -->|Instant Disk Save| H
     
     C -->|Ground Truth| I{compare_results.py}
     H -->|Predictions| I
     
-    I -->|Calculates F1, Precision, Recall| J([results/comparison_reports/comparison_report_model_name.json])
+    I -->|Calculates F1, Precision, Recall| J(["results/comparison_reports/comparison_report_model_name.json"])
     
     classDef file fill:#f9f,stroke:#333,stroke-width:2px,color:#000;
     classDef script fill:#bbf,stroke:#333,stroke-width:2px,color:#000;
-    class C,E,H,J file;
+    classDef classify fill:#bfb,stroke:#333,stroke-width:2px,color:#000;
+    class C,E,H,J,RF file;
     class B,D,F,I script;
+    class CL,FLT classify;
 ```
 
 ---
@@ -138,8 +147,21 @@ All LLMs were evaluated using a single zero-shot system prompt with `temperature
 
 ## 🔮 Future Scope
 
-### 1. File-Role Classification Pre-Filter
-The most impactful enhancement: introduce a first-pass LLM step that classifies each file's role (e.g., *training script*, *model architecture*, *utility/helper*, *vendored library*). Only files classified as training scripts would then be evaluated for structural anti-patterns like missing data validation and reproducibility control. This directly addresses the primary failure mode observed across all models.
+### 1. ✅ File-Role Classification Pre-Filter (Implemented)
+A two-pass LLM architecture that first classifies each file's role (e.g., *training script*, *model architecture*, *utility/helper*, *test file*, *config*) before checking for anti-patterns. Only patterns relevant to the file's role are checked — for example, `missing_data_validation` is only checked on training scripts and data pipelines, not on utility files or tests. This eliminates the primary source of false positives observed across all models.
+
+**How it works:**
+1. **Pass 1 (`--classify`):** The LLM classifies each file into one of 6 roles. Results are saved to `file_roles_{model}.json`.
+2. **Role Filter (`apply_role_filter.py`):** Each file's anti-pattern flags are filtered through an eligibility matrix — ineligible patterns are forced to `False`.
+3. **Pass 2 (Comparison):** `compare_results.py --suffix _role_filtered` generates separate comparison reports so you can see the before/after improvement.
+
+| Role | Hardcoded HP | Missing Validation | Leakage | No Reproducibility | Silent Exceptions |
+|---|---|---|---|---|---|
+| `training_script` | ✅ | ✅ | ✅ | ✅ | ✅ |
+| `data_pipeline` | ❌ | ✅ | ✅ | ❌ | ✅ |
+| `model_architecture` | ✅ | ❌ | ❌ | ❌ | ✅ |
+| `utility` | ❌ | ❌ | ❌ | ❌ | ✅ |
+| `test` / `config` | ❌ | ❌ | ❌ | ❌ | ❌ |
 
 ### 2. Multi-Model Ensemble Approach
 Combine models with complementary strengths — use Llama 3.3 for hardcoded hyperparameters (high recall) and Gemini for structural patterns (high precision) — to create a hybrid detector that outperforms any single model.
@@ -185,8 +207,10 @@ AlgoDebt/
 │   ├── fetch_repos.py                # Clone ML repos from GitHub
 │   ├── rule_based_detector.py        # AST-based anti-pattern detector
 │   ├── run_baseline.py               # Run detector across all repos
-│   ├── llm_detector.py               # LLM evaluation with key pooling
-│   └── compare_results.py            # Precision / Recall / F1 calculator
+│   ├── llm_detector.py               # LLM evaluation with key pooling + file classification
+│   ├── compare_results.py            # Precision / Recall / F1 calculator
+│   ├── apply_role_filter.py          # Apply role-based filtering to existing findings
+│   └── archive_batch.py              # Archive completed batch to results/archive/
 ├── repos/                            # Cloned repositories (git-ignored)
 ├── results/
 │   ├── algorithms/                   # Ground truth + evaluation dataset

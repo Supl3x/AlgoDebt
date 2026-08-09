@@ -14,11 +14,13 @@ A complete, step-by-step guide to reproduce the entire AlgoDebt evaluation pipel
 6. [Stage 2 — Run the Rule-Based Baseline Detector](#stage-2--run-the-rule-based-baseline-detector)
 7. [Stage 3 — Generate the Evaluation Dataset](#stage-3--generate-the-evaluation-dataset)
 8. [Stage 4 — Run LLM Detectors](#stage-4--run-llm-detectors)
-9. [Stage 5 — Compare Results (Grading)](#stage-5--compare-results-grading)
-10. [Stage 6 — Archive a Completed Batch](#stage-6--archive-a-completed-batch)
-11. [Understanding the Output](#6-understanding-the-output)
-12. [Troubleshooting](#7-troubleshooting)
-13. [Project Structure Reference](#8-project-structure-reference)
+9. [Stage 4.5 — Classify File Roles (Pre-Filter)](#stage-45--classify-file-roles-pre-filter)
+10. [Stage 5 — Compare Results (Grading)](#stage-5--compare-results-grading)
+11. [Stage 5.5 — Apply Role Filter & Compare](#stage-55--apply-role-filter--compare)
+12. [Stage 6 — Archive a Completed Batch](#stage-6--archive-a-completed-batch)
+13. [Understanding the Output](#6-understanding-the-output)
+14. [Troubleshooting](#7-troubleshooting)
+15. [Project Structure Reference](#8-project-structure-reference)
 
 ---
 
@@ -313,30 +315,106 @@ Each report contains:
 
 ---
 
+## Stage 4.5 — Classify File Roles (Pre-Filter)
+
+This is the **File-Role Classification Pre-Filter** — a two-pass architecture that dramatically reduces false positives. It classifies each file's role (training script, utility, test, etc.) so that only relevant anti-patterns are checked.
+
+```powershell
+# Classify using Gemini (fastest, uses batch_size=25)
+python scripts/llm_detector.py --classify --model gemini/gemini-3.5-flash
+```
+
+**What happens:**
+- Each file in the dataset is sent to the LLM with a classification prompt.
+- The LLM assigns one of 6 roles: `training_script`, `data_pipeline`, `model_architecture`, `utility`, `test`, `config`.
+- Results are saved to `results/llm_findings/file_roles_gemini_gemini-3.5-flash.json`.
+- Supports checkpointing — resumable if interrupted.
+
+**To classify files from an archived batch:**
+```powershell
+python scripts/llm_detector.py --classify --model gemini/gemini-3.5-flash --dataset-path results/archive/batch_1/evaluation_dataset.json --output-dir results/archive/batch_1/llm_findings
+```
+
+**Expected output:**
+```
+Classifying 200 files using gemini/gemini-3.5-flash...
+Configuration: batch_size=25, delay=4.0s
+
+Classifying batch 1 (25 files, 0/200 total)...
+...
+
+Classification complete. 200 files classified. Saved to results/llm_findings/file_roles_gemini_gemini-3.5-flash.json
+
+Role distribution:
+  training_script              62 files
+  utility                      55 files
+  model_architecture           38 files
+  config                       25 files
+  test                         12 files
+  data_pipeline                 8 files
+```
+
+> [!NOTE]
+> You only need to classify **once** per dataset. A single model's classification (e.g., Gemini) can be used to filter all 4 models' findings using the `--roles-model` flag in the next stage.
+
+**⏱ Estimated time:** ~2–3 minutes (Gemini with batch_size=25).
+
+---
+
+## Stage 5.5 — Apply Role Filter & Compare
+
+After classification, apply the role-based filter to each model's existing findings. This retroactively suppresses ineligible anti-pattern flags based on the file's classified role.
+
+```powershell
+# Apply Gemini's classification to each model's findings
+python scripts/apply_role_filter.py --model gemini/gemini-3.5-flash
+python scripts/apply_role_filter.py --model mistral/mistral-large-latest --roles-model gemini/gemini-3.5-flash
+python scripts/apply_role_filter.py --model cohere/command-r-plus-08-2024 --roles-model gemini/gemini-3.5-flash
+python scripts/apply_role_filter.py --model groq/llama-3.3-70b-versatile --roles-model gemini/gemini-3.5-flash
+```
+
+**What happens:**
+- For each file, the script looks up its role and checks the eligibility matrix.
+- If a pattern is not eligible for that role (e.g., `missing_data_validation` on a `utility` file), the flag is forced to `False`.
+- Saves filtered findings as `llm_findings_{model}_role_filtered.json`.
+
+**Then compare the filtered results:**
+```powershell
+python scripts/compare_results.py --model gemini/gemini-3.5-flash --suffix _role_filtered
+python scripts/compare_results.py --model mistral/mistral-large-latest --suffix _role_filtered
+python scripts/compare_results.py --model cohere/command-r-plus-08-2024 --suffix _role_filtered
+python scripts/compare_results.py --model groq/llama-3.3-70b-versatile --suffix _role_filtered
+```
+
+This generates `comparison_report_{model}_role_filtered.json` alongside the original reports, allowing direct before/after comparison.
+
+**For archived batches:**
+```powershell
+python scripts/apply_role_filter.py --model gemini/gemini-3.5-flash --results-dir results/archive/batch_1
+python scripts/compare_results.py --model gemini/gemini-3.5-flash --results-dir results/archive/batch_1 --suffix _role_filtered
+```
+
+**⏱ Estimated time:** < 5 seconds per model (no API calls, pure local processing).
+
+---
+
 ## Stage 6 — Archive a Completed Batch
 
-After all 4 models finish and you've compared results, **archive this batch** before generating a new dataset. This keeps the `results/` folder clean and preserves all data for later combined analysis.
+After all 4 models finish, you've compared results, and optionally applied the role filter, **archive this batch** before generating a new dataset. The `archive_batch.py` script handles this automatically.
 
-**Windows (PowerShell):**
 ```powershell
-# Replace "batch_1" with "batch_2", "batch_3", etc. for subsequent batches
-New-Item -ItemType Directory -Path "results\archive\batch_1" -Force
-Move-Item -Path "results\algorithms\evaluation_dataset.json" -Destination "results\archive\batch_1\evaluation_dataset.json"
-Move-Item -Path "results\llm_findings" -Destination "results\archive\batch_1\llm_findings"
-Move-Item -Path "results\comparison_reports" -Destination "results\archive\batch_1\comparison_reports"
-New-Item -ItemType Directory -Path "results\llm_findings" -Force
-New-Item -ItemType Directory -Path "results\comparison_reports" -Force
+# Check if all models are complete and archive
+python scripts/archive_batch.py
+
+# Force archive even if some models are incomplete
+python scripts/archive_batch.py --force
 ```
 
-**macOS / Linux:**
-```bash
-# Replace "batch_1" with "batch_2", "batch_3", etc. for subsequent batches
-mkdir -p results/archive/batch_1
-mv results/algorithms/evaluation_dataset.json results/archive/batch_1/
-mv results/llm_findings results/archive/batch_1/
-mv results/comparison_reports results/archive/batch_1/
-mkdir -p results/llm_findings results/comparison_reports
-```
+**What the script checks before archiving:**
+1. All 4 models have processed all files in the dataset (e.g., 200/200).
+2. All 4 comparison reports exist.
+
+If either condition fails, it refuses to archive unless `--force` is used.
 
 **What stays in place (shared across all batches):**
 - `results/algorithms/rule_based_findings.json` — the ground truth doesn't change.
@@ -344,8 +422,8 @@ mkdir -p results/llm_findings results/comparison_reports
 
 **What gets archived (batch-specific):**
 - `evaluation_dataset.json` — the 200-file sample unique to this batch.
-- `llm_findings/` — all 4 model outputs for this batch.
-- `comparison_reports/` — all 4 model comparison reports for this batch.
+- `llm_findings/` — all model outputs + role classifications for this batch.
+- `comparison_reports/` — all comparison reports (including role-filtered ones).
 
 After archiving, generate a **fresh dataset** and repeat from Stage 3:
 ```powershell
@@ -445,8 +523,10 @@ AlgoDebt/
 │   ├── fetch_repos.py                # Stage 1: Clone ML repos from GitHub
 │   ├── rule_based_detector.py        # The AST-based anti-pattern detector
 │   ├── run_baseline.py               # Stage 2: Run detector across all repos
-│   ├── llm_detector.py               # Stage 3+4: Dataset generation + LLM evaluation
-│   └── compare_results.py            # Stage 5: Compute Precision/Recall/F1
+│   ├── llm_detector.py               # Stage 3+4: Dataset generation + LLM evaluation + classification
+│   ├── compare_results.py            # Stage 5: Compute Precision/Recall/F1
+│   ├── apply_role_filter.py          # Stage 5.5: Apply role-based filtering to findings
+│   └── archive_batch.py              # Stage 6: Archive completed batch
 ├── repos/                            # Cloned repositories (git-ignored)
 ├── results/
 │   ├── algorithms/                   # Ground truth + active evaluation dataset
@@ -494,7 +574,19 @@ python scripts/compare_results.py --model mistral/mistral-large-latest
 python scripts/compare_results.py --model cohere/command-r-plus-08-2024
 python scripts/compare_results.py --model groq/llama-3.3-70b-versatile
 
-# 6. Archive this batch before starting the next one (see Stage 6 in guide)
+# 5.5. (Optional) Classify file roles and apply role filter
+python scripts/llm_detector.py --classify --model gemini/gemini-3.5-flash
+python scripts/apply_role_filter.py --model gemini/gemini-3.5-flash
+python scripts/apply_role_filter.py --model mistral/mistral-large-latest --roles-model gemini/gemini-3.5-flash
+python scripts/apply_role_filter.py --model cohere/command-r-plus-08-2024 --roles-model gemini/gemini-3.5-flash
+python scripts/apply_role_filter.py --model groq/llama-3.3-70b-versatile --roles-model gemini/gemini-3.5-flash
+python scripts/compare_results.py --model gemini/gemini-3.5-flash --suffix _role_filtered
+python scripts/compare_results.py --model mistral/mistral-large-latest --suffix _role_filtered
+python scripts/compare_results.py --model cohere/command-r-plus-08-2024 --suffix _role_filtered
+python scripts/compare_results.py --model groq/llama-3.3-70b-versatile --suffix _role_filtered
+
+# 6. Archive this batch
+python scripts/archive_batch.py
 # Then repeat from step 3 for the next batch
 ```
 

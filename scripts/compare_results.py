@@ -46,12 +46,14 @@ def main():
                          help="Model name to compare results for (e.g. llama-3.3-70b-versatile)")
     parser.add_argument("--results-dir", type=str, default=RESULTS_DIR,
                          help="Directory containing algorithms, llm_findings, and comparison_reports")
+    parser.add_argument("--suffix", type=str, default="",
+                         help="Suffix for findings/report files (e.g. '_role_filtered')")
     args = parser.parse_args()
 
     rule_flags = load_rule_based_flags()
 
     safe_model_name = args.model.replace("/", "_").replace(":", "_")
-    llm_path = os.path.join(args.results_dir, "llm_findings", f"llm_findings_{safe_model_name}.json")
+    llm_path = os.path.join(args.results_dir, "llm_findings", f"llm_findings_{safe_model_name}{args.suffix}.json")
     if not os.path.exists(llm_path):
         print(f"ERROR: {llm_path} not found. Run llm_detector.py with this model first.")
         sys.exit(1)
@@ -105,7 +107,7 @@ def main():
         print(f"{p:30s} {precision:>10.2f} {recall:>10.2f} {f1:>8.2f} {tp:>5d} {fp:>5d} {fn:>5d} {tn:>5d}")
 
     os.makedirs(os.path.join(args.results_dir, "comparison_reports"), exist_ok=True)
-    out_path = os.path.join(args.results_dir, "comparison_reports", f"comparison_report_{safe_model_name}.json")
+    out_path = os.path.join(args.results_dir, "comparison_reports", f"comparison_report_{safe_model_name}{args.suffix}.json")
     with open(out_path, "w") as f:
         json.dump({"stats": report, "disagreements": disagreements}, f, indent=2)
 

@@ -111,6 +111,59 @@ JSON_SCHEMA = {
 }
 
 
+CLASSIFICATION_PROMPT = """You are a code analyst. For each Python file provided, classify it into \
+exactly ONE of these roles based on its primary purpose:
+
+- training_script: Loads data AND trains/fits an ML model (sklearn, pytorch, tensorflow, keras, etc.)
+- data_pipeline: Loads or transforms data (pandas, numpy) but does NOT fit a model itself
+- model_architecture: Defines model classes (nn.Module, keras Model, custom model definitions) but doesn't train them
+- utility: Helper functions, visualization, logging, metrics calculation, data plotting
+- test: Unit tests, integration tests, test fixtures (usually in test_*.py or *_test.py files)
+- config: Configuration files, argument parsing, constants definitions, setup files
+
+If unsure, default to 'training_script' (the most conservative option).
+Do not be creative. Classify based on what the code actually does, not what it could do.
+"""
+
+CLASSIFICATION_SCHEMA = {
+    "type": "json_schema",
+    "json_schema": {
+        "name": "file_classification",
+        "schema": {
+            "type": "object",
+            "properties": {
+                "results": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "file_id": {"type": "string"},
+                            "role": {"type": "string"}
+                        },
+                        "required": ["file_id", "role"]
+                    }
+                }
+            },
+            "required": ["results"]
+        }
+    }
+}
+
+VALID_ROLES = {"training_script", "data_pipeline", "model_architecture", "utility", "test", "config"}
+
+ROLE_ELIGIBLE_PATTERNS = {
+    "training_script":    {"hardcoded_hyperparameters", "missing_data_validation",
+                           "train_test_leakage", "no_reproducibility_control",
+                           "silent_exception_handling"},
+    "data_pipeline":      {"missing_data_validation", "train_test_leakage",
+                           "silent_exception_handling"},
+    "model_architecture": {"hardcoded_hyperparameters", "silent_exception_handling"},
+    "utility":            {"silent_exception_handling"},
+    "test":               set(),
+    "config":             set(),
+}
+
+
 def get_router(model):
     model_list = []
     
@@ -242,6 +295,75 @@ def query_llm(model, files_batch, router=None, max_retries=3, processed_total=0,
     return None
 
 
+def query_llm_classify(model, files_batch, router=None, max_retries=3):
+    """Send files to LLM for role classification. Returns dict: {file_id: role}"""
+    user_prompt = ""
+    for filename, code in files_batch:
+        truncated = code[:3000]
+        user_prompt += f"File: {filename}\n```python\n{truncated}\n```\n\n"
+
+    messages = [
+        {"role": "system", "content": CLASSIFICATION_PROMPT},
+        {"role": "user", "content": user_prompt},
+    ]
+
+    completion_kwargs = {
+        "model": model,
+        "messages": messages,
+        "temperature": 0.0,
+        "response_format": CLASSIFICATION_SCHEMA,
+    }
+
+    if "cohere/" in model or "groq/" in model:
+        if "response_format" in completion_kwargs:
+            del completion_kwargs["response_format"]
+        messages[0]["content"] += (
+            "\n\nYou MUST return your answer in strictly valid JSON format. "
+            "Return a JSON object containing a single 'results' array. Each item must have "
+            "a 'file_id' string (matching the given filename EXACTLY) and a 'role' string "
+            "(one of: training_script, data_pipeline, model_architecture, utility, test, config). "
+            "Do NOT include any conversational text."
+        )
+
+    if "groq/" in model:
+        messages[0]["content"] += (
+            "\n\nCRITICAL: The 'file_id' field MUST be the full exact string path "
+            "provided to you. Do NOT shorten it."
+        )
+
+    for attempt in range(max_retries):
+        try:
+            if router:
+                resp = router.completion(**completion_kwargs)
+            else:
+                resp = litellm.completion(**completion_kwargs)
+
+            text = resp.choices[0].message.content.strip()
+            text = re.sub(r"^```json\s*|\s*```$", "", text.strip())
+            parsed = json.loads(text)
+
+            results = {}
+            for item in parsed.get("results", []):
+                file_id = item.get("file_id")
+                role = item.get("role", "training_script").lower().strip()
+                if role not in VALID_ROLES:
+                    role = "training_script"
+                results[file_id] = role
+
+            return results
+        except json.JSONDecodeError:
+            if attempt == max_retries - 1:
+                print(f"  [classify parse failed]: {text[:100]}")
+                return None
+        except Exception as e:
+            wait = min(60, 2 ** attempt)
+            if "RateLimitError" in str(type(e)):
+                wait = 60
+            print(f"  [classify retry {attempt+1}]: {type(e).__name__} - {e} (waiting {wait}s)")
+            time.sleep(wait)
+    return None
+
+
 def collect_target_files(sample_n=None):
     baseline_path = os.path.join(RESULTS_DIR, "algorithms", "rule_based_findings.json")
     with open(baseline_path) as f:
@@ -278,6 +400,96 @@ def collect_target_files(sample_n=None):
     return target
 
 
+def run_classification(args):
+    """Pass 1: Classify files by role using an LLM."""
+    dataset_path = args.dataset_path or os.path.join(RESULTS_DIR, "algorithms", "evaluation_dataset.json")
+
+    if not os.path.exists(dataset_path):
+        print(f"ERROR: {dataset_path} not found.")
+        sys.exit(1)
+
+    with open(dataset_path, "r") as f:
+        dataset = json.load(f)
+        targets = [(d["repo_name"], d["fpath"]) for d in dataset]
+
+    output_dir = args.output_dir or os.path.join(RESULTS_DIR, "llm_findings")
+    os.makedirs(output_dir, exist_ok=True)
+
+    safe_model_name = args.model.replace("/", "_").replace(":", "_")
+    out_path = os.path.join(output_dir, f"file_roles_{safe_model_name}.json")
+
+    print(f"Classifying {len(targets)} files using {args.model}...")
+    print(f"Configuration: batch_size={args.batch_size}, delay={args.delay}s\n")
+
+    # Load checkpoint
+    roles = {}
+    if os.path.exists(out_path):
+        try:
+            with open(out_path, "r") as f:
+                roles = json.load(f)
+            print(f"-> Resumed from checkpoint: {len(roles)} files already classified.\n")
+        except Exception:
+            pass
+
+    router = get_router(args.model)
+    if router:
+        print("-> litellm.Router active: Automatic Key Pooling is enabled.\n")
+
+    # Build list of unclassified files
+    missing = []
+    for repo_name, fpath in targets:
+        rel = os.path.relpath(fpath, os.path.join(REPOS_DIR, repo_name))
+        full_key = f"{repo_name}/{rel}".replace("\\", "/")
+        if full_key not in roles:
+            missing.append((repo_name, fpath))
+
+    if not missing:
+        print("All files already classified.")
+    else:
+        for batch_idx in range(0, len(missing), args.batch_size):
+            batch_targets = missing[batch_idx:batch_idx + args.batch_size]
+            files_batch = []
+
+            for repo_name, fpath in batch_targets:
+                rel = os.path.relpath(fpath, os.path.join(REPOS_DIR, repo_name))
+                full_key = f"{repo_name}/{rel}".replace("\\", "/")
+                try:
+                    with open(fpath, "r", encoding="utf-8", errors="ignore") as f:
+                        code = f.read()
+                    files_batch.append((full_key, code))
+                except Exception as e:
+                    print(f"  [read error] {full_key}: {e}")
+                    roles[full_key] = "training_script"
+                    with open(out_path, "w") as f:
+                        json.dump(roles, f, indent=2)
+
+            if not files_batch:
+                continue
+
+            print(f"Classifying batch {batch_idx // args.batch_size + 1} "
+                  f"({len(files_batch)} files, {len(roles)}/{len(targets)} total)...")
+
+            batch_roles = query_llm_classify(args.model, files_batch, router=router)
+
+            if batch_roles:
+                roles.update(batch_roles)
+                with open(out_path, "w") as f:
+                    json.dump(roles, f, indent=2)
+
+            if batch_idx + args.batch_size < len(missing):
+                time.sleep(args.delay)
+
+    print(f"\nClassification complete. {len(roles)} files classified. Saved to {out_path}")
+
+    # Print summary
+    role_counts = {}
+    for role in roles.values():
+        role_counts[role] = role_counts.get(role, 0) + 1
+    print("\nRole distribution:")
+    for role, count in sorted(role_counts.items(), key=lambda x: -x[1]):
+        print(f"  {role:25s} {count:4d} files")
+
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--sample", type=int, default=100,
@@ -286,9 +498,15 @@ def main():
     parser.add_argument("--batch-size", type=int, default=None)
     parser.add_argument("--delay", type=float, default=None)
     parser.add_argument("--generate-dataset", action="store_true")
+    parser.add_argument("--classify", action="store_true",
+                         help="Run file-role classification (Pass 1) instead of detection")
+    parser.add_argument("--dataset-path", type=str, default=None,
+                         help="Path to evaluation_dataset.json (for archived batches)")
+    parser.add_argument("--output-dir", type=str, default=None,
+                         help="Directory to save output files (defaults to results/llm_findings)")
     args = parser.parse_args()
 
-    dataset_path = os.path.join(RESULTS_DIR, "algorithms", "evaluation_dataset.json")
+    dataset_path = args.dataset_path or os.path.join(RESULTS_DIR, "algorithms", "evaluation_dataset.json")
 
     if args.generate_dataset:
         targets = collect_target_files(sample_n=args.sample)
@@ -326,6 +544,10 @@ def main():
             
         args.batch_size = args.batch_size or auto_batch
         args.delay = args.delay if args.delay is not None else auto_delay
+
+    if args.classify:
+        run_classification(args)
+        return
 
     print(f"Running LLM detection on {len(targets)} files using {args.model}...")
     print(f"Configuration: batch_size={args.batch_size}, delay={args.delay}s\n")
